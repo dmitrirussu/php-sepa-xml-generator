@@ -242,6 +242,7 @@ class SepaXmlFile {
 	);
 
 	public function __construct() {
+
 		$this->xmlGeneratorObject = new XMLGenerator();
 	}
 
