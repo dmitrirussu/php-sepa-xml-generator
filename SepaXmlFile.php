@@ -305,18 +305,25 @@ class SepaXmlFile {
 			$this->xmlGeneratorObject->addXmlMessage($message);
 		}
 
+		return $this;
+	}
+
+	/**
+	 * Save Xml file
+	 * @return $this
+	 */
+	public function save() {
 		$fileName = dirname(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
 		$this->xmlGeneratorObject->saveXML( $fileName );
-
 		return $this;
 	}
 
 	/**
 	 * View Xml File
-	 * @return mixed
 	 */
-	public function viewXmlFile() {
+	public function view() {
 		header ("Content-Type:text/xml");
 		echo $this->xmlGeneratorObject->getGeneratedXml();
+		return $this;
 	}
 }

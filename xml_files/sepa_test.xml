@@ -2,8 +2,8 @@
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
   <CstmrDrctDbtInitn>
     <GrpHdr>
-      <MsgId>123</MsgId>
-      <CreDtTm>2013-08-03T10:30:02</CreDtTm>
+      <MsgId>1</MsgId>
+      <CreDtTm>2013-08-03T12:17:16</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
       <CtrlSum>110.80</CtrlSum>
       <InitgPty>
@@ -11,7 +11,7 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf>
-      <PmtInfId>1</PmtInfId>
+      <PmtInfId>6222</PmtInfId>
       <PmtMtd>DD</PmtMtd>
       <BtchBookg>false</BtchBookg>
       <NbOfTxs>2</NbOfTxs>

@@ -16,13 +16,13 @@ $SEPA::$_FILE_NAME = 'sepa_test.xml';
 
 //Simple Example of Sepa Xml File Messages
 $SEPA::$_MESSAGES = array(
-	array('message_id' => 123,
+	array('message_id' => 1,
 		'group_header' => array(
 			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва '
 		),
 		'payment_info' => array(
 			'FRST' => array(
-				'id' => 1,
+				'id' => 6222,
 				'creditor_iban' => 'MD24 AG00 0225 1000 1310 4168',
 				'creditor_bic' => 'AABAFI42',
 				'creditor_name' => 'Amazing SRL',
@@ -53,4 +53,15 @@ $SEPA::$_MESSAGES = array(
 				)
 			))));
 
-	$SEPA->export()->viewXmlFile();
+//Sepa Export View
+//	$SEPA->export()->view();
+
+//Sepa Export Save
+//	$SEPA->export()->save();
+
+//Sepa Export Save and View
+//	$SEPA->export()->save()->view();
+
+//Seepa Export View and Save
+	$SEPA->export()->view()->save();
+
