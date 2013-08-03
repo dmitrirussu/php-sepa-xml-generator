@@ -57,7 +57,18 @@ Example of using.
                         )
                     ))));
 
-            $SEPA->export()->viewXmlFile();
+            //Sepa Export View
+            //	$SEPA->export()->view();
+
+            //Sepa Export Save
+            //	$SEPA->export()->save();
+
+            //Sepa Export Save and View
+            //	$SEPA->export()->save()->view();
+
+            //Seepa Export View and Save
+            	$SEPA->export()->view()->save();
+
 XML File Result
 ===
 
