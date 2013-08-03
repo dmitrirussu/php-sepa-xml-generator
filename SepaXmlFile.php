@@ -245,7 +245,10 @@ class SepaXmlFile {
 		$this->xmlGeneratorObject = new XMLGenerator();
 	}
 
-
+	/**
+	 * Export Xml File
+	 * @return $this
+	 */
 	public function export() {
 
 		foreach (self::$_MESSAGES as $_message ) {
