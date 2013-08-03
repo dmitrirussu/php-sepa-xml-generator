@@ -1,3 +1,5 @@
+SEPA XML Generator
+====
 SEPA Direct Debit Core Scheme (SDD Core) 
 ====
 
