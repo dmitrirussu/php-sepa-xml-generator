@@ -38,6 +38,12 @@ namespace SEPA {
 		}
 
 		public function saveXML($fileName = null) {
+
+			/** @var $message Message */
+			foreach ($this->sepaMessageObjects as $message ) {
+				$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
+			}
+			//save to file
 			if ( $fileName ) {
 
 				$dom = new \DOMDocument('1.0');
@@ -48,11 +54,14 @@ namespace SEPA {
 				return ($dom->save($fileName) ? true : false);
 			}
 
-			/** @var $message Message */
-			foreach ($this->sepaMessageObjects as $message ) {
-				$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
-			}
+			return $this->xml->asXML();
+		}
 
+		/**
+		 * Get Generated Xml
+		 * @return mixed
+		 */
+		public function getGeneratedXml() {
 
 			return $this->xml->asXML();
 		}

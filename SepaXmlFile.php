@@ -15,6 +15,29 @@ use SEPA\DirectDebitTransactions;
 	 * @package SEPA
 	 */
 class SepaXmlFile {
+
+	/**
+	 * XML Files Repository
+	 * @var string
+	 */
+	public static $_XML_FILES_REPOSITORY = '/sepa/xml_files/';
+
+	/**
+	 * File Name
+	 * @var string
+	 */
+	public static $_FILE_NAME = 'sepa_test.xml';
+
+	/**
+	 * Xml Generator Object
+	 * @var SEPA\XMLGenerator
+	 */
+	private $xmlGeneratorObject;
+
+	/**
+	 * Advanced Example of Sepa Xml File Messages
+	 * @var array
+	 */
 	public static $_MESSAGES = array(
 		array('message_id' => 123,
 			'group_header' => array(
@@ -218,20 +241,21 @@ class SepaXmlFile {
 		)
 	);
 
+	public function __construct() {
+		$this->xmlGeneratorObject = new XMLGenerator();
+	}
+
 
 	public function export() {
-
-		$xmlGenerator = new XMLGenerator();
-
 
 		foreach (self::$_MESSAGES as $_message ) {
 			$message = new Message();
 
 			//set Message Group header Info
 			$groupHeader = new GroupHeader();
+
 			$groupHeader->setMessageIdentification($_message['message_id']);
 			$groupHeader->setInitiatingPartyName($_message['group_header']['company_name']);
-
 
 			//set Message group header
 			$message->setMessageGroupHeader($groupHeader);
@@ -274,10 +298,21 @@ class SepaXmlFile {
 
 
 			//add Message To Xml File
-			$xmlGenerator->addXmlMessage($message);
+			$this->xmlGeneratorObject->addXmlMessage($message);
 		}
 
-		echo $xmlGenerator->saveXML();
+		$fileName = dirname(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
+		$this->xmlGeneratorObject->saveXML( $fileName );
 
+		return $this;
+	}
+
+	/**
+	 * View Xml File
+	 * @return mixed
+	 */
+	public function viewXmlFile() {
+		header ("Content-Type:text/xml");
+		echo $this->xmlGeneratorObject->getGeneratedXml();
 	}
 }
