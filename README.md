@@ -1,4 +1,4 @@
-SEPA
+SEPA Direct Debit Core Scheme (SDD Core) 
 ====
 
 Single Euro Payments Area (SEPA)
