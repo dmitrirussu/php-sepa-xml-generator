@@ -23,23 +23,36 @@ namespace SEPA {
 								xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 								xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
 							</Document>';
-
+		/**
+		 * @var array
+		 */
 		private $sepaMessageObjects = array();
 
+		/**
+		 * @var \SimpleXMLElement
+		 */
 		private $xml;
 
 		public function __construct() {
+
 			$this->xml = new \SimpleXMLElement(self::INITIAL_HEADLINE);
 		}
 
+		/**
+		 * Add Xml Messages
+		 * @param Message $messageObject
+		 */
 		public function addXmlMessage(Message $messageObject) {
 
 			$this->sepaMessageObjects[] = $messageObject;
 		}
 
+		/**
+		 * Save Xml File
+		 * @param null $fileName
+		 * @return bool|mixed
+		 */
 		public function saveXML($fileName = null) {
-
-
 			//save to file
 			if ( $fileName ) {
 
@@ -48,10 +61,12 @@ namespace SEPA {
 				$dom->formatOutput = true;
 
 				if ( !$this->xml->children() ) {
+
 					$this->generateMessages();
 					$dom->loadXML($this->xml->asXML());
+				}
+				else {
 
-				} else {
 					$dom->loadXML($this->getGeneratedXml());
 				}
 
@@ -61,7 +76,9 @@ namespace SEPA {
 			return $this->xml->asXML();
 		}
 
-
+		/**
+		 * Generate Messages
+		 */
 		private function generateMessages() {
 			/** @var $message Message */
 			foreach ($this->sepaMessageObjects as $message ) {
@@ -81,11 +98,20 @@ namespace SEPA {
 			return $this->xml->asXML();
 		}
 
+		/**
+		 * Simple Xml Append
+		 * @param $to
+		 * @param $from
+		 */
 		protected function simpleXmlAppend($to, $from) {
 			$toDom = dom_import_simplexml($to);
 			$fromDom = dom_import_simplexml($from);
 
 			$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
+		}
+
+		public function __destruct() {
+			unset($this);
 		}
 	}
 }
