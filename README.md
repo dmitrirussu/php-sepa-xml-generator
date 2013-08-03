@@ -1,4 +1,4 @@
-PHP SEPA XML Generator v.0.1
+PHP SEPA XML Generator v.0.2
 ====
 Guide ISO20022 SDD  V1_0 20122009
 
