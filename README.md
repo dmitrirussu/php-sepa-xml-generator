@@ -13,6 +13,7 @@ transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU memb
 
 Example of using.
 ====
+```php
         $SEPA = new SepaXmlFile();
 
         $SEPA::$_XML_FILES_REPOSITORY = '/sepa/xml_files/';
@@ -68,10 +69,10 @@ Example of using.
 
             //Seepa Export View and Save
             	$SEPA->export()->view()->save();
-
+```
 XML File Result
 ===
-
+```xml
         <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
           <CstmrDrctDbtInitn>
             <GrpHdr>
@@ -186,4 +187,4 @@ XML File Result
             </PmtInf>
           </CstmrDrctDbtInitn>
         </Document>
-
+```
