@@ -1,4 +1,4 @@
-SEPA XML Generator v.0.1
+PHP SEPA XML Generator v.0.1
 ====
 SEPA Direct Debit Core Scheme (SDD Core) 
 ====
