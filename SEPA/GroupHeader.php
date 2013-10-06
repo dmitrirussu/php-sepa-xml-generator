@@ -3,14 +3,27 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:47 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Group Header
  */
-namespace SEPA {
+namespace SEPA;
+
+use SEPA\Message;
+
+/**
+ * Group Header Interface
+ * Class GroupHeaderInterface
+ * @package SEPA
+ */
+interface GroupHeaderInterface {
+	public function setNumberOfTransactions($nbTransactions);
+	public function getNumberOfTransactions();
+	public function getSimpleXmlGroupHeader();
+}
 	/**
 	 * Class SepaGroupHeader
 	 * @package SEPA
 	 */
-	class GroupHeader extends Message {
+	class GroupHeader extends Message implements GroupHeaderInterface {
 
 		/**
 		 * Point to point reference assigned by the instructing party and sent to the next party in the chain
@@ -79,8 +92,6 @@ namespace SEPA {
 			return $this->messageIdentification;
 		}
 
-
-
 		/**
 		 * Setter for the time of creation of the group header (hence of the sepa message)
 		 * @param $CreDtTm
@@ -136,7 +147,6 @@ namespace SEPA {
 			return $this->InitiatingPartyName;
 		}
 
-
 		/**
 		 * This method returns the total Amount that has been registered for all payment info
 		 * @param $amount
@@ -145,7 +155,6 @@ namespace SEPA {
 		public function setControlSum($amount) {
 			$this->ControlSum += $amount;
 		}
-
 
 		/**
 		 * Get total number of transactions
@@ -157,7 +166,6 @@ namespace SEPA {
 			$this->NumberOfTransactions += $nbTransactions;
 		}
 
-
 		/**
 		 * This method returns the total Amount that has been registered for all payment info
 		 * @return float
@@ -167,7 +175,6 @@ namespace SEPA {
 			return $this->amountToString($this->ControlSum);
 		}
 
-
 		/**
 		 * Get total number of transactions
 		 * @return int
@@ -176,7 +183,6 @@ namespace SEPA {
 
 			return $this->NumberOfTransactions;
 		}
-
 
 		/**
 		 * Returns a XML for the group Header object
@@ -212,4 +218,3 @@ namespace SEPA {
 			return $groupHeader;
 		}
 	}
-}

@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by Dumitru Russu.
- * Date: 7/15/13
- * Time: 10:14 PM
- * To change this template use File | Settings | File Templates.
- */
-function __autoload($fileName) {
-	require_once $fileName . '.php';
-}
+
+require_once 'SepaXmlFile.php';
 
 $SEPA = new SepaXmlFile();
 
-$SEPA::$_XML_FILES_REPOSITORY = '/sepa/xml_files/';
+$SEPA::$_XML_FILES_REPOSITORY = '/xml_files/';
 $SEPA::$_FILE_NAME = 'sepa_test.xml';
 
 //Simple Example of Sepa Xml File Messages

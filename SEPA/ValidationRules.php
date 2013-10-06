@@ -3,7 +3,7 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:50 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Validation Rules
  */
 namespace SEPA {
 

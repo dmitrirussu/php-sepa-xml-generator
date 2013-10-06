@@ -3,13 +3,16 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:46 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Xml File
  */
-use SEPA\XMLGenerator;
-use SEPA\Message;
-use SEPA\GroupHeader;
-use SEPA\PaymentInfo;
-use SEPA\DirectDebitTransactions;
+
+require_once 'SEPA\ValidationRules.php';
+require_once 'SEPA\XMLGenerator.php';
+require_once 'SEPA\Message.php';
+require_once 'SEPA\GroupHeader.php';
+require_once 'SEPA\PaymentInfo.php';
+require_once 'SEPA\DirectDebitTransactions.php';
+
 	/**
 	 * Class SepaXmlFile
 	 * @package SEPA
@@ -20,7 +23,7 @@ class SepaXmlFile {
 	 * XML Files Repository
 	 * @var string
 	 */
-	public static $_XML_FILES_REPOSITORY = '/sepa/xml_files/';
+	public static $_XML_FILES_REPOSITORY = '/xml_files/';
 
 	/**
 	 * File Name
@@ -243,7 +246,7 @@ class SepaXmlFile {
 
 	public function __construct() {
 
-		$this->xmlGeneratorObject = new XMLGenerator();
+		$this->xmlGeneratorObject = new SEPA\XMLGenerator();
 	}
 
 	/**
@@ -253,10 +256,10 @@ class SepaXmlFile {
 	public function export() {
 
 		foreach (self::$_MESSAGES as $_message ) {
-			$message = new Message();
+			$message = new SEPA\Message();
 
 			//set Message Group header Info
-			$groupHeader = new GroupHeader();
+			$groupHeader = new SEPA\GroupHeader();
 
 			$groupHeader->setMessageIdentification($_message['message_id']);
 			$groupHeader->setInitiatingPartyName($_message['group_header']['company_name']);
@@ -269,7 +272,7 @@ class SepaXmlFile {
 			foreach ($_message['payment_info'] as $SequenceType => $_paymentInfo ) {
 
 				//set payment info
-				$paymentInfo = new PaymentInfo();
+				$paymentInfo = new SEPA\PaymentInfo();
 				$paymentInfo->setPaymentInformationIdentification($_paymentInfo['id']);
 				$paymentInfo->setSequenceType($SequenceType);
 				$paymentInfo->setCreditorAccountIBAN($_paymentInfo['creditor_iban']);
@@ -280,7 +283,7 @@ class SepaXmlFile {
 				foreach ($_paymentInfo['transactions'] as $_transaction) {
 
 					//set payment info transactions
-					$transaction = new DirectDebitTransactions();
+					$transaction = new SEPA\DirectDebitTransactions();
 					$transaction->setInstructionIdentification($_transaction['id']);
 					$transaction->setEndToEndIdentification($_transaction['endId']);
 					$transaction->setInstructedAmount($_transaction['amount']);
@@ -313,7 +316,7 @@ class SepaXmlFile {
 	 * @return $this
 	 */
 	public function save() {
-		$fileName = dirname(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
+		$fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
 		$this->xmlGeneratorObject->saveXML( $fileName );
 		return $this;
 	}

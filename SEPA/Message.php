@@ -3,14 +3,29 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:48 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Message NameSpace
  */
-namespace SEPA {
-	/**
+namespace SEPA;
+
+use SEPA\XMLGenerator;
+use SEPA\GroupHeader;
+
+/**
+ * Message Interface
+ * Class MessageInterface
+ * @package SEPA
+ */
+interface MessageInterface {
+	public function setMessageGroupHeader(GroupHeader $groupHeaderObject);
+	public function getMessageGroupHeader();
+	public function addMessagePaymentInfo(PaymentInfo $paymentInfoObject);
+	public function getSimpleXMLElementMessage();
+}
+/**
 	 * Class SepaMessage
 	 * @package SEPA
 	 */
-	class Message extends XMLGenerator {
+	class Message extends XMLGenerator implements MessageInterface {
 
 		/**
 		 * @var$groupHeaderObjects GroupHeader
@@ -97,4 +112,3 @@ namespace SEPA {
 			return $this->message;
 		}
 	}
-}

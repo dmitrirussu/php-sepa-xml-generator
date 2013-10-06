@@ -6,13 +6,19 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace SEPA {
+namespace SEPA;
 
+use SEPA\PaymentInfo;
+
+interface DirectDebitTransactionsInterface {
+	public function checkIsValidTransaction();
+	public function getSimpleXMLElementTransaction();
+}
 	/**
 	 * Class SepaDirectDebitTransactions
 	 * @package SEPA
 	 */
-	class DirectDebitTransactions extends PaymentInfo {
+	class DirectDebitTransactions extends PaymentInfo implements DirectDebitTransactionsInterface {
 		/**
 		 * Unique identification as assigned by an instructing party for an instructed party to unambiguously identify
 		 * the instruction.
@@ -303,4 +309,3 @@ namespace SEPA {
 			return $directDebitTransactionInformation;
 		}
 	}
-}

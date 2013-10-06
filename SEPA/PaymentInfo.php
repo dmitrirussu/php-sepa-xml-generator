@@ -3,14 +3,29 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:47 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Payment Info
  */
-namespace SEPA {
+namespace SEPA;
+
+use SEPA\XMLGenerator;
+use SEPA\DirectDebitTransactions;
+
+/**
+ * Payment Info Interface
+ * Class PaymentInfoInterface
+ * @package SEPA
+ */
+interface PaymentInfoInterface {
+	public function addDirectDebitTransaction(DirectDebitTransactions $directDebitTransactionObject);
+	public function checkIsValidPaymentInfo();
+	public function getErrorTransactionsIds();
+	public function getSimpleXMLElementPaymentInfo();
+}
 	/**
 	 * Class SepaPaymentInfo
 	 * @package SEPA
 	 */
-	class PaymentInfo extends Message {
+	class PaymentInfo extends Message implements PaymentInfoInterface {
 
 		/**
 		 * Specifies the means of payment that will be used to move the amount of money.
@@ -495,4 +510,3 @@ namespace SEPA {
 			return $paymentInfo;
 		}
 	}
-}

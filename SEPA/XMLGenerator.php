@@ -3,19 +3,32 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:46 PM
- * To change this template use File | Settings | File Templates.
+ * Sepa Xml Generator
  */
-namespace SEPA {
+namespace SEPA;
 	require_once 'error_messages.php';
 	require_once './unicode_decode/code/Unidecode.php';
 	require_once './iban/iban_validation.func.php';
 
+use SEPA\ValidationRules;
 
+	/**
+	 * Interface XML Generator
+	 * Class XMLGeneratorInterface
+	 * @package SEPA
+	 */
+	interface XMLGeneratorInterface {
+		public function __construct();
+		public function addXmlMessage( Message $message );
+		public function getGeneratedXml();
+		public function saveXML( $fileName );
+		public function __destruct();
+	}
 	/**
 	 * Class XMLGenerator
 	 * @package SEPA
 	 */
-	class XMLGenerator extends  ValidationRules {
+	class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 
 		const INITIAL_HEADLINE = '<?xml version="1.0" encoding="UTF-8"?>
 							<Document
@@ -114,4 +127,3 @@ namespace SEPA {
 			unset($this);
 		}
 	}
-}
