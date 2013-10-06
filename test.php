@@ -1,6 +1,6 @@
 <?php
 require_once 'SepaXmlFile.php';
-
+require_once 'SEPA\Factory\XmlGeneratorFactory.php';
 $SEPA = new SepaXmlFile();
 
 $SEPA::$_XML_FILES_REPOSITORY = '/xml_files/';
@@ -20,17 +20,17 @@ $SEPA::$_MESSAGES = array(
 				'creditor_name' => 'Amazing SRL',
 				'scheme_identifier' => 'FR07ZZZ519993',
 				'transactions' => array(
-					array(
-						'id' => 1,
-						'endId' => 2,
-						'company_name' => 'Roy SRL',
-						'amount' => 100.4,
-						'umr' => 'SDD000000016PFX0713',
-						'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-						'bic' => 'AABAFI22',
-						'mandate_sign_date' => '2013-08-03',
-						'invoice' => 122
-					),
+					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
+						->setInstructionIdentification(3)
+						->setEndToEndIdentification(39)
+						->setInstructedAmount(100.5)
+						->setDebtorName('Roy SRL')
+						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
+						->setDebitBIC('AABAFI22')
+						->setMandateIdentification('SDD000000016PFX0713')
+						->setDateOfSignature('2013-08-03')
+						//->setCurrency('EUR')
+						->setDirectDebitInvoice(122),
 					array(
 						'id' => 3,
 						'endId' => 3,

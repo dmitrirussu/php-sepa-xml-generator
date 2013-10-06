@@ -3,14 +3,14 @@
  * Created by Dumitru Russu.
  * Date: 7/8/13
  * Time: 8:50 PM
- * To change this template use File | Settings | File Templates.
+ * Direct Debit Transactions
  */
 
 namespace SEPA;
 
 use SEPA\PaymentInfo;
 
-interface DirectDebitTransactionsInterface {
+interface DirectDebitTransactionInterface {
 	public function checkIsValidTransaction();
 	public function getSimpleXMLElementTransaction();
 }
@@ -18,7 +18,7 @@ interface DirectDebitTransactionsInterface {
 	 * Class SepaDirectDebitTransactions
 	 * @package SEPA
 	 */
-	class DirectDebitTransactions extends PaymentInfo implements DirectDebitTransactionsInterface {
+	class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransactionInterface {
 		/**
 		 * Unique identification as assigned by an instructing party for an instructed party to unambiguously identify
 		 * the instruction.
@@ -147,29 +147,36 @@ interface DirectDebitTransactionsInterface {
 
 		/**
 		 * @param $instructionIdentifier
+		 * @return $this
 		 */
 		public function setInstructionIdentification($instructionIdentifier) {
 			$this->InstructionIdentification = $instructionIdentifier;
+			return $this;
 		}
 
 		/**
 		 * @param $instructionIdentifierEndToEnd
+		 * @return $this
 		 */
 		public function setEndToEndIdentification($instructionIdentifierEndToEnd) {
 			$this->EndToEndIdentification = $instructionIdentifierEndToEnd;
+			return $this;
 		}
 
 		/**
 		 * Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in
 		 * the currency as ordered by the initiating party.
 		 * @param $amount
+		 * @return $this
 		 */
 		public function setInstructedAmount($amount) {
 			$this->InstructedAmount = $this->amountToString($amount);
+			return $this;
 		}
 
 		public function setCurrency($currency) {
 			$this->currency = strtoupper($currency);
+			return $this;
 		}
 
 		public function getCurrency() {
@@ -183,16 +190,20 @@ interface DirectDebitTransactionsInterface {
 		/**
 		 * Unique identification, as assigned by the creditor, to unambiguously identify the mandate.
 		 * @param $directDebitSDD
+		 * @return $this
 		 */
 		public function setMandateIdentification($directDebitSDD) {
 			$this->MandateIdentification = $directDebitSDD;
+			return $this;
 		}
 
 		/**
 		 * @param $directDebitDateTime
+		 * @return $this
 		 */
 		public function setDateOfSignature($directDebitDateTime) {
 			$this->DateOfSignature = $directDebitDateTime;
+			return $this;
 		}
 
 		/**
@@ -200,6 +211,7 @@ interface DirectDebitTransactionsInterface {
 		 * Bank Identifier Code.
 		 * max length
 		 * @param $BIC
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setDebitBIC($BIC) {
@@ -211,11 +223,13 @@ interface DirectDebitTransactionsInterface {
 				throw new \Exception(ERROR_MSG_DD_CHECK_BIC . $this->getInstructionIdentification());
 			}
 			$this->BIC = $BIC;
+			return $this;
 		}
 
 		/**
 		 * Name by which a party is known and which is usually used to identify that party.
 		 * @param $name
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setDebtorName($name) {
@@ -224,6 +238,7 @@ interface DirectDebitTransactionsInterface {
 				throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
 			}
 			$this->DebtorName = $name;
+			return $this;
 		}
 
 		/**
@@ -231,6 +246,7 @@ interface DirectDebitTransactionsInterface {
 		 * max  34 length
 		 * @param $IBAN
 		 * @throws \Exception
+		 * @return $this
 		 */
 		public function setDebitIBAN($IBAN) {
 			$IBAN = $this->removeSpaces($IBAN);
@@ -240,11 +256,13 @@ interface DirectDebitTransactionsInterface {
 				throw new \Exception(ERROR_MSG_DD_IBAN . $this->getInstructionIdentification());
 			}
 			$this->IBAN = $IBAN;
+			return $this;
 		}
 
 		/**
 		 * Direct Debit Invoice
 		 * @param $invoice
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setDirectDebitInvoice($invoice) {
@@ -253,6 +271,7 @@ interface DirectDebitTransactionsInterface {
 				throw new \Exception(ERROR_MSG_DD_INVOICE_NUMBER . $this->getInstructionIdentification());
 			}
 			$this->directDebitInvoice = $invoice;
+			return $this;
 		}
 
 		/**

@@ -3,9 +3,9 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2013-10-06T02:04:18</CreDtTm>
+      <CreDtTm>2013-10-06T05:42:59</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>110.80</CtrlSum>
+      <CtrlSum>110.90</CtrlSum>
       <InitgPty>
         <Nm>Amazing SRL STts yayvpavpva </Nm>
       </InitgPty>
@@ -15,7 +15,7 @@
       <PmtMtd>DD</PmtMtd>
       <BtchBookg>false</BtchBookg>
       <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>110.80</CtrlSum>
+      <CtrlSum>110.90</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -54,10 +54,10 @@
       </CdtrSchmeId>
       <DrctDbtTxInf>
         <PmtId>
-          <InstrId>1</InstrId>
-          <EndToEndId>2</EndToEndId>
+          <InstrId>3</InstrId>
+          <EndToEndId>39</EndToEndId>
         </PmtId>
-        <InstdAmt Ccy="EUR">100.40</InstdAmt>
+        <InstdAmt Ccy="EUR">100.50</InstdAmt>
         <DrctDbtTx>
           <MndtRltdInf>
             <MndtId>SDD000000016PFX0713</MndtId>

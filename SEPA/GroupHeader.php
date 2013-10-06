@@ -83,6 +83,7 @@ interface GroupHeaderInterface {
 				throw new \Exception(ERROR_MSG_MESSAGE_IDENTIFICATION);
 			}
 			$this->messageIdentification = $msgId;
+			return $this;
 		}
 
 		/**
@@ -100,6 +101,7 @@ interface GroupHeaderInterface {
 		public function setCreationDateTime($CreDtTm) {
 
 			$this->CreationDateTime = $CreDtTm;
+			return $this;
 		}
 
 		public function getCreationDateTime() {
@@ -117,6 +119,7 @@ interface GroupHeaderInterface {
 		 */
 		public function setOrganisationIdentification($organisationId) {
 			$this->OrganisationIdentification = $organisationId;
+			return $this;
 		}
 
 		/**
@@ -125,6 +128,7 @@ interface GroupHeaderInterface {
 		 */
 		public function setPrivateIdentification($PrvtId) {
 			$this->PrivateIdentification = $PrvtId;
+			return $this;
 		}
 
 		/**
@@ -141,6 +145,7 @@ interface GroupHeaderInterface {
 				throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
 			}
 			$this->InitiatingPartyName = $name;
+			return $this;
 		}
 
 		public function getInitiatingPartyName() {
@@ -155,6 +160,7 @@ interface GroupHeaderInterface {
 		 */
 		public function setControlSum($amount) {
 			$this->ControlSum += $amount;
+			return $this;
 		}
 
 		/**
@@ -165,6 +171,7 @@ interface GroupHeaderInterface {
 		public function setNumberOfTransactions($nbTransactions) {
 
 			$this->NumberOfTransactions += $nbTransactions;
+			return $this;
 		}
 
 		/**

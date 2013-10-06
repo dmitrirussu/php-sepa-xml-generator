@@ -9,7 +9,7 @@
 namespace SEPA;
 
 use SEPA\XMLGenerator;
-use SEPA\DirectDebitTransactions;
+use SEPA\DirectDebitTransaction;
 
 /**
  * Payment Info Interface
@@ -17,7 +17,7 @@ use SEPA\DirectDebitTransactions;
  * @package SEPA
  */
 interface PaymentInfoInterface {
-	public function addDirectDebitTransaction(DirectDebitTransactions $directDebitTransactionObject);
+	public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject);
 	public function checkIsValidPaymentInfo();
 	public function getErrorTransactionsIds();
 	public function getSimpleXMLElementPaymentInfo();
@@ -185,6 +185,7 @@ interface PaymentInfoInterface {
 			}
 
 			$this->paymentInformationIdentification = $paymentInformationId;
+			return $this;
 		}
 
 		/**
@@ -198,6 +199,7 @@ interface PaymentInfoInterface {
 				throw new \Exception(ERROR_MSG_PM_SEQUENCE_TYPE);
 			}
 			$this->sequenceType = $SeqTp;
+			return $this;
 		}
 
 		public function getSequenceType() {
@@ -228,6 +230,7 @@ interface PaymentInfoInterface {
 			}
 
 			$this->creditorName = $creditorName;
+			return $this;
 		}
 
 		/**
@@ -247,6 +250,7 @@ interface PaymentInfoInterface {
 			}
 
 			$this->creditorAccountIBAN = $creditorAccountIBAN;
+			return $this;
 		}
 
 		/**
@@ -269,6 +273,7 @@ interface PaymentInfoInterface {
 			}
 
 			$this->creditorBIC = $creditorBIC;
+			return $this;
 		}
 
 		/**
@@ -290,6 +295,7 @@ interface PaymentInfoInterface {
 				throw new \Exception(ERROR_MSG_PM_CREDITOR_SCHEME_IDENTIFICATION);
 			}
 			$this->CreditorSchemeIdentification = $creditorSchemaId;
+			return $this;
 		}
 
 		/**
@@ -307,6 +313,7 @@ interface PaymentInfoInterface {
 		public function setUltimateCreditor($UltimateCreditor) {
 
 			$this->ultimateCreditor = $UltimateCreditor;
+			return $this;
 		}
 
 		/**
@@ -331,6 +338,7 @@ interface PaymentInfoInterface {
 			}
 
 			$this->batchBooking = $value;
+			return $this;
 		}
 
 		/**
@@ -348,6 +356,7 @@ interface PaymentInfoInterface {
 		public function setCategoryPurpose($CategoryPurpose) {
 
 			$this->categoryPurpose = $CategoryPurpose;
+			return $this;
 		}
 
 		/**
@@ -360,19 +369,43 @@ interface PaymentInfoInterface {
 
 		/**
 		 * Payment info Direct Debit Transactions Object
-		 * @param $directDebitTransactionObject DirectDebitTransactions
+		 * @param $directDebitTransactionObject DirectDebitTransaction
 		 */
-		public function addDirectDebitTransaction(DirectDebitTransactions $directDebitTransactionObject) {
+		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
 
-			$this->directDebitTransactionObjects[] = $directDebitTransactionObject;
+			if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
+				/** @var $existTransaction \SEPA\DirectDebitTransaction */
+				$existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
+
+				$existTransaction->setInstructedAmount(
+					$existTransaction->getInstructedAmount() + $directDebitTransactionObject->getInstructedAmount());
+
+				$existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
+
+			}
+			else {
+
+				$this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
+			}
+		}
+
+		/**
+		 * Get Direct Debit Transactions
+		 * @return array
+		 */
+		public function getDirectDebitTransactionObjects() {
+
+			return $this->directDebitTransactionObjects;
 		}
 
 		/**
 		 * @param $value
+		 * @return $this
 		 */
 		public function setCtrlSum($value) {
 
 			$this->ctrlSum += $value;
+			return $this;
 		}
 
 		/**
@@ -386,6 +419,7 @@ interface PaymentInfoInterface {
 		public function setNumberOfTransactions($value) {
 
 			$this->numberOfTransactions += $value;
+			return $this;
 		}
 
 		/**
@@ -399,10 +433,12 @@ interface PaymentInfoInterface {
 
 		public function resetNumberOfTransactions() {
 			$this->numberOfTransactions = 0;
+			return $this;
 		}
 
 		public function resetControlSum() {
 			$this->ctrlSum = 0;
+			return $this;
 		}
 
 		/**

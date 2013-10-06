@@ -63,6 +63,7 @@ interface MessageInterface {
 
 				$this->groupHeaderObjects = $groupHeaderObject;
 			}
+			return $this;
 		}
 
 		/**
@@ -76,11 +77,26 @@ interface MessageInterface {
 		/**
 		 * Add Message Payment Info
 		 * @param PaymentInfo $paymentInfoObject
+		 * @throws \Exception
 		 */
 		public function addMessagePaymentInfo(PaymentInfo $paymentInfoObject) {
+		if ( !($paymentInfoObject instanceof PaymentInfo) ) {
+
+				throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
+			}
+
 			$paymentInfoObject->resetNumberOfTransactions();
 			$paymentInfoObject->resetControlSum();
-			$this->paymentInfoObjects[] = $paymentInfoObject;
+			$this->paymentInfoObjects[$paymentInfoObject->getSequenceType()] = $paymentInfoObject;
+		}
+
+		/**
+		 * Get Payment Info Objects
+		 * @return array
+		 */
+		public function getPaymentInfoObjects() {
+
+			return $this->paymentInfoObjects;
 		}
 
 		/**
