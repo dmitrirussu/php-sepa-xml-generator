@@ -1,5 +1,9 @@
-PHP SEPA XML Generator v.0.3
+PHP SEPA XML Generator v.0.4
 ====
+
+In this last release I added possibilty for using Object Class Factory for SEPA XML Generator, You can generate a XML not only with data form array. 
+But with Obejct array, Or with SEPA XML Generator Factory
+
 Guide ISO20022 SDD  V1_0 20122009
 
 SEPA Direct Debit Core Scheme (SDD Core) 
@@ -44,17 +48,17 @@ Example of using.
                                 'mandate_sign_date' => '2013-08-03',
                                 'invoice' => 122
                             ),
-                            array(
-                                'id' => 3,
-                                'endId' => 3,
-                                'company_name' => 'Toy SRL',
-                                'amount' => 10.4,
-                                'umr' => 'SDD000000016PFX0714',
-                                'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-                                'bic' => 'AABAFI42',
-                                'mandate_sign_date' => '2013-08-03',
-                                'invoice' => 1223
-                            )
+                           SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
+						->setInstructionIdentification(3)
+						->setEndToEndIdentification(39)
+						->setInstructedAmount(100.5)
+						->setDebtorName('Roy SRL')
+						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
+						->setDebitBIC('AABAFI22')
+						->setMandateIdentification('SDD000000016PFX0713')
+						->setDateOfSignature('2013-08-03')
+						//->setCurrency('EUR')
+						->setDirectDebitInvoice(122)
                         )
                     ))));
 
