@@ -1,5 +1,4 @@
 <?php
-
 require_once 'SepaXmlFile.php';
 
 $SEPA = new SepaXmlFile();

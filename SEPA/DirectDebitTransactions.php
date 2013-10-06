@@ -127,6 +127,7 @@ interface DirectDebitTransactionsInterface {
 		 * @return string
 		 */
 		public function getIBAN() {
+
 			return $this->IBAN;
 		}
 

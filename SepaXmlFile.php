@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Dumitru Russu.
- * Date: 7/8/13
- * Time: 8:46 PM
- * Sepa Xml File
- */
 
 require_once 'SEPA\ValidationRules.php';
 require_once 'SEPA\XMLGenerator.php';
