@@ -8,9 +8,6 @@
  */
 namespace SEPA;
 
-use SEPA\XMLGenerator;
-use SEPA\DirectDebitTransaction;
-
 /**
  * Payment Info Interface
  * Class PaymentInfoInterface

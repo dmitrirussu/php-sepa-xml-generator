@@ -8,9 +8,6 @@
  */
 namespace SEPA;
 
-use SEPA\XMLGenerator;
-use SEPA\GroupHeader;
-
 /**
  * Message Interface
  * Class MessageInterface

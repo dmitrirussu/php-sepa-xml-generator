@@ -6,7 +6,7 @@
  * Time: 8:50 PM
  * Sepa Validation Rules
  */
-namespace SEPA {
+namespace SEPA;
 
 	/**
 	 * Class SepaValidation
@@ -114,4 +114,3 @@ namespace SEPA {
 			return false;
 		}
 	}
-}

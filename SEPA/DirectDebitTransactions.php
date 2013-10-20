@@ -8,8 +8,10 @@
 
 namespace SEPA;
 
-use SEPA\PaymentInfo;
-
+/**
+ * Class DirectDebitTransactionInterface
+ * @package SEPA
+ */
 interface DirectDebitTransactionInterface {
 	public function checkIsValidTransaction();
 	public function getSimpleXMLElementTransaction();

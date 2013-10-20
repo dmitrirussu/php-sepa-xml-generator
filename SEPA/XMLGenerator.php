@@ -7,11 +7,10 @@
  * Sepa Xml Generator
  */
 namespace SEPA;
+
 	require_once 'error_messages.php';
 	require_once './unicode_decode/code/Unidecode.php';
 	require_once './iban/iban_validation.func.php';
-
-use SEPA\ValidationRules;
 
 	/**
 	 * Interface XML Generator

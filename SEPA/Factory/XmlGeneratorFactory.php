@@ -7,7 +7,8 @@
  */
 
 namespace SEPA\Factory;
-use SEPA\DirectDebitTransaction;
+
+use SEPA;
 
 require_once 'SEPA\ValidationRules.php';
 require_once 'SEPA\XMLGenerator.php';
@@ -17,6 +18,14 @@ require_once 'SEPA\PaymentInfo.php';
 require_once 'SEPA\DirectDebitTransactions.php';
 
 class XmlGeneratorFactory {
+
+	private function __construct() {
+
+	}
+
+	private function __clone() {
+
+	}
 
 	public static function createXmlGeneratorObject() {
 		return new \SEPA\XMLGenerator();

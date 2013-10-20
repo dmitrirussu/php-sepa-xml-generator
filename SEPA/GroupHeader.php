@@ -8,8 +8,6 @@
  */
 namespace SEPA;
 
-use SEPA\Message;
-
 /**
  * Group Header Interface
  * Class GroupHeaderInterface
