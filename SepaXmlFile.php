@@ -1,5 +1,5 @@
 <?php
-require_once 'SEPA\Factory\XmlGeneratorFactory.php';
+require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
 use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
 

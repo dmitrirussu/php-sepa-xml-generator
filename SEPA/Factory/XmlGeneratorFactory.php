@@ -10,12 +10,12 @@ namespace SEPA\Factory;
 
 use SEPA;
 
-require_once 'SEPA\ValidationRules.php';
-require_once 'SEPA\XMLGenerator.php';
-require_once 'SEPA\Message.php';
-require_once 'SEPA\GroupHeader.php';
-require_once 'SEPA\PaymentInfo.php';
-require_once 'SEPA\DirectDebitTransactions.php';
+require_once 'SEPA/ValidationRules.php';
+require_once 'SEPA/XMLGenerator.php';
+require_once 'SEPA/Message.php';
+require_once 'SEPA/GroupHeader.php';
+require_once 'SEPA/PaymentInfo.php';
+require_once 'SEPA/DirectDebitTransactions.php';
 
 class XmlGeneratorFactory {
 
