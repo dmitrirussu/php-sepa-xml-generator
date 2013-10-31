@@ -302,6 +302,10 @@ class SepaXmlFile {
 		}
 	}
 
+	/**
+	 * Generate Payment Info
+	 * @param $paymentInfo
+	 */
 	public function generatePaymentInfo( $paymentInfo ) {
 
 		//set Message Payment Info
@@ -346,6 +350,10 @@ class SepaXmlFile {
 
 	}
 
+	/**
+	 * Generate Direct Debit Transactions
+	 * @param $transactions
+	 */
 	public function generateDirectDebitTransactions($transactions) {
 		foreach ($transactions as $transaction) {
 
@@ -376,6 +384,7 @@ class SepaXmlFile {
 	}
 
 	/**
+	 * Do Object To array
 	 * @param $object
 	 * @return array
 	 */
@@ -402,6 +411,7 @@ class SepaXmlFile {
 
 	/**
 	 * View Xml File
+	 * @return $this
 	 */
 	public function view() {
 		header ("Content-Type:text/xml");
