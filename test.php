@@ -1,6 +1,6 @@
 <?php
 require_once 'SepaXmlFile.php';
-require_once 'SEPA\Factory\XmlGeneratorFactory.php';
+require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 $SEPA = new SepaXmlFile();
 
 $SEPA::$_XML_FILES_REPOSITORY = '/xml_files/';
