@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+	<CstmrDrctDbtInitn>
+		<GrpHdr>
+			<MsgId>CAVAY1234</MsgId>
+			<CreDtTm>2010-06-25T14:25:00</CreDtTm>
+			<NbOfTxs>2</NbOfTxs>
+			<CtrlSum>2010</CtrlSum>
+			<InitgPty>
+				<Nm>Virgay</Nm>
+				<PstlAdr>
+					<StrtNm>Virginia Lane</StrtNm>
+					<BldgNb>36</BldgNb>
+					<PstCd>NJ 07311</PstCd>
+					<TwnNm>Jersey City</TwnNm>
+					<Ctry>US</Ctry>
+				</PstlAdr>
+				<CtctDtls>
+					<Nm>J. Thompson</Nm>
+					<EmailAdr>Thompson@virgay.com</EmailAdr>
+				</CtctDtls>
+			</InitgPty>
+		</GrpHdr>
+		<PmtInf>
+			<PmtInfId>CAVAY/88683</PmtInfId>
+			<PmtMtd>DD</PmtMtd>
+			<BtchBookg>false</BtchBookg>
+			<ReqdColltnDt>2010-07-13</ReqdColltnDt>
+			<Cdtr>
+				<Nm>Virgay</Nm>
+				<PstlAdr>
+					<StrtNm>Virginia Lane</StrtNm>
+					<BldgNb>36</BldgNb>
+					<PstCd>NJ 07311</PstCd>
+					<TwnNm>Jersey City</TwnNm>
+					<Ctry>US</Ctry>
+				</PstlAdr>
+			</Cdtr>
+			<CdtrAcct>
+				<Id>
+					<Othr>
+						<Id>789123</Id>
+					</Othr>
+				</Id>
+			</CdtrAcct>
+			<CdtrAgt>
+				<FinInstnId>
+					<BIC>AAAAUS29</BIC>
+				</FinInstnId>
+			</CdtrAgt>
+			<DrctDbtTxInf>
+				<PmtId>
+					<EndToEndId>VA09327/0123</EndToEndId>
+				</PmtId>
+				<PmtTpInf>
+					<InstrPrty>NORM</InstrPrty>
+					<SvcLvl>
+						<Prtry>VERPA-1</Prtry>
+					</SvcLvl>
+					<SeqTp>RCUR</SeqTp>
+				</PmtTpInf>
+				<InstdAmt Ccy="USD">1025</InstdAmt>
+				<ChrgBr>SHAR</ChrgBr>
+				<DrctDbtTx>
+					<MndtRltdInf>
+						<MndtId>VIRGAY123</MndtId>
+						<DtOfSgntr>2008-07-13</DtOfSgntr>
+						<FnlColltnDt>2015-07-13</FnlColltnDt>
+						<Frqcy>YEAR</Frqcy>
+					</MndtRltdInf>
+				</DrctDbtTx>
+				<DbtrAgt>
+					<FinInstnId>
+						<BIC>BBBBUS39</BIC>
+					</FinInstnId>
+				</DbtrAgt>
+				<Dbtr>
+					<Nm>Jones</Nm>
+					<PstlAdr>
+						<StrtNm>Hudson Street</StrtNm>
+						<BldgNb>19</BldgNb>
+						<PstCd>NJ 07302</PstCd>
+						<TwnNm>Jersey City</TwnNm>
+						<Ctry>US</Ctry>
+					</PstlAdr>
+				</Dbtr>
+				<DbtrAcct>
+					<Id>
+						<Othr>
+							<Id>123456</Id>
+						</Othr>
+					</Id>
+				</DbtrAcct>
+				<Purp>
+					<Cd>LIFI</Cd>
+				</Purp>
+				<RmtInf>
+					<Ustrd>LIFE INSURANCE PAYMENT/ JULY 2010</Ustrd>
+				</RmtInf>
+			</DrctDbtTxInf>
+			<DrctDbtTxInf>
+				<PmtId>
+					<EndToEndId>AY090327/456</EndToEndId>
+				</PmtId>
+				<PmtTpInf>
+					<InstrPrty>NORM</InstrPrty>
+					<SvcLvl>
+						<Prtry>VERPA-1</Prtry>
+					</SvcLvl>
+					<SeqTp>OOFF</SeqTp>
+				</PmtTpInf>
+				<InstdAmt Ccy="USD">985</InstdAmt>
+				<ChrgBr>SHAR</ChrgBr>
+				<DrctDbtTx>
+					<PreNtfctnId>VIRGAY2435/2010</PreNtfctnId>
+					<PreNtfctnDt>2010-06-08</PreNtfctnDt>
+				</DrctDbtTx>
+				<DbtrAgt>
+					<FinInstnId>
+						<BIC>CCCCUS27</BIC>
+					</FinInstnId>
+				</DbtrAgt>
+				<Dbtr>
+					<Nm>Lee</Nm>
+					<PstlAdr>
+						<StrtNm>Cross Road</StrtNm>
+						<BldgNb>45</BldgNb>
+						<PstCd>NJ07399</PstCd>
+						<TwnNm>Jersey City</TwnNm>
+						<Ctry>US</Ctry>
+					</PstlAdr>
+				</Dbtr>
+				<DbtrAcct>
+					<Id>
+						<Othr>
+							<Id>789101</Id>
+						</Othr>
+					</Id>
+				</DbtrAcct>
+				<RmtInf>
+					<Ustrd>CAR INSURANCE PREMIUM</Ustrd>
+				</RmtInf>
+			</DrctDbtTxInf>
+		</PmtInf>
+	</CstmrDrctDbtInitn>
+</Document>

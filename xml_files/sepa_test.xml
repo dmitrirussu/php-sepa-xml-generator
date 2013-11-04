@@ -3,7 +3,7 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2013-10-06T05:42:59</CreDtTm>
+      <CreDtTm>2013-11-04T12:07:03</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
       <CtrlSum>110.90</CtrlSum>
       <InitgPty>
@@ -25,7 +25,7 @@
         </LclInstrm>
         <SeqTp>FRST</SeqTp>
       </PmtTpInf>
-      <ReqdColltnDt>2013-10-06</ReqdColltnDt>
+      <ReqdColltnDt>2013-11-04</ReqdColltnDt>
       <Cdtr>
         <Nm>Amazing SRL</Nm>
       </Cdtr>

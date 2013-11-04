@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03">
+	<CstmrPmtStsRpt>
+		<GrpHdr>
+			<MsgId>AAAAUS29_5678c</MsgId>
+			<CreDtTm>2010-06-29T15:49:00</CreDtTm>
+			<InitgPty>
+				<Nm>Virgay</Nm>
+				<PstlAdr>
+					<StrtNm>Virginia Lane</StrtNm>
+					<BldgNb>36</BldgNb>
+					<PstCd>NJ 07311</PstCd>
+					<TwnNm>Jersey City</TwnNm>
+					<Ctry>US</Ctry>
+				</PstlAdr>
+			</InitgPty>
+			<CdtrAgt>
+				<FinInstnId>
+					<BIC>AAAAUS29</BIC>
+				</FinInstnId>
+			</CdtrAgt>
+		</GrpHdr>
+		<OrgnlGrpInfAndSts>
+			<OrgnlMsgId>CAVAY1234</OrgnlMsgId>
+			<OrgnlMsgNmId>pacs.003.001.02</OrgnlMsgNmId>
+			<OrgnlCreDtTm>2010-06-28T14:25:00</OrgnlCreDtTm>
+		</OrgnlGrpInfAndSts>
+		<OrgnlPmtInfAndSts>
+			<OrgnlPmtInfId>JKL_774</OrgnlPmtInfId>
+			<TxInfAndSts>
+				<StsId>RIT2010 657B</StsId>
+				<OrgnlEndToEndId>VA100327/0123</OrgnlEndToEndId>
+				<TxSts>RJCT</TxSts>
+				<StsRsnInf>
+					<Orgtr>
+						<Id>
+							<OrgId>
+								<BICOrBEI>ABABUS23</BICOrBEI>
+							</OrgId>
+						</Id>
+					</Orgtr>
+					<Rsn>
+						<Cd>AM05</Cd>
+					</Rsn>
+				</StsRsnInf>
+				<OrgnlTxRef>
+					<Amt>
+						<InstdAmt Ccy="USD">1025</InstdAmt>
+					</Amt>
+					<ReqdColltnDt>2010-07-02</ReqdColltnDt>
+					<MndtRltdInf>
+						<MndtId>VIRGAY123</MndtId>
+					</MndtRltdInf>
+					<Dbtr>
+						<Nm>Jones</Nm>
+						<PstlAdr>
+							<StrtNm>Hudston Street</StrtNm>
+							<BldgNb>19</BldgNb>
+							<PstCd>NJ 07302</PstCd>
+							<TwnNm>Jersey City</TwnNm>
+							<Ctry>US</Ctry>
+						</PstlAdr>
+					</Dbtr>
+					<Cdtr>
+						<Nm>Virgay</Nm>
+						<PstlAdr>
+							<StrtNm>Virginia Lane</StrtNm>
+							<BldgNb>36</BldgNb>
+							<PstCd>NJ 07311</PstCd>
+							<TwnNm>Jersey City</TwnNm>
+							<Ctry>US</Ctry>
+						</PstlAdr>
+					</Cdtr>
+				</OrgnlTxRef>
+			</TxInfAndSts>
+		</OrgnlPmtInfAndSts>
+	</CstmrPmtStsRpt>
+</Document>
