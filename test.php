@@ -60,7 +60,7 @@ $SEPAXml::$_MESSAGES = array(
 $SEPAXml->export()->view()->save();
 
 // SEPA Xml export validation with ISO20022
-$SEPAXml->export()->validation();
+//$SEPAXml->export()->validation();
 
 //SEPA xml export convert to array
 //$SEPAXml->export()->convertToArray();

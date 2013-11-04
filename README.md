@@ -1,8 +1,7 @@
-PHP SEPA XML Generator v.0.4
+PHP SEPA XML Generator v.0.5
 ====
 
-In this last release I added possibilty for using Object Class Factory for SEPA XML Generator, You can generate a XML not only with data form array. 
-But with Obejct array, Or with SEPA XML Generator Factory
+In this new release was added two new methods SEPA Xml schema Validation and XML convertion to Array
 
 Guide ISO20022 SDD  V1_0 20122009
 
@@ -73,6 +72,12 @@ Example of using.
 
             //Seepa Export View and Save
             	$SEPA->export()->view()->save();
+
+            // SEPA Xml export validation with ISO20022
+            //$SEPAXml->export()->validation();
+
+            //SEPA xml export convert to array
+            //$SEPAXml->export()->convertToArray();
 ```
 XML File Result
 ===
