@@ -7,7 +7,20 @@ use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
 	 * Class SepaXmlFile
 	 * @package SEPA
 	 */
-class SepaXmlFile {
+class SEPAXmlFile {
+
+	/**
+	 * ISO PATH RULES
+	 * @var string
+	 */
+	private static $_ISO_PATH_RULES = '/ISO20022_RULES/';
+
+	/**
+	 *
+	 * ISO XSD File Name
+	 * @var
+	 */
+	private static $_ISO_XSD_FILENAME;
 
 	/**
 	 * XML Files Repository
@@ -244,7 +257,8 @@ class SepaXmlFile {
 		)
 	);
 
-	public function __construct() {
+	public function __construct($messageIdSXMLSchema = 'pain.008.001.02') {
+		self::$_ISO_XSD_FILENAME = $messageIdSXMLSchema;
 
 		$this->xmlGeneratorObject = SEPAXmlGeneratorFactory::createXmlGeneratorObject();
 	}
@@ -254,6 +268,7 @@ class SepaXmlFile {
 	 * @return $this
 	 */
 	public function export() {
+
 
 		$this->generatedMessages();
 
@@ -306,10 +321,10 @@ class SepaXmlFile {
 	 * Generate Payment Info
 	 * @param $paymentInfo
 	 */
-	public function generatePaymentInfo( $paymentInfo ) {
+	public function generatePaymentInfo( $paymentsInfo) {
 
 		//set Message Payment Info
-		foreach ($paymentInfo as $SequenceType => $paymentInfo ) {
+		foreach ($paymentsInfo as $SequenceType => $paymentInfo ) {
 
 			/** @var $paymentInfo \SEPA\PaymentInfo */
 			if (is_object($paymentInfo) && $paymentInfo instanceof \SEPA\PaymentInfo ) {
@@ -417,5 +432,52 @@ class SepaXmlFile {
 		header ("Content-Type:text/xml");
 		echo $this->xmlGeneratorObject->getGeneratedXml();
 		return $this;
+	}
+
+	/**
+	 * SEPA XML File Validation
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function validation() {
+		$dom = new DOMDocument();
+		$xmlFile = realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME;
+		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . self::$_ISO_XSD_FILENAME . '.xsd';
+
+		if ( !file_exists($xmlFile) ) {
+
+			$dom->load($xmlFile,  LIBXML_NOBLANKS);
+
+		} else {
+
+			$dom->loadXML($this->xmlGeneratorObject->getGeneratedXml(), LIBXML_NOBLANKS);
+		}
+
+		if ( !file_exists($xsdFile) ) {
+
+			throw new Exception('XSD File not found!');
+		}
+
+		return $dom->schemaValidate($xsdFile);
+	}
+
+	/**
+	 * Convert TO Array
+	 * @return array
+	 */
+	public function convertToArray() {
+
+		$xmlFile = realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME;
+
+		if ( file_exists($xmlFile) ) {
+
+			$xml = simplexml_load_file($xmlFile);
+
+		} else {
+
+			$xml = $this->xmlGeneratorObject->getGeneratedXml();
+		}
+
+		return json_decode(json_encode($xml), true);
 	}
 }

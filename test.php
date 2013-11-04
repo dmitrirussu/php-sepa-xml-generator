@@ -1,13 +1,14 @@
 <?php
 require_once 'SepaXmlFile.php';
 require_once 'SEPA/Factory/XmlGeneratorFactory.php';
-$SEPA = new SepaXmlFile();
 
-$SEPA::$_XML_FILES_REPOSITORY = '/xml_files/';
-$SEPA::$_FILE_NAME = 'sepa_test.xml';
+$SEPAXml = new SEPAXmlFile('pain.008.001.02');
+
+$SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
+$SEPAXml::$_FILE_NAME = 'sepa_test.xml';
 
 //Simple Example of Sepa Xml File Messages
-$SEPA::$_MESSAGES = array(
+$SEPAXml::$_MESSAGES = array(
 	array('message_id' => 1,
 		'group_header' => array(
 			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва '
@@ -46,14 +47,20 @@ $SEPA::$_MESSAGES = array(
 			))));
 
 //Sepa Export View
-//	$SEPA->export()->view();
+//	$SEPAXml->export()->view();
 
 //Sepa Export Save
-//	$SEPA->export()->save();
+//	$SEPAXml->export()->save();
 
 //Sepa Export Save and View
-//	$SEPA->export()->save()->view();
+//	$SEPAXml->export()->save()->view();
+
 
 //Seepa Export View and Save
-	$SEPA->export()->view()->save();
+$SEPAXml->export()->view()->save();
 
+// SEPA Xml export validation with ISO20022
+$SEPAXml->export()->validation();
+
+//SEPA xml export convert to array
+//$SEPAXml->export()->convertToArray();

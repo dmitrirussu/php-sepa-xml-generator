@@ -119,7 +119,6 @@ namespace SEPA;
 		protected function simpleXmlAppend($to, $from) {
 			$toDom = dom_import_simplexml($to);
 			$fromDom = dom_import_simplexml($from);
-
 			$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
 		}
 
