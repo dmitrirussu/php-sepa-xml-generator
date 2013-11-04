@@ -22,6 +22,24 @@ class SepaXmlFile {
 	public static $_FILE_NAME = 'sepa_test.xml';
 
 	/**
+	 * XML & XSD ISO 20022 Files Repository
+	 * @var string
+	 */
+	public static $_ISO_XML_FILES_REPOSITORY = '/ISO20022_archive/';
+
+	/**
+	 * ISO 20022 Message ID for Direct Debit Initiation messages
+	 * @var string
+	 */
+	public static $_DIRECT_DEBIT_INITIATION_MSG_ID = 'pain.008.001.02';
+
+	/**
+	 * ISO 20022 Message ID for Payment Status Report messages
+	 * @var string
+	 */
+	public static $_PAYMENT_STATUS_REPORT_MSG_ID = 'pain.002.001.03';
+
+	/**
 	 * Xml Generator Object
 	 * @var SEPA\XMLGenerator
 	 */
@@ -400,6 +418,18 @@ class SepaXmlFile {
 	}
 
 	/**
+	 * Parse Xml File
+	 * @param $filepath String path to file	 
+	 * @return Array(mixed)
+	 */
+	public function xmlToArray($filepath){
+		$file_contents = file_get_contents($filepath);
+		$xml = simplexml_load_string($file_contents);
+		$json = json_encode($xml);
+		return json_decode($json,TRUE);
+	}
+	
+	/**
 	 * Save Xml file
 	 * @return $this
 	 */
@@ -418,4 +448,36 @@ class SepaXmlFile {
 		echo $this->xmlGeneratorObject->getGeneratedXml();
 		return $this;
 	}
+
+	/**
+	 * Validate Direct Debit Transactions Xml File
+	 * @param $filepath String path to file	 
+	 * @return Boolean
+	 */
+	public function validateXml($filepath){
+		return $this->_validateXml($filepath, realpath(__DIR__) . static::$_ISO_XML_FILES_REPOSITORY . '/' . static::$_DIRECT_DEBIT_INITIATION_MSG_ID . '/' . static::$_DIRECT_DEBIT_INITIATION_MSG_ID . '.xsd' );
+	}
+
+	/**
+	 * Validate Payment Status Report Xml File
+	 * @param $filepath String path to file	 
+	 * @return Boolean
+	 */
+	public function validatePaymentStatusReportXml($filepath){
+		return $this->_validateXml($filepath, realpath(__DIR__) . static::$_ISO_XML_FILES_REPOSITORY . '/' . static::$_PAYMENT_STATUS_REPORT_MSG_ID . '/' . static::$_PAYMENT_STATUS_REPORT_MSG_ID . '.xsd' );
+	}	
+
+	/**
+	 * Validate SEPA Xml File
+	 * @param $filepath String path to file	 
+	 * @param $filepath String path to XSD file	 
+	 * @return Boolean
+	 */
+	private function _validateXml($filepath, $xsd_filepath ){
+		$xml= new DOMDocument();
+		$file_contents = file_get_contents($filepath);
+		$xml->loadXML( $file_contents, LIBXML_NOBLANKS);
+		return $xml->schemaValidate($xsd_filepath);
+	}
+
 }
