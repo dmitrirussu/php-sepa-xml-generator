@@ -58,4 +58,7 @@ $SEPA::$_MESSAGES = array(
 	$SEPA->export()->view()->save();
 
 //Sepa Validation
-	echo $SEPA->validateXml( realpath(__DIR__) .  $SEPA::$_XML_FILES_REPOSITORY . $SEPA::$_FILE_NAME = 'sepa_test.xml' );
+//	echo $SEPA->validateXml( realpath(__DIR__) .  $SEPA::$_XML_FILES_REPOSITORY . $SEPA::$_FILE_NAME = 'sepa_test.xml' );
+
+//Sepa read xml 
+//	print_r( $SEPA->xmlToArray( realpath(__DIR__) .  $SEPA::$_XML_FILES_REPOSITORY . $SEPA::$_FILE_NAME = 'sepa_test.xml' ) );

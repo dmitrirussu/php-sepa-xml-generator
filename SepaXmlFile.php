@@ -418,6 +418,18 @@ class SepaXmlFile {
 	}
 
 	/**
+	 * Parse Xml File
+	 * @param $filepath String path to file	 
+	 * @return Array(mixed)
+	 */
+	public function xmlToArray($filepath){
+		$file_contents = file_get_contents($filepath);
+		$xml = simplexml_load_string($file_contents);
+		$json = json_encode($xml);
+		return json_decode($json,TRUE);
+	}
+	
+	/**
 	 * Save Xml file
 	 * @return $this
 	 */
@@ -447,15 +459,6 @@ class SepaXmlFile {
 	}
 
 	/**
-	 * Import Payment Status Report Xml File
-	 * @param $filepath String path to file	 
-	 * @return $this
-	 */
-	public function importPaymentStatusReport($filepath){
-		// TODO to be implemented
-	}
-
-	/**
 	 * Validate Payment Status Report Xml File
 	 * @param $filepath String path to file	 
 	 * @return Boolean
@@ -472,8 +475,8 @@ class SepaXmlFile {
 	 */
 	private function _validateXml($filepath, $xsd_filepath ){
 		$xml= new DOMDocument();
-		$f=file_get_contents($filepath);
-		$xml->loadXML($f, LIBXML_NOBLANKS);
+		$file_contents = file_get_contents($filepath);
+		$xml->loadXML( $file_contents, LIBXML_NOBLANKS);
 		return $xml->schemaValidate($xsd_filepath);
 	}
 
