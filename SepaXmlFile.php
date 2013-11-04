@@ -3,10 +3,10 @@ require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
 use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
 
-	/**
-	 * Class SepaXmlFile
-	 * @package SEPA
-	 */
+/**
+ * Class SEPAXmlFile
+ * @package SEPA
+ */
 class SEPAXmlFile {
 
 	/**
@@ -271,40 +271,50 @@ class SEPAXmlFile {
 	 */
 	public function generatedMessages() {
 		foreach (self::$_MESSAGES as $message ) {
-			/** @var $message \SEPA\Message */
-			if ( is_object($message) && $message instanceof \SEPA\GroupHeader ) {
 
-				$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
-					$message->getMessageGroupHeader()
-				);
+			try {
+
+				/** @var $message \SEPA\Message */
+				if ( is_object($message) && $message instanceof \SEPA\GroupHeader ) {
+
+					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
+						$message->getMessageGroupHeader()
+					);
+				}
+				else {
+
+					$message = $this->objectToArray($message);
+
+					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
+						SEPAXmlGeneratorFactory::createXMLGroupHeader()
+							->setMessageIdentification($message['message_id'])
+							->setInitiatingPartyName($message['group_header']['company_name'])
+					);
+				}
+
+				if ( is_object($message) && isset($message->payment_info) ) {
+
+					$paymentInfo = 	$message->payment_info;
+				}
+				elseif( is_object($message) && $message instanceof \SEPA\PaymentInfo ) {
+
+					$paymentInfo = 	$message->getPaymentInfoObjects();
+				}
+				else {
+					$paymentInfo = $message['payment_info'];
+				}
+
+				$this->generatePaymentInfo($paymentInfo);
+
+				//add Message To Xml File
+				$this->xmlGeneratorObject->addXmlMessage($this->messageObject);
+
+			} catch(Exception $e) {
+
+				//Your Logs here
+//				$e->getMessage();
+
 			}
-			else {
-
-				$message = $this->objectToArray($message);
-
-				$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
-					SEPAXmlGeneratorFactory::createXMLGroupHeader()
-						->setMessageIdentification($message['message_id'])
-						->setInitiatingPartyName($message['group_header']['company_name'])
-				);
-			}
-
-			if ( is_object($message) && isset($message->payment_info) ) {
-
-				$paymentInfo = 	$message->payment_info;
-			}
-			elseif( is_object($message) && $message instanceof \SEPA\PaymentInfo ) {
-
-				$paymentInfo = 	$message->getPaymentInfoObjects();
-			}
-			else {
-				$paymentInfo = $message['payment_info'];
-			}
-
-			$this->generatePaymentInfo($paymentInfo);
-
-			//add Message To Xml File
-			$this->xmlGeneratorObject->addXmlMessage($this->messageObject);
 		}
 	}
 
@@ -317,43 +327,51 @@ class SEPAXmlFile {
 		//set Message Payment Info
 		foreach ($paymentsInfo as $SequenceType => $paymentInfo ) {
 
-			/** @var $paymentInfo \SEPA\PaymentInfo */
-			if (is_object($paymentInfo) && $paymentInfo instanceof \SEPA\PaymentInfo ) {
+			try {
 
-				$this->paymentInfoObject = $paymentInfo;
+				/** @var $paymentInfo \SEPA\PaymentInfo */
+				if (is_object($paymentInfo) && $paymentInfo instanceof \SEPA\PaymentInfo ) {
+
+					$this->paymentInfoObject = $paymentInfo;
+				}
+				else {
+					$paymentInfo = $this->objectToArray($paymentInfo);
+					//set payment info
+					$this->paymentInfoObject = SEPAXmlGeneratorFactory::createXMLPaymentInfo()
+						->setPaymentInformationIdentification($paymentInfo['id'])
+						->setSequenceType($SequenceType)
+						->setCreditorAccountIBAN($paymentInfo['creditor_iban'])
+						->setCreditorAccountBIC($paymentInfo['creditor_bic'])
+						->setCreditorName($paymentInfo['creditor_name'])
+						->setCreditorSchemeIdentification($paymentInfo['scheme_identifier']);
+				}
+
+				if (is_object($paymentInfo) && isset($paymentInfo->transactions) ) {
+
+					$transactions = $paymentInfo->transactions;
+				}
+				elseif(is_object($paymentInfo) && $paymentInfo instanceof \SEPA\PaymentInfo) {
+
+					$transactions = $paymentInfo->getDirectDebitTransactionObjects();
+				}
+				else {
+
+					$transactions = $paymentInfo['transactions'];
+				}
+
+				//generate Direct Debit Transactions
+				$this->generateDirectDebitTransactions($transactions);
+
+				//add Message Payment Info
+				$this->messageObject->addMessagePaymentInfo($this->paymentInfoObject);
+
+			} catch(Exception $e) {
+
+				//Your log here
+//				$e->getMessage();
+
 			}
-			else {
-				$paymentInfo = $this->objectToArray($paymentInfo);
-				//set payment info
-				$this->paymentInfoObject = SEPAXmlGeneratorFactory::createXMLPaymentInfo()
-					->setPaymentInformationIdentification($paymentInfo['id'])
-					->setSequenceType($SequenceType)
-					->setCreditorAccountIBAN($paymentInfo['creditor_iban'])
-					->setCreditorAccountBIC($paymentInfo['creditor_bic'])
-					->setCreditorName($paymentInfo['creditor_name'])
-					->setCreditorSchemeIdentification($paymentInfo['scheme_identifier']);
-			}
-
-			if (is_object($paymentInfo) && isset($paymentInfo->transactions) ) {
-
-				$transactions = $paymentInfo->transactions;
-			}
-			elseif(is_object($paymentInfo) && $paymentInfo instanceof \SEPA\PaymentInfo) {
-
-				$transactions = $paymentInfo->getDirectDebitTransactionObjects();
-			}
-			else {
-
-				$transactions = $paymentInfo['transactions'];
-			}
-
-			//generate Direct Debit Transactions
-			$this->generateDirectDebitTransactions($transactions);
-
-			//add Message Payment Info
-			$this->messageObject->addMessagePaymentInfo($this->paymentInfoObject);
 		}
-
 	}
 
 	/**
@@ -363,28 +381,35 @@ class SEPAXmlFile {
 	public function generateDirectDebitTransactions($transactions) {
 		foreach ($transactions as $transaction) {
 
-			//add Payment Info transactions
-			if ($transaction instanceof \SEPA\DirectDebitTransaction) {
+			try {
 
-				$this->paymentInfoObject->addDirectDebitTransaction($transaction);
-			}
-			else {
+				//add Payment Info transactions
+				if ($transaction instanceof \SEPA\DirectDebitTransaction) {
 
-				$transaction = $this->objectToArray($transaction);
+					$this->paymentInfoObject->addDirectDebitTransaction($transaction);
+				}
+				else {
 
-				$this->paymentInfoObject->addDirectDebitTransaction(
-					SEPAXmlGeneratorFactory::createXMLDirectDebitTransaction()
-						->setInstructionIdentification($transaction['id'])
-						->setEndToEndIdentification($transaction['endId'])
-						->setInstructedAmount($transaction['amount'])
-						->setDebtorName($transaction['company_name'])
-						->setDebitIBAN($transaction['iban'])
-						->setDebitBIC($transaction['bic'])
-						->setMandateIdentification($transaction['umr'])
-						->setDateOfSignature($transaction['mandate_sign_date'])
-						//->setCurrency('EUR')
-						->setDirectDebitInvoice($transaction['invoice'])
-				);
+					$transaction = $this->objectToArray($transaction);
+
+					$this->paymentInfoObject->addDirectDebitTransaction(
+						SEPAXmlGeneratorFactory::createXMLDirectDebitTransaction()
+							->setInstructionIdentification($transaction['id'])
+							->setEndToEndIdentification($transaction['endId'])
+							->setInstructedAmount($transaction['amount'])
+							->setDebtorName($transaction['company_name'])
+							->setDebitIBAN($transaction['iban'])
+							->setDebitBIC($transaction['bic'])
+							->setMandateIdentification($transaction['umr'])
+							->setDateOfSignature($transaction['mandate_sign_date'])
+							//->setCurrency('EUR')
+							->setDirectDebitInvoice($transaction['invoice'])
+					);
+				}
+			} catch(Exception $e) {
+
+				//Your logs here
+				//$e->getMessage();
 			}
 		}
 	}
@@ -394,7 +419,7 @@ class SEPAXmlFile {
 	 * @param $object
 	 * @return array
 	 */
-	public function objectToArray($object) {
+	private function objectToArray($object) {
 		if ( is_object($object) ) {
 			$resultArray = array();
 			foreach($object as $key => $value) {
