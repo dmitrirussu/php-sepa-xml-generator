@@ -55,7 +55,6 @@ $SEPAXml::$_MESSAGES = array(
 //Sepa Export Save and View
 //	$SEPAXml->export()->save()->view();
 
-
 //Seepa Export View and Save
 $SEPAXml->export()->view()->save();
 
@@ -64,3 +63,4 @@ $SEPAXml->export()->view()->save();
 
 //SEPA xml export convert to array
 //$SEPAXml->export()->convertToArray();
+
