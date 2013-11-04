@@ -73,8 +73,8 @@ Example of using.
             //Seepa Export View and Save
             	$SEPA->export()->view()->save();
 
-            // SEPA Xml export validation with ISO20022
-            //$SEPAXml->export()->validation();
+			// SEPA Xml export validation with ISO20022
+			//$SEPAXml->export()->validation('pain.008.001.02');
 
             //SEPA xml export convert to array
             //$SEPAXml->export()->convertToArray();

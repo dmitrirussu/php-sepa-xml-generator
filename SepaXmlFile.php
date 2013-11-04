@@ -16,13 +16,6 @@ class SEPAXmlFile {
 	private static $_ISO_PATH_RULES = '/ISO20022_RULES/';
 
 	/**
-	 *
-	 * ISO XSD File Name
-	 * @var
-	 */
-	private static $_ISO_XSD_FILENAME;
-
-	/**
 	 * XML Files Repository
 	 * @var string
 	 */
@@ -257,9 +250,7 @@ class SEPAXmlFile {
 		)
 	);
 
-	public function __construct($messageIdSXMLSchema = 'pain.008.001.02') {
-		self::$_ISO_XSD_FILENAME = $messageIdSXMLSchema;
-
+	public function __construct() {
 		$this->xmlGeneratorObject = SEPAXmlGeneratorFactory::createXmlGeneratorObject();
 	}
 
@@ -439,10 +430,10 @@ class SEPAXmlFile {
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function validation() {
+	public function validation($messageIdSXMLSchema = 'pain.008.001.02') {
 		$dom = new DOMDocument();
 		$xmlFile = realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME;
-		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . self::$_ISO_XSD_FILENAME . '.xsd';
+		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . $messageIdSXMLSchema . '.xsd';
 
 		if ( !file_exists($xmlFile) ) {
 

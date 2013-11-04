@@ -2,7 +2,7 @@
 require_once 'SepaXmlFile.php';
 require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
-$SEPAXml = new SEPAXmlFile('pain.008.001.02');
+$SEPAXml = new SEPAXmlFile();
 
 $SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
 $SEPAXml::$_FILE_NAME = 'sepa_test.xml';
@@ -60,7 +60,7 @@ $SEPAXml::$_MESSAGES = array(
 $SEPAXml->export()->view()->save();
 
 // SEPA Xml export validation with ISO20022
-//$SEPAXml->export()->validation();
+//$SEPAXml->export()->validation('pain.008.001.02');
 
 //SEPA xml export convert to array
 //$SEPAXml->export()->convertToArray();
