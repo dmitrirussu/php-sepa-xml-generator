@@ -20,6 +20,7 @@ $SEPAXml::$_MESSAGES = array(
 				'creditor_bic' => 'AABAFI42',
 				'creditor_name' => 'Amazing SRL',
 				'scheme_identifier' => 'FR07ZZZ519993',
+				'requested_collection_date' => '2013-08-06',
 				'transactions' => array(
 					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
 						->setInstructionIdentification(3)
