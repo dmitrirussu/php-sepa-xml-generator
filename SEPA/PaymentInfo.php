@@ -383,21 +383,27 @@ interface PaymentInfoInterface {
 		 * @param $directDebitTransactionObject DirectDebitTransaction
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
+			try {
+				if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
+					/** @var $existTransaction \SEPA\DirectDebitTransaction */
+					$existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
 
-			if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
-				/** @var $existTransaction \SEPA\DirectDebitTransaction */
-				$existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
+					$existTransaction->setInstructedAmount(
+						$existTransaction->getInstructedAmount() + $directDebitTransactionObject->getInstructedAmount());
 
-				$existTransaction->setInstructedAmount(
-					$existTransaction->getInstructedAmount() + $directDebitTransactionObject->getInstructedAmount());
+					$existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
 
-				$existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
+				}
+				else {
+
+					$this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
+				}
+			} catch(\Exception $e) {
+
+				$this->writeLog($e->getMessage());
 
 			}
-			else {
 
-				$this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
-			}
 			return $this;
 		}
 
@@ -531,7 +537,7 @@ interface PaymentInfoInterface {
 
 			if ( !empty($this->directDebitTransactionObjects) ) {
 
-				/**@var $transaction DirectDebitTransactions */
+				/**@var $transaction DirectDebitTransaction */
 				foreach ($this->directDebitTransactionObjects as $transaction) {
 
 					//check if is Valid Transaction
@@ -545,6 +551,8 @@ interface PaymentInfoInterface {
 						$this->setNumberOfTransactions(1);
 						$this->setCtrlSum($transaction->getInstructedAmount());
 					} else {
+						$this->writeLog(ERROR_MSG_INVALID_TRANSACTION . $transaction->getInstructionIdentification() );
+
 						//if a transaction is rejected, we need to update the number of valid transactions and the total amount
 						$this->errorTransactionsIds[] = $transaction->getInstructionIdentification();
 

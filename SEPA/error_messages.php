@@ -29,3 +29,5 @@ define('ERROR_MSG_DD_CHECK_BIC', 'SepaDirectDebitTransactions: Debitor\'s BIC is
 define('ERROR_MSG_DD_NAME', 'SepaDirectDebitTransactions: Debitor\'s Name has invalid characters. Customer transaction Id : ');
 define('ERROR_MSG_DD_IBAN', 'SepaDirectDebitTransactions: Debitor\'s IBAN is not valid. Customer transaction Id : ');
 define('ERROR_MSG_DD_INVOICE_NUMBER', 'SepaDirectDebitTransactions: Error raised while setting the Invoice Number <Ustrd>. Customer transaction Id : ');
+define('ERROR_MSG_INVALID_TRANSACTION', 'Invalid Transaction = ');
+define('ERROR_MSG_INVALID_PAYMENT_INFO', 'Invalid Payment Info ID = ');

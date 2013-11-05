@@ -1,12 +1,14 @@
 <?php
 
 require_once 'SEPA/Factory/XmlGeneratorFactory.php';
-
+/**
+ * SEPA Xml Generator Factory
+ */
 SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()->setMessageGroupHeader(
-			SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
-				->setMessageIdentification(1)
-				->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва '))
+		SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
+			->setMessageIdentification(1)
+			->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва'))
 		->addMessagePaymentInfo(
 			SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
 				->setPaymentInformationIdentification(6222)
@@ -52,5 +54,4 @@ SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 //						->setCurrency('EUR')
 						->setDirectDebitInvoice(122))
 		)
-
 )->view()->save(realpath(__DIR__) . '/xml_files/sepa_test.xml');

@@ -31,6 +31,21 @@ namespace SEPA;
 	 */
 	class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 
+		/**
+		 * Path Logs Directory
+		 * @var string
+		 */
+		public static $_PATH_LOGS_DIRECTORY = '/logs/';
+
+		/**
+		 * LOG File name
+		 * @var string
+		 */
+		public static $_LOG_FILENAME = 'sepa_logs.txt';
+
+		/**
+		 *
+		 */
 		const INITIAL_HEADLINE = '<?xml version="1.0" encoding="UTF-8"?>
 							<Document
 								xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02"
@@ -97,8 +112,22 @@ namespace SEPA;
 		private function generateMessages() {
 			/** @var $message Message */
 			foreach ($this->sepaMessageObjects as $message ) {
-				$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
+				try {
+
+					$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
+
+				} catch(\Exception $e) {
+
+					$this->writeLog($e->getMessage());
+
+				}
 			}
+		}
+
+		public function writeLog($message) {
+			$f = fopen(realpath(__DIR__) . static::$_PATH_LOGS_DIRECTORY . static::$_LOG_FILENAME, 'a');
+			fwrite($f, $message . PHP_EOL);
+			fclose($f);
 		}
 
 		/**

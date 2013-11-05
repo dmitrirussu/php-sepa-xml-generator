@@ -3,11 +3,11 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2013-11-05T05:08:28</CreDtTm>
+      <CreDtTm>2013-11-05T05:51:07</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
       <CtrlSum>301.50</CtrlSum>
       <InitgPty>
-        <Nm>Amazing SRL ???? yayvpavpva </Nm>
+        <Nm>Amazing SRL ???? yayvpavpva</Nm>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
@@ -23,7 +23,7 @@
         <LclInstrm>
           <Cd>CORE</Cd>
         </LclInstrm>
-        <SeqTp/>
+        <SeqTp>FRST</SeqTp>
       </PmtTpInf>
       <ReqdColltnDt>2013-08-06</ReqdColltnDt>
       <Cdtr>

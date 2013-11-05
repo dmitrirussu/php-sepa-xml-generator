@@ -56,10 +56,18 @@ interface MessageInterface {
 		 * @param GroupHeader $groupHeaderObject
 		 */
 		public function setMessageGroupHeader(GroupHeader $groupHeaderObject) {
-			if ( is_null($this->groupHeaderObjects) ) {
+			try {
 
-				$this->groupHeaderObjects = $groupHeaderObject;
+				if ( is_null($this->groupHeaderObjects) ) {
+
+					$this->groupHeaderObjects = $groupHeaderObject;
+				}
+
+			} catch(\Exception $e) {
+
+				$this->writeLog($e->getMessage());
 			}
+
 			return $this;
 		}
 
@@ -77,9 +85,17 @@ interface MessageInterface {
 		 * @throws \Exception
 		 */
 		public function addMessagePaymentInfo(PaymentInfo $paymentInfoObject) {
-		if ( !($paymentInfoObject instanceof PaymentInfo) ) {
 
-				throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
+			try {
+
+				if ( !($paymentInfoObject instanceof PaymentInfo) ) {
+
+					throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
+				}
+
+			} catch(\Exception $e) {
+
+				$this->writeLog($e->getMessage());
 			}
 
 			$paymentInfoObject->resetNumberOfTransactions();
@@ -107,14 +123,26 @@ interface MessageInterface {
 			 * @var $paymentInfo PaymentInfo
 			 */
 			foreach ($this->paymentInfoObjects as $paymentInfo) {
+				try {
+					if ( !$paymentInfo->checkIsValidPaymentInfo() ) {
 
-				$paymentInfo->resetControlSum();
-				$paymentInfo->resetNumberOfTransactions();
+						throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification());
 
-				$this->simpleXmlAppend($this->storeXmlPaymentsInfo, $paymentInfo->getSimpleXMLElementPaymentInfo());
+					}
+					$paymentInfo->resetControlSum();
+					$paymentInfo->resetNumberOfTransactions();
 
-				$this->getMessageGroupHeader()->setNumberOfTransactions($paymentInfo->getNumberOfTransactions());
-				$this->getMessageGroupHeader()->setControlSum($paymentInfo->getControlSum());
+					$this->simpleXmlAppend($this->storeXmlPaymentsInfo, $paymentInfo->getSimpleXMLElementPaymentInfo());
+
+					$this->getMessageGroupHeader()->setNumberOfTransactions($paymentInfo->getNumberOfTransactions());
+					$this->getMessageGroupHeader()->setControlSum($paymentInfo->getControlSum());
+
+				} catch(\Exception $e) {
+
+					$this->writeLog($e->getMessage());
+
+				}
+
 			}
 
 			$this->simpleXmlAppend($this->message, $this->getMessageGroupHeader()->getSimpleXmlGroupHeader());
