@@ -17,67 +17,67 @@ transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU memb
 Example of using.
 ====
 ```php
-        $SEPA = new SepaXmlFile();
+        $SEPAXml = new SEPAXmlFile();
 
-        $SEPA::$_XML_FILES_REPOSITORY = '/sepa/xml_files/';
-        $SEPA::$_FILE_NAME = 'sepa_test.xml';
+        $SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
+        $SEPAXml::$_FILE_NAME = 'sepa_test.xml';
 
         //Simple Example of Sepa Xml File Messages
-        $SEPA::$_MESSAGES = array(
-            array('message_id' => 123,
-                'group_header' => array(
-                    'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва '
-                ),
-                'payment_info' => array(
-                    'FRST' => array(
-                        'id' => 1,
-                        'creditor_iban' => 'MD24 AG00 0225 1000 1310 4168',
-                        'creditor_bic' => 'AABAFI42',
-                        'creditor_name' => 'Amazing SRL',
-                        'scheme_identifier' => 'FR07ZZZ519993',
-                        'transactions' => array(
-                            array(
-                                'id' => 1,
-                                'endId' => 2,
-                                'company_name' => 'Roy SRL',
-                                'amount' => 100.4,
-                                'umr' => 'SDD000000016PFX0713',
-                                'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-                                'bic' => 'AABAFI22',
-                                'mandate_sign_date' => '2013-08-03',
-                                'invoice' => 122
-                            ),
-                           SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
-						->setInstructionIdentification(3)
-						->setEndToEndIdentification(39)
-						->setInstructedAmount(100.5)
-						->setDebtorName('Roy SRL')
-						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-						->setDebitBIC('AABAFI22')
-						->setMandateIdentification('SDD000000016PFX0713')
-						->setDateOfSignature('2013-08-03')
-						//->setCurrency('EUR')
-						->setDirectDebitInvoice(122)
-                        )
-                    ))));
+        $SEPAXml::$_MESSAGES = array(
+        	array('message_id' => 1,
+        		'group_header' => array(
+        			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва '
+        		),
+        		'payment_info' => array(
+        			'FRST' => array(
+        				'id' => 6222,
+        				'creditor_iban' => 'MD24 AG00 0225 1000 1310 4168',
+        				'creditor_bic' => 'AABAFI42',
+        				'creditor_name' => 'Amazing SRL',
+        				'scheme_identifier' => 'FR07ZZZ519993',
+        				'transactions' => array(
+        					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
+        						->setInstructionIdentification(3)
+        						->setEndToEndIdentification(39)
+        						->setInstructedAmount(100.5)
+        						->setDebtorName('Roy SRL')
+        						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
+        						->setDebitBIC('AABAFI22')
+        						->setMandateIdentification('SDD000000016PFX0713')
+        						->setDateOfSignature('2013-08-03')
+        						//->setCurrency('EUR')
+        						->setDirectDebitInvoice(122),
+        					array(
+        						'id' => 3,
+        						'endId' => 3,
+        						'company_name' => 'Toy SRL',
+        						'amount' => 10.4,
+        						'umr' => 'SDD000000016PFX0714',
+        						'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
+        						'bic' => 'AABAFI42',
+        						'mandate_sign_date' => '2013-08-03',
+        						'invoice' => 1223
+        					)
+        				)
+        			))));
 
-            //Sepa Export View
-            //	$SEPA->export()->view();
+        //Sepa Export View
+        //	$SEPAXml->export()->view();
 
-            //Sepa Export Save
-            //	$SEPA->export()->save();
+        //Sepa Export Save
+        //	$SEPAXml->export()->save();
 
-            //Sepa Export Save and View
-            //	$SEPA->export()->save()->view();
+        //Sepa Export Save and View
+        //	$SEPAXml->export()->save()->view();
 
-            //Seepa Export View and Save
-            	$SEPA->export()->view()->save();
+        //Seepa Export View and Save
+        $SEPAXml->export()->view()->save();
 
-			// SEPA Xml export validation with ISO20022
-			//$SEPAXml->export()->validation('pain.008.001.02');
+        // SEPA Xml export validation with ISO20022
+        //$SEPAXml->export()->validation('pain.008.001.02');
 
-            //SEPA xml export convert to array
-            //$SEPAXml->export()->convertToArray();
+        //SEPA xml export convert to array
+        //$SEPAXml->export()->convertToArray();
 ```
 XML File Result
 ===
