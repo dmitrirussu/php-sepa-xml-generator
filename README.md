@@ -1,7 +1,8 @@
-PHP SEPA XML Generator v.0.5
+PHP SEPA XML Generator v.0.6
 ====
 
-In this new release was added two new methods SEPA Xml schema Validation and XML convertion to Array
+In this new release was added an other advanced example how you can use a Factory to generate SEPA xml file.
+I recommend for using Factory because is very optimised version, we do xml file in moment when you do parsing of your DB record
 
 Guide ISO20022 SDD  V1_0 20122009
 
