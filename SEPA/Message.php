@@ -85,6 +85,7 @@ interface MessageInterface {
 			$paymentInfoObject->resetNumberOfTransactions();
 			$paymentInfoObject->resetControlSum();
 			$this->paymentInfoObjects[$paymentInfoObject->getSequenceType()] = $paymentInfoObject;
+			return $this;
 		}
 
 		/**

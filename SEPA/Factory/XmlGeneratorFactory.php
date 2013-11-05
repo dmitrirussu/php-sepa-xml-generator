@@ -31,6 +31,11 @@ class XmlGeneratorFactory {
 		return new \SEPA\XMLGenerator();
 	}
 
+	/**
+	 * Create Xml Message
+	 * @param SEPA\GroupHeader $setGroupHeader
+	 * @return SEPA\Message
+	 */
 	public static function createXMLMessage(\SEPA\GroupHeader $setGroupHeader = null) {
 		$message = new \SEPA\Message();
 

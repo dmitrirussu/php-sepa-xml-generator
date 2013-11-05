@@ -58,6 +58,7 @@ namespace SEPA;
 		public function addXmlMessage(Message $messageObject) {
 
 			$this->sepaMessageObjects[] = $messageObject;
+			return $this;
 		}
 
 		/**

@@ -218,11 +218,12 @@ interface PaymentInfoInterface {
 		 */
 		public function getRequestedCollectionDate() {
 			
-			if ( empty($this->requestedCollectionDate) || is_null($this->requestedCollectionDate) ) {
+			if ( empty($this->requestedCollectionDate) ) {
 
 				$dateTime = new \DateTime();
 				$this->requestedCollectionDate = $dateTime->format('Y-m-d');
 			}
+
 			return $this->requestedCollectionDate;
 		}
 
@@ -397,6 +398,7 @@ interface PaymentInfoInterface {
 
 				$this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
 			}
+			return $this;
 		}
 
 		/**

@@ -276,7 +276,7 @@ class SEPAXmlFile {
 			try {
 
 				/** @var $message \SEPA\Message */
-				if ( is_object($message) && $message instanceof \SEPA\GroupHeader ) {
+				if ( is_object($message) && $message instanceof \SEPA\Message ) {
 
 					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
 						$message->getMessageGroupHeader()
