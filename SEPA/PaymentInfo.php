@@ -204,13 +204,26 @@ interface PaymentInfoInterface {
 			return $this->sequenceType;
 		}
 
+
+		/**
+		 * @param $ReqdColltnDt
+		 */
+		public function setRequestedCollectionDate($ReqdColltnDt) {
+			$this->requestedCollectionDate = $ReqdColltnDt;
+			return $this;
+		}
+
 		/**
 		 * Date and time at which the creditor requests that the amount of money is to be collected from the debtor.
 		 */
 		public function getRequestedCollectionDate() {
-			$requestedCollectionDate = new \DateTime();
+			
+			if ( empty($this->requestedCollectionDate) || is_null($this->requestedCollectionDate) ) {
 
-			return $this->requestedCollectionDate = $requestedCollectionDate->format('Y-m-d');
+				$dateTime = new \DateTime();
+				$this->requestedCollectionDate = $dateTime->format('Y-m-d');
+			}
+			return $this->requestedCollectionDate;
 		}
 
 		/**

@@ -90,6 +90,7 @@ class SEPAXmlFile {
 					'creditor_bic' => 'AABAFI42',
 					'creditor_name' => 'Amazing SRL',
 					'scheme_identifier' => 'FR07ZZZ519993',
+					'requested_collection_date' => '2013-08-06',
 					'transactions' => array(
 						array(
 							'id' => 4,
@@ -343,7 +344,8 @@ class SEPAXmlFile {
 						->setCreditorAccountIBAN($paymentInfo['creditor_iban'])
 						->setCreditorAccountBIC($paymentInfo['creditor_bic'])
 						->setCreditorName($paymentInfo['creditor_name'])
-						->setCreditorSchemeIdentification($paymentInfo['scheme_identifier']);
+						->setCreditorSchemeIdentification($paymentInfo['scheme_identifier'])
+						->setRequestedCollectionDate($paymentInfo['requested_collection_date']);
 				}
 
 				if (is_object($paymentInfo) && isset($paymentInfo->transactions) ) {
