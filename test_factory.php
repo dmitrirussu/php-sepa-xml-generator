@@ -1,15 +1,16 @@
 <?php
+
 require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
 SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
-	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
-		->setMessageGroupHeader(
+	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()->setMessageGroupHeader(
 			SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
 				->setMessageIdentification(1)
 				->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва '))
 		->addMessagePaymentInfo(
 			SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
 				->setPaymentInformationIdentification(6222)
+				->setSequenceType('FRST')
 				->setCreditorAccountIBAN('MD24 AG00 0225 1000 1310 4168')
 				->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
 				->setCreditorSchemeIdentification('FR07ZZZ519993')

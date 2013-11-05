@@ -93,6 +93,7 @@ An other way to generate XML (Recommended - it is more optimized)
         		->addMessagePaymentInfo(
         			SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
         				->setPaymentInformationIdentification(6222)
+        				->setSequenceType('FRST')
         				->setCreditorAccountIBAN('MD24 AG00 0225 1000 1310 4168')
         				->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
         				->setCreditorSchemeIdentification('FR07ZZZ519993')
