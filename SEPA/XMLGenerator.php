@@ -21,7 +21,8 @@ namespace SEPA;
 		public function __construct();
 		public function addXmlMessage( Message $message );
 		public function getGeneratedXml();
-		public function saveXML( $fileName );
+		public function save( $fileName );
+		public function view();
 		public function __destruct();
 	}
 	/**
@@ -66,7 +67,7 @@ namespace SEPA;
 		 * @param null $fileName
 		 * @return bool|mixed
 		 */
-		public function saveXML($fileName = null) {
+		public function save($fileName = null) {
 			//save to file
 			if ( $fileName ) {
 
@@ -87,7 +88,7 @@ namespace SEPA;
 				return ($dom->save($fileName) ? true : false);
 			}
 
-			return $this->xml->asXML();
+			return $this;
 		}
 
 		/**
@@ -110,6 +111,12 @@ namespace SEPA;
 				return $this->xml->asXML();
 			}
 			return $this->xml->asXML();
+		}
+
+		public function view() {
+			header ("Content-Type:text/xml");
+			echo $this->getGeneratedXml();
+			return $this;
 		}
 
 		/**

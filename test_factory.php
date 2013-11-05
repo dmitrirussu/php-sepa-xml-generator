@@ -1,8 +1,7 @@
 <?php
 require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
-header ("Content-Type:text/xml");
-echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
+SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
 		->setMessageGroupHeader(
 			SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
@@ -53,4 +52,4 @@ echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage
 						->setDirectDebitInvoice(122))
 		)
 
-)->getGeneratedXml();//->saveXML(realpath(__DIR__) . '/xml_files/sepa_test.xml');
+)->view()->save(realpath(__DIR__) . '/xml_files/sepa_test.xml');
