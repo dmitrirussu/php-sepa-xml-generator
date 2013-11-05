@@ -80,9 +80,10 @@ Example of using.
         //SEPA xml export convert to array
         //$SEPAXml->export()->convertToArray();
 ```
+===
 An other way to generate XML (Recommended - it is more optimized)
-```
-
+===
+```php
 		header ("Content-Type:text/xml");
 		echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 			SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
