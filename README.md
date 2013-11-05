@@ -84,8 +84,8 @@ Example of using.
 An other way to generate XML (Recommended - it is more optimized)
 ===
 ```php
-		header ("Content-Type:text/xml");
-		echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
+		/* header ("Content-Type:text/xml");
+		 echo */ SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 			SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
 				->setMessageGroupHeader(
 					SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
