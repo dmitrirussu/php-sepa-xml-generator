@@ -135,7 +135,7 @@ An other way to generate XML (Recommended - it is more optimized)
 								->setDirectDebitInvoice(122))
 				)
 
-		)->getGeneratedXml();//->saveXML(realpath(__DIR__) . '/xml_files/sepa_test.xml');
+		)->saveXML(realpath(__DIR__) . '/xml_files/sepa_test.xml'); //OR ->getGeneratedXml();
 
 ```
 XML File Result
