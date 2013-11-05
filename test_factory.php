@@ -18,7 +18,7 @@ echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage
 				->addDirectDebitTransaction( //First transaction
 					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
 						->setInstructionIdentification(3)
-						->setEndToEndIdentification(39)
+						->setEndToEndIdentification(3)
 						->setInstructedAmount(100.5)
 						->setDebtorName('Roy SRL')
 						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
@@ -29,8 +29,8 @@ echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage
 						->setDirectDebitInvoice(122)
 				)->addDirectDebitTransaction( //Second transaction are the same client transaction
 					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
-						->setInstructionIdentification(5)
-						->setEndToEndIdentification(10)
+						->setInstructionIdentification(4)
+						->setEndToEndIdentification(4)
 						->setInstructedAmount(100.5)
 						->setDebtorName('Roy SRL')
 						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
@@ -41,8 +41,8 @@ echo SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage
 						->setDirectDebitInvoice(122))
 				->addDirectDebitTransaction( //An other client Transaction
 					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
-						->setInstructionIdentification(5)
-						->setEndToEndIdentification(10)
+						->setInstructionIdentification(6)
+						->setEndToEndIdentification(6)
 						->setInstructedAmount(100.5)
 						->setDebtorName('ND SRL')
 						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
