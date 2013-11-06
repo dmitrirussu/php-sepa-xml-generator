@@ -439,9 +439,19 @@ class SEPAXmlFile {
 	 */
 	public function save($filePath = null) {
 
-		$fileName = (is_null($filePath) ? realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME : $filePath);
+		$fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
+
+		if ( $filePath && !is_dir($filePath) ) {
+
+			$fileName = $filePath;
+		}
+		elseif ( is_dir(static::$_XML_FILES_REPOSITORY) ) {
+
+			$fileName = static::$_XML_FILES_REPOSITORY . static::$_FILE_NAME;
+		}
 
 		$this->xmlGeneratorObject->save( $fileName );
+
 		return $this;
 	}
 
@@ -462,7 +472,11 @@ class SEPAXmlFile {
 	 */
 	public function validation($messageIdSXMLSchema = 'pain.008.001.02') {
 		$dom = new DOMDocument();
-		$xmlFile = realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME;
+
+		$xmlFile = (file_exists(self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME)
+			? self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME
+			: realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME);
+
 		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . $messageIdSXMLSchema . '.xsd';
 
 		if ( !file_exists($xmlFile) ) {
