@@ -3,9 +3,9 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2013-11-05T05:51:07</CreDtTm>
-      <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>301.50</CtrlSum>
+      <CreDtTm>2013-11-05T05:55:11</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>100.50</CtrlSum>
       <InitgPty>
         <Nm>Amazing SRL ???? yayvpavpva</Nm>
       </InitgPty>
@@ -14,8 +14,8 @@
       <PmtInfId>6222</PmtInfId>
       <PmtMtd>DD</PmtMtd>
       <BtchBookg>false</BtchBookg>
-      <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>301.50</CtrlSum>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>100.50</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -55,9 +55,9 @@
       <DrctDbtTxInf>
         <PmtId>
           <InstrId>3</InstrId>
-          <EndToEndId>4</EndToEndId>
+          <EndToEndId>3</EndToEndId>
         </PmtId>
-        <InstdAmt Ccy="EUR">201.00</InstdAmt>
+        <InstdAmt Ccy="EUR">100.50</InstdAmt>
         <DrctDbtTx>
           <MndtRltdInf>
             <MndtId>SDD000000016PFX0713</MndtId>
@@ -71,35 +71,6 @@
         </DbtrAgt>
         <Dbtr>
           <Nm>Roy SRL</Nm>
-        </Dbtr>
-        <DbtrAcct>
-          <Id>
-            <IBAN>FR1420041010050500013M02606</IBAN>
-          </Id>
-        </DbtrAcct>
-        <RmtInf>
-          <Ustrd>122</Ustrd>
-        </RmtInf>
-      </DrctDbtTxInf>
-      <DrctDbtTxInf>
-        <PmtId>
-          <InstrId>6</InstrId>
-          <EndToEndId>6</EndToEndId>
-        </PmtId>
-        <InstdAmt Ccy="EUR">100.50</InstdAmt>
-        <DrctDbtTx>
-          <MndtRltdInf>
-            <MndtId>SDD000000016PFX0714</MndtId>
-            <DtOfSgntr>2013-08-03</DtOfSgntr>
-          </MndtRltdInf>
-        </DrctDbtTx>
-        <DbtrAgt>
-          <FinInstnId>
-            <BIC>AABAFI22</BIC>
-          </FinInstnId>
-        </DbtrAgt>
-        <Dbtr>
-          <Nm>ND SRL</Nm>
         </Dbtr>
         <DbtrAcct>
           <Id>
