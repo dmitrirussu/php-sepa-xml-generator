@@ -469,7 +469,7 @@ class SEPAXmlFile {
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function validation($messageIdSXMLSchema = 'pain.008.001.02', $xmlFile=null) {
+	public function validation($messageIdSXMLSchema = 'pain.008.001.02', $xmlFile = null) {
 		$dom = new DOMDocument();
 
 		if ( !is_null($xmlFile) ) {
@@ -477,6 +477,7 @@ class SEPAXmlFile {
 				? self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME
 				: realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME);
 		}
+
 		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . $messageIdSXMLSchema . '.xsd';
 
 		if ( !file_exists($xmlFile) ) {
