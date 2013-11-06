@@ -438,7 +438,6 @@ class SEPAXmlFile {
 	 * @return $this
 	 */
 	public function save($filePath = null) {
-
 		$fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
 
 		if ( $filePath && !is_dir($filePath) ) {

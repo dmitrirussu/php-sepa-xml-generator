@@ -4,7 +4,7 @@ require_once 'SEPA/Factory/XmlGeneratorFactory.php';
 
 $SEPAXml = new SEPAXmlFile();
 
-$SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
+$SEPAXml::$_XML_FILES_REPOSITORY = realpath(__DIR__) . '/xml_files/';
 $SEPAXml::$_FILE_NAME = 'sepa_test.xml';
 
 //Simple Example of Sepa Xml File Messages

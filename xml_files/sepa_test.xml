@@ -3,19 +3,19 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2013-11-05T05:55:11</CreDtTm>
-      <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>100.50</CtrlSum>
+      <CreDtTm>2013-11-06T12:21:49</CreDtTm>
+      <NbOfTxs>2</NbOfTxs>
+      <CtrlSum>110.90</CtrlSum>
       <InitgPty>
-        <Nm>Amazing SRL ???? yayvpavpva</Nm>
+        <Nm>Amazing SRL STts yayvpavpva </Nm>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
       <PmtInfId>6222</PmtInfId>
       <PmtMtd>DD</PmtMtd>
       <BtchBookg>false</BtchBookg>
-      <NbOfTxs>1</NbOfTxs>
-      <CtrlSum>100.50</CtrlSum>
+      <NbOfTxs>2</NbOfTxs>
+      <CtrlSum>110.90</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -55,7 +55,7 @@
       <DrctDbtTxInf>
         <PmtId>
           <InstrId>3</InstrId>
-          <EndToEndId>3</EndToEndId>
+          <EndToEndId>39</EndToEndId>
         </PmtId>
         <InstdAmt Ccy="EUR">100.50</InstdAmt>
         <DrctDbtTx>
@@ -79,6 +79,35 @@
         </DbtrAcct>
         <RmtInf>
           <Ustrd>122</Ustrd>
+        </RmtInf>
+      </DrctDbtTxInf>
+      <DrctDbtTxInf>
+        <PmtId>
+          <InstrId>3</InstrId>
+          <EndToEndId>3</EndToEndId>
+        </PmtId>
+        <InstdAmt Ccy="EUR">10.40</InstdAmt>
+        <DrctDbtTx>
+          <MndtRltdInf>
+            <MndtId>SDD000000016PFX0714</MndtId>
+            <DtOfSgntr>2013-08-03</DtOfSgntr>
+          </MndtRltdInf>
+        </DrctDbtTx>
+        <DbtrAgt>
+          <FinInstnId>
+            <BIC>AABAFI42</BIC>
+          </FinInstnId>
+        </DbtrAgt>
+        <Dbtr>
+          <Nm>Toy SRL</Nm>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <IBAN>FR1420041010050500013M02606</IBAN>
+          </Id>
+        </DbtrAcct>
+        <RmtInf>
+          <Ustrd>1223</Ustrd>
         </RmtInf>
       </DrctDbtTxInf>
     </PmtInf>
