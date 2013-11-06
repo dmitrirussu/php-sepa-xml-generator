@@ -436,8 +436,8 @@ class SEPAXmlFile {
 	 * Save Xml file
 	 * @return $this
 	 */
-	public function save() {
-		$fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
+	public function save($filepath=null) {
+		if ( is_null($filepath )) $fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
 		$this->xmlGeneratorObject->saveXML( $fileName );
 		return $this;
 	}
