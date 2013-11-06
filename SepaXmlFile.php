@@ -1,5 +1,5 @@
 <?php
-require_once 'SEPA/Factory/XmlGeneratorFactory.php';
+require_once dirname(__FILE__) . '/SEPA/Factory/XmlGeneratorFactory.php';
 
 use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
 
@@ -441,7 +441,7 @@ class SEPAXmlFile {
 
 		$fileName = realpath(__DIR__) . static::$_XML_FILES_REPOSITORY. static::$_FILE_NAME;
 
-		if ( $filePath && !is_dir($filePath) ) {
+		if ( $filePath && is_dir(dirname($filePath)) ) {
 
 			$fileName = $filePath;
 		}
@@ -470,13 +470,14 @@ class SEPAXmlFile {
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function validation($messageIdSXMLSchema = 'pain.008.001.02') {
+	public function validation($messageIdSXMLSchema = 'pain.008.001.02', $xmlFile=null) {
 		$dom = new DOMDocument();
 
-		$xmlFile = (file_exists(self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME)
-			? self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME
-			: realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME);
-
+		if ( !is_null($xmlFile) ) {
+			$xmlFile = (file_exists(self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME)
+				? self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME
+				: realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME);
+		}
 		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . $messageIdSXMLSchema . '.xsd';
 
 		if ( !file_exists($xmlFile) ) {

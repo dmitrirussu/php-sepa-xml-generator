@@ -9,8 +9,8 @@
 namespace SEPA;
 
 	require_once 'error_messages.php';
-	require_once './unicode_decode/code/Unidecode.php';
-	require_once './iban/iban_validation.func.php';
+	require_once dirname(__FILE__) . '/../unicode_decode/code/Unidecode.php';
+	require_once dirname(__FILE__) . '/../iban/iban_validation.func.php';
 
 	/**
 	 * Interface XML Generator

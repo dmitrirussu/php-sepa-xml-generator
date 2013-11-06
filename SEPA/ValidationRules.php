@@ -33,7 +33,7 @@ namespace SEPA;
 		 * @return mixed
 		 */
 		public function unicodeDecode($string) {
-			\Unidecode::$containing_dir = 'unicode_decode';
+			\Unidecode::$containing_dir = dirname(__FILE__) . '/../unicode_decode';
 			return \Unidecode::decode($string);
 		}
 
