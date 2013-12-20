@@ -212,13 +212,16 @@ interface GroupHeaderInterface {
 
 			if ( !empty($this->OrganisationIdentification) ) {
 
-				$id->addChild('OrgId', $this->OrganisationIdentification);
-
+				$concrete_id = $id->addChild('OrgId');
+		        $other = $concrete_id->addChild('Othr');
+		        $other->addChild('Id', $this->OrganisationIdentification);
 			}
 
 			if ( !empty($this->PrivateIdentification) ) {
 
-				$id->addChild('PrvtId', $this->PrivateIdentification);
+				$concrete_id = $id->addChild('PrvtId');
+				$other = $concrete_id->addChild('Othr');
+				$other->addChild('Id', $this->PrivateIdentification);
 			}
 
 			return $groupHeader;
