@@ -74,6 +74,7 @@ interface GroupHeaderInterface {
 		 * Group header Mesage Id setter
 		 * var length max 35;
 		 * @param $msgId
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setMessageIdentification($msgId) {
@@ -95,6 +96,7 @@ interface GroupHeaderInterface {
 		/**
 		 * Setter for the time of creation of the group header (hence of the sepa message)
 		 * @param $CreDtTm
+		 * @return $this
 		 */
 		public function setCreationDateTime($CreDtTm) {
 
@@ -114,6 +116,7 @@ interface GroupHeaderInterface {
 		/**
 		 * Unique and unambiguous way of identifying an organisation
 		 * @param $organisationId
+		 * @return $this
 		 */
 		public function setOrganisationIdentification($organisationId) {
 			$this->OrganisationIdentification = $organisationId;
@@ -123,6 +126,7 @@ interface GroupHeaderInterface {
 		/**
 		 * Setter for the sepa creditor identifier
 		 * @param $PrvtId
+		 * @return $this
 		 */
 		public function setPrivateIdentification($PrvtId) {
 			$this->PrivateIdentification = $PrvtId;
