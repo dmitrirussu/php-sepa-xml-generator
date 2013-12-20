@@ -133,6 +133,7 @@ interface GroupHeaderInterface {
 		 * Party that initiates the payment. This can either be the creditor or a party that initiates the
 		 * direct debit on behalf of the creditor.
 		 * @param $name
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setInitiatingPartyName($name) {
