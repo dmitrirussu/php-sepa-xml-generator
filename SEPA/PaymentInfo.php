@@ -188,6 +188,7 @@ interface PaymentInfoInterface {
 		/**
 		 * Identifies the direct debit sequence, such as first, recurrent, final or one-off.
 		 * @param $SeqTp
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setSequenceType($SeqTp) {
@@ -207,6 +208,7 @@ interface PaymentInfoInterface {
 
 		/**
 		 * @param $ReqdColltnDt
+		 * @return $this
 		 */
 		public function setRequestedCollectionDate($ReqdColltnDt) {
 			$this->requestedCollectionDate = $ReqdColltnDt;
@@ -230,6 +232,7 @@ interface PaymentInfoInterface {
 		/**
 		 * For example PopFax
 		 * @param $creditorName
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setCreditorName($creditorName) {
@@ -249,6 +252,7 @@ interface PaymentInfoInterface {
 		 * uniquely identify the account of a customer.
 		 * max 34 length
 		 * @param $creditorAccountIBAN
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setCreditorAccountIBAN($creditorAccountIBAN) {
@@ -275,6 +279,7 @@ interface PaymentInfoInterface {
 		/**
 		 * Bank Identifier Code.
 		 * @param $creditorBIC
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setCreditorAccountBIC($creditorBIC) {
@@ -298,6 +303,7 @@ interface PaymentInfoInterface {
 		/**
 		 * Creditor Schema Id
 		 * @param $creditorSchemaId
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setCreditorSchemeIdentification($creditorSchemaId) {
@@ -320,6 +326,7 @@ interface PaymentInfoInterface {
 		/**
 		 * This property is optional
 		 * @param $UltimateCreditor
+		 * @return $this
 		 */
 		public function setUltimateCreditor($UltimateCreditor) {
 
@@ -339,6 +346,7 @@ interface PaymentInfoInterface {
 		 * Identifies whether a single entry per individual transaction or a batch entry for the sum of the amounts of
 		 * all transactions within the group of a message is requested.
 		 * @param $value
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setBatchBooking($value) {
@@ -363,6 +371,7 @@ interface PaymentInfoInterface {
 		/**
 		 * This property is optional
 		 * @param $CategoryPurpose
+		 * @return $this
 		 */
 		public function setCategoryPurpose($CategoryPurpose) {
 
@@ -381,6 +390,7 @@ interface PaymentInfoInterface {
 		/**
 		 * Payment info Direct Debit Transactions Object
 		 * @param $directDebitTransactionObject DirectDebitTransaction
+		 * @return $this
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
 			try {

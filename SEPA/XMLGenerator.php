@@ -70,6 +70,7 @@ namespace SEPA;
 		/**
 		 * Add Xml Messages
 		 * @param Message $messageObject
+		 * @return $this
 		 */
 		public function addXmlMessage(Message $messageObject) {
 
