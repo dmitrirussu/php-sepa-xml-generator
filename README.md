@@ -27,7 +27,9 @@ Example of using.
         $SEPAXml::$_MESSAGES = array(
         	array('message_id' => 1,
         		'group_header' => array(
-        			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва '
+        			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва ',
+                    'organisation_id' => 'ZZ00001X11111112', //is an optional field
+                  //'private_id' => 'ZZ00001X11111112' //is an optional field
         		),
         		'payment_info' => array(
         			'FRST' => array(
