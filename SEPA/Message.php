@@ -54,6 +54,7 @@ interface MessageInterface {
 		/**
 		 * Add Group Header
 		 * @param GroupHeader $groupHeaderObject
+		 * @return $this
 		 */
 		public function setMessageGroupHeader(GroupHeader $groupHeaderObject) {
 			try {
@@ -82,6 +83,7 @@ interface MessageInterface {
 		/**
 		 * Add Message Payment Info
 		 * @param PaymentInfo $paymentInfoObject
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function addMessagePaymentInfo(PaymentInfo $paymentInfoObject) {
@@ -115,6 +117,7 @@ interface MessageInterface {
 
 		/**
 		 * Get Simple Xml Element Message
+		 * @throws \Exception
 		 * @return \SimpleXMLElement
 		 */
 		public function getSimpleXMLElementMessage() {

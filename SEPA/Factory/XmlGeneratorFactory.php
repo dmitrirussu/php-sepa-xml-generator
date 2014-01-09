@@ -27,6 +27,9 @@ class XmlGeneratorFactory {
 
 	}
 
+	/**
+	 * @return SEPA\XMLGenerator
+	 */
 	public static function createXmlGeneratorObject() {
 		return new \SEPA\XMLGenerator();
 	}
@@ -47,14 +50,23 @@ class XmlGeneratorFactory {
 		return $message;
 	}
 
+	/**
+	 * @return SEPA\GroupHeader
+	 */
 	public static function createXMLGroupHeader() {
 		return new \SEPA\GroupHeader();
 	}
 
+	/**
+	 * @return SEPA\PaymentInfo
+	 */
 	public static function createXMLPaymentInfo() {
 		return new \SEPA\PaymentInfo();
 	}
 
+	/**
+	 * @return SEPA\DirectDebitTransaction
+	 */
 	public static function createXMLDirectDebitTransaction() {
 		return new \SEPA\DirectDebitTransaction();
 	}

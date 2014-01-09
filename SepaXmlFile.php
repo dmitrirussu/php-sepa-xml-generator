@@ -286,11 +286,23 @@ class SEPAXmlFile {
 
 					$message = $this->objectToArray($message);
 
-					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
-						SEPAXmlGeneratorFactory::createXMLGroupHeader()
-							->setMessageIdentification($message['message_id'])
-							->setInitiatingPartyName($message['group_header']['company_name'])
-					);
+					/** @var $groupHeader \SEPA\GroupHeader */
+					$groupHeader = SEPAXmlGeneratorFactory::createXMLGroupHeader()
+						->setMessageIdentification($message['message_id'])
+						->setInitiatingPartyName($message['group_header']['company_name']);
+
+					//is an optional organisation id
+					if ( isset($message['group_header']['organisation_id']) ) {
+
+						$groupHeader->setOrganisationIdentification($message['group_header']['organisation_id']);
+					}
+					//is an option private id
+					if ( isset($message['group_header']['private_id']) ) {
+
+						$groupHeader->setPrivateIdentification($message['group_header']['private_id']);
+					}
+
+					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage($groupHeader);
 				}
 
 				if ( is_object($message) && isset($message->payment_info) ) {
