@@ -1,5 +1,6 @@
 {
 	"name": "dmitrirussu/php-sepa-xml-generator",
+	"dev": "Dmitri Russu",
 	"type": "library",
 	"description": "Creates an XML file for a Single Euro Payments Area (SEPA) Direct Debit Payment.",
 	"keywords": ["banking", "sepa", "xml"],
@@ -7,7 +8,7 @@
 	"authors": [
 		{
 			"name": "Dmitri Russu",
-			"email": "info@digitick.net"
+			"email": "dmitri.russu@gmail.com"
 		}
 	],
 	"autoload": {
