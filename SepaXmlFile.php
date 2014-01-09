@@ -286,10 +286,15 @@ class SEPAXmlFile {
 
 					$message = $this->objectToArray($message);
 
+                    if ( !isset($message['group_header']['organisation_id']) ) $message['group_header']['organisation_id'] = null;
+                    if ( !isset($message['group_header']['private_id']) ) $message['group_header']['private_id'] = null;	
+
 					$this->messageObject = SEPAXmlGeneratorFactory::createXMLMessage(
 						SEPAXmlGeneratorFactory::createXMLGroupHeader()
 							->setMessageIdentification($message['message_id'])
 							->setInitiatingPartyName($message['group_header']['company_name'])
+							->setOrganisationIdentification($message['group_header']['organisation_id'])
+							->setPrivateIdentification($message['group_header']['private_id'])
 					);
 				}
 

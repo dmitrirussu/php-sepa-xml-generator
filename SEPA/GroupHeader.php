@@ -25,6 +25,12 @@ interface GroupHeaderInterface {
 	class GroupHeader extends Message implements GroupHeaderInterface {
 
 		/**
+		 * Specifies code of the scheme name used.
+		 * @var string
+		 */
+		const SCHEME_NAME_CODE = 'CORE';
+
+		/**
 		 * Point to point reference assigned by the instructing party and sent to the next party in the chain
 		 * to unambiguously identify the message.
 		 * Max35Text
@@ -227,6 +233,11 @@ interface GroupHeaderInterface {
 				$concrete_id = $id->addChild('PrvtId');
 				$other = $concrete_id->addChild('Othr');
 				$other->addChild('Id', $this->PrivateIdentification);
+			}
+
+			if (!empty($this->OrganisationIdentification) || !empty($this->PrivateIdentification)) {
+				$schmeNm = $other->addChild('SchmeNm');
+				$schmeNm->addChild('Cd', self::SCHEME_NAME_CODE);
 			}
 
 			return $groupHeader;
