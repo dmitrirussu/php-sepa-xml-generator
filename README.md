@@ -77,7 +77,7 @@ Example of using.
         $SEPAXml->export()->view()->save();
 
         // SEPA Xml export validation with ISO20022
-        //$SEPAXml->export()->validation('pain.008.001.02');
+        //var_dump($SEPAXml->export()->validation('pain.008.001.02'));
 
         //SEPA xml export convert to array
         //$SEPAXml->export()->convertToArray();

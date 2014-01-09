@@ -13,7 +13,7 @@ $SEPAXml::$_MESSAGES = array(
 		'group_header' => array(
 			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва ',
 			'organisation_id' => 'ZZ00001X11111112', //is an optional field
-//			'private_id' => 'ZZ00001X11111112' //is an optional field
+			'private_id' => 'ZZ00001X11111112' //is an optional field
 		),
 		'payment_info' => array(
 			'FRST' => array(
@@ -56,13 +56,13 @@ $SEPAXml::$_MESSAGES = array(
 //	$SEPAXml->export()->save();
 
 //Sepa Export Save and View
-//	$SEPAXml->export()->save()->view();
+//	$SEPAXml->export()->save();
 
 //Seepa Export View and Save
 $SEPAXml->export()->view()->save();
 
 // SEPA Xml export validation with ISO20022
-//$SEPAXml->export()->validation('pain.008.001.02');
+//var_dump($SEPAXml->export()->validation('pain.008.001.02'));
 
 //SEPA xml export convert to array
 //$SEPAXml->export()->convertToArray();

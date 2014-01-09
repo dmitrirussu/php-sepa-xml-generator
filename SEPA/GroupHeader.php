@@ -221,8 +221,7 @@ interface GroupHeaderInterface {
 		        $other = $concrete_id->addChild('Othr');
 		        $other->addChild('Id', $this->OrganisationIdentification);
 			}
-
-			if ( !empty($this->PrivateIdentification) ) {
+			elseif ( !empty($this->PrivateIdentification) ) {
 
 				$concrete_id = $id->addChild('PrvtId');
 				$other = $concrete_id->addChild('Othr');

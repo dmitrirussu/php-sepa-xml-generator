@@ -478,13 +478,15 @@ class SEPAXmlFile {
 
 	/**
 	 * SEPA XML File Validation
+	 * @param string $messageIdSXMLSchema
+	 * @param bool $xmlFile
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function validation($messageIdSXMLSchema = 'pain.008.001.02', $xmlFile = null) {
+	public function validation($messageIdSXMLSchema = 'pain.008.001.02', $xmlFile = false) {
 		$dom = new DOMDocument();
 
-		if ( !is_null($xmlFile) ) {
+		if ( $xmlFile ) {
 			$xmlFile = (file_exists(self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME)
 				? self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME
 				: realpath(__DIR__) . self::$_XML_FILES_REPOSITORY . self::$_FILE_NAME);
@@ -492,7 +494,7 @@ class SEPAXmlFile {
 
 		$xsdFile = realpath(__DIR__) . self::$_ISO_PATH_RULES . $messageIdSXMLSchema . '.xsd';
 
-		if ( !file_exists($xmlFile) ) {
+		if ( file_exists($xmlFile) ) {
 
 			$dom->load($xmlFile,  LIBXML_NOBLANKS);
 
