@@ -38,6 +38,8 @@ Example of using.
         				'creditor_bic' => 'AABAFI42',
         				'creditor_name' => 'Amazing SRL',
         				'scheme_identifier' => 'FR07ZZZ519993',
+        //				'proprietary_name' => 'SEPA', //default value is = 'SEPA', You can SET only proprietary_name OR schema_name
+        //				'schema_name' => 'CORE', // default value is = 'CORE', You can SET only proprietary_name OR schema_name
         				'transactions' => array(
         					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
         						->setInstructionIdentification(3)

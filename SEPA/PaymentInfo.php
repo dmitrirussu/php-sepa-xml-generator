@@ -133,6 +133,16 @@ interface PaymentInfoInterface {
 		private $ultimateCreditor = '';
 
 		/**
+		 * @var bool
+		 */
+		private $useProprietary = true;
+
+		/**
+		 * @var bool
+		 */
+		private $useSchemaName;
+
+		/**
 		 * Direct Debit Transaction objects is a storage of Payment Info transactions for Direct Debit
 		 * @var array
 		 */
@@ -213,6 +223,34 @@ interface PaymentInfoInterface {
 		public function setRequestedCollectionDate($ReqdColltnDt) {
 			$this->requestedCollectionDate = $ReqdColltnDt;
 			return $this;
+		}
+
+		/**
+		 * @param bool $default
+		 */
+		public function setUseProprietaryName($default = true) {
+			$this->useProprietary = $default;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function getUseProprietaryName() {
+			return $this->useProprietary;
+		}
+
+		/**
+		 * @param bool $default
+		 */
+		public function setUseSchemaNameCore($default) {
+			$this->useSchemaName = $default;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function getUseSchemaNameCore() {
+			return $this->useSchemaName;
 		}
 
 		/**
@@ -539,11 +577,23 @@ interface PaymentInfoInterface {
 			$creditorSchemeIdentificationID = $creditorSchemeIdentification->addChild('Id');
 			$privateIdentification = $creditorSchemeIdentificationID->addChild('PrvtId');
 			$othr = $privateIdentification->addChild('Othr');
+
 			if ( !empty($this->CreditorSchemeIdentification) ) {
 				$othr->addChild('Id', $this->CreditorSchemeIdentification);
 			}
+
 			$schemeName = $othr->addChild('SchmeNm');
-			$schemeName->addChild('Prtry', self::PROPRIETARY_NAME);
+
+			if ( $this->getUseProprietaryName() && !is_string($this->getUseSchemaNameCore()) ) {
+
+				$schemeName->addChild('Prtry', (!is_bool($this->getUseProprietaryName()) ?
+															$this->getUseProprietaryName() : self::PROPRIETARY_NAME ));
+			}
+			elseif ( $this->getUseSchemaNameCore() ) {
+
+				$schemeName->addChild('Cd', (!is_bool($this->getUseSchemaNameCore()) ?
+														$this->getUseSchemaNameCore() : self::LOCAL_INSTRUMENT_CODE));
+			}
 
 			if ( !empty($this->directDebitTransactionObjects) ) {
 

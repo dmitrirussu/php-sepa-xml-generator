@@ -358,6 +358,16 @@ class SEPAXmlFile {
 						->setCreditorName($paymentInfo['creditor_name'])
 						->setCreditorSchemeIdentification($paymentInfo['scheme_identifier'])
 						->setRequestedCollectionDate($paymentInfo['requested_collection_date']);
+
+					if ( isset($paymentInfo['proprietary_name']) ) {
+
+						$this->paymentInfoObject->setUseProprietaryName($paymentInfo['proprietary_name']);
+					}
+					elseif( isset($paymentInfo['schema_name']) ) {
+						$this->paymentInfoObject->setUseSchemaNameCore($paymentInfo['schema_name']);
+					}
+
+
 				}
 
 				if (is_object($paymentInfo) && isset($paymentInfo->transactions) ) {

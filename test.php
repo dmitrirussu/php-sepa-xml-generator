@@ -23,6 +23,8 @@ $SEPAXml::$_MESSAGES = array(
 				'creditor_name' => 'Amazing SRL',
 				'scheme_identifier' => 'FR07ZZZ519993',
 				'requested_collection_date' => '2013-08-06',
+//				'proprietary_name' => 'SEPA', //default value is = 'SEPA', You can SET only proprietary_name OR schema_name
+//				'schema_name' => 'CORE', // default value is = 'CORE', You can SET only proprietary_name OR schema_name
 				'transactions' => array(
 					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
 						->setInstructionIdentification(3)
