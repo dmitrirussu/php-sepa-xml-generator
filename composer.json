@@ -13,10 +13,7 @@
 	],
 	"autoload": {
 		"psr-0": {
-			"iban": "lib/",
-			"ISO20022_RULES": "lib/",
-			"SEPA": "lib/",
-			"unicode_decode": "lib/"
+			"SEPA": "lib/"
 		}
 	},
 	"require": {
