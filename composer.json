@@ -3,7 +3,7 @@
 	"dev": "Dmitri Russu",
 	"type": "library",
 	"description": "Creates an XML file for a Single Euro Payments Area (SEPA) Direct Debit Payment.",
-	"keywords": ["banking", "sepa", "xml"],
+	"keywords": ["dirdebit","banking", "sepa", "xml"],
 	"license": "GNU Lesser General Public License v3.0",
 	"authors": [
 		{
@@ -21,5 +21,10 @@
 	},
 	"require": {
 		"php": ">=5.3.2"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "dmitrirussu/php-sepa-xml-generator"
+		}
 	}
 }
