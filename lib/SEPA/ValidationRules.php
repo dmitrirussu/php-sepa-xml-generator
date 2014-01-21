@@ -20,6 +20,7 @@ interface Validation {
 	public function checkStringLength($value);
 	public function boolToString($value);
 	public function amountToString($value);
+	public function sumOfTwoOperands($amountOne, $amountTwo);
 }
 
 /**
