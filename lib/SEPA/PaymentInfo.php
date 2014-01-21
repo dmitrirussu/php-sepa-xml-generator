@@ -182,6 +182,7 @@ interface PaymentInfoInterface {
 		 * the payment information group within the message.
 		 * Max length 35
 		 * @param $paymentInformationId
+		 * @return $this
 		 * @throws \Exception
 		 */
 		public function setPaymentInformationIdentification($paymentInformationId) {
@@ -436,11 +437,13 @@ interface PaymentInfoInterface {
 					/** @var $existTransaction \SEPA\DirectDebitTransaction */
 					$existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
 
+					//sum of Instructed Amount
 					$existTransaction->setInstructedAmount(
-						$existTransaction->getInstructedAmount() + $directDebitTransactionObject->getInstructedAmount());
+						$this->sumOfTwoOperands($existTransaction->getInstructedAmount(),
+							$directDebitTransactionObject->getInstructedAmount())
+					);
 
 					$existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
-
 				}
 				else {
 
