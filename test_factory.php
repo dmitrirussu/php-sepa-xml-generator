@@ -1,6 +1,6 @@
 <?php
 
-require_once 'SEPA/Factory/XmlGeneratorFactory.php';
+require_once 'lib/SEPA/Factory/XmlGeneratorFactory.php';
 /**
  * SEPA Xml Generator Factory
  */
