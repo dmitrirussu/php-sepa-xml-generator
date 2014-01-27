@@ -3,18 +3,11 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2014-01-27T04:33:44</CreDtTm>
+      <CreDtTm>2014-01-27T08:22:23</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>110.90</CtrlSum>
+      <CtrlSum>301.50</CtrlSum>
       <InitgPty>
-        <Nm>Amazing SRL STts yayvpavpva </Nm>
-        <Id>
-          <OrgId>
-            <Othr>
-              <Id>ZZ00001X11111112</Id>
-            </Othr>
-          </OrgId>
-        </Id>
+        <Nm>Amazing SRL ???? yayvpavpva</Nm>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
@@ -22,7 +15,7 @@
       <PmtMtd>DD</PmtMtd>
       <BtchBookg>false</BtchBookg>
       <NbOfTxs>2</NbOfTxs>
-      <CtrlSum>110.90</CtrlSum>
+      <CtrlSum>301.50</CtrlSum>
       <PmtTpInf>
         <SvcLvl>
           <Cd>SEPA</Cd>
@@ -62,9 +55,9 @@
       <DrctDbtTxInf>
         <PmtId>
           <InstrId>3</InstrId>
-          <EndToEndId>39</EndToEndId>
+          <EndToEndId>4</EndToEndId>
         </PmtId>
-        <InstdAmt Ccy="EUR">100.50</InstdAmt>
+        <InstdAmt Ccy="EUR">201.00</InstdAmt>
         <DrctDbtTx>
           <MndtRltdInf>
             <MndtId>SDD000000016PFX0713</MndtId>
@@ -90,10 +83,10 @@
       </DrctDbtTxInf>
       <DrctDbtTxInf>
         <PmtId>
-          <InstrId>3</InstrId>
-          <EndToEndId>3</EndToEndId>
+          <InstrId>6</InstrId>
+          <EndToEndId>6</EndToEndId>
         </PmtId>
-        <InstdAmt Ccy="EUR">10.40</InstdAmt>
+        <InstdAmt Ccy="EUR">100.50</InstdAmt>
         <DrctDbtTx>
           <MndtRltdInf>
             <MndtId>SDD000000016PFX0714</MndtId>
@@ -102,11 +95,11 @@
         </DrctDbtTx>
         <DbtrAgt>
           <FinInstnId>
-            <BIC>AABAFI42</BIC>
+            <BIC>AABAFI22</BIC>
           </FinInstnId>
         </DbtrAgt>
         <Dbtr>
-          <Nm>Toy SRL</Nm>
+          <Nm>ND SRL</Nm>
         </Dbtr>
         <DbtrAcct>
           <Id>
@@ -114,7 +107,7 @@
           </Id>
         </DbtrAcct>
         <RmtInf>
-          <Ustrd>1223</Ustrd>
+          <Ustrd>122</Ustrd>
         </RmtInf>
       </DrctDbtTxInf>
     </PmtInf>

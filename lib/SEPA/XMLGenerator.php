@@ -8,6 +8,7 @@
  */
 namespace SEPA;
 
+require_once 'ValidationRules.php';
 require_once 'error_messages.php';
 require_once dirname(__FILE__) . '/../unicode_decode/code/Unidecode.php';
 require_once dirname(__FILE__) . '/../iban/php-iban.php';
@@ -143,8 +144,12 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 		return $this->xml->asXML();
 	}
 
-	public function view() {
-		header ("Content-Type:text/xml");
+	public function view($withOutOfHeader = false) {
+
+		if ( !$withOutOfHeader ) {
+			header ("Content-Type:text/xml");
+		}
+
 		echo $this->getGeneratedXml();
 		return $this;
 	}
