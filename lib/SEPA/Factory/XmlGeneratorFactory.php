@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by Dumitru Russu.
+ * Created by Dumitru Russu. e-mail: dmitri.russu@gmail.com
  * Date: 06.10.2013
  * Time: 15:32
- * To change this template use File | Settings | File Templates.
+ * Xml Generator Factory
  */
 
 namespace SEPA\Factory;

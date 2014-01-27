@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Created by Dumitru Russu.
+ * Created by Dumitru Russu. e-mail: dmitri.russu@gmail.com
  * Date: 7/8/13
  * Time: 8:50 PM
  * Sepa Validation Rules

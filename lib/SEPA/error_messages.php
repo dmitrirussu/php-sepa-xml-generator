@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by Dumitru Russu.
+ * Created by Dumitru Russu. e-mail: dmitri.russu@gmail.com
  * Date: 6/24/13
  * Time: 10:59 AM
  * Here we keep the DEFINES CONSTANTS for SEPA error messages.
