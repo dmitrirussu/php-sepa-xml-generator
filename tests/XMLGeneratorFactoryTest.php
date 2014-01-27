@@ -11,7 +11,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 
 	public function testCreateXmlFile() {
 
-		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
+		$xmlFile = SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
 			SEPA\Factory\XMLGeneratorFactory::createXMLMessage()->setMessageGroupHeader(
 				SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
 					->setMessageIdentification(1)
@@ -61,10 +61,10 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 						->setDateOfSignature('2013-08-03')
 //						->setCurrency('EUR')
 						->setDirectDebitInvoice(122))
-				)
-		)->save($filePath = realpath(__DIR__) . './../xml_files/sepa_test.xml');
+			)
+		)->save()->getGeneratedXml();
 
-		$this->assertTrue(file_exists($filePath));
+		$this->assertNotEmpty($xmlFile);
 	}
 
 	public function testCreateTransaction() {
