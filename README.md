@@ -1,3 +1,6 @@
+<img title="Build Status Images" data-bindattr-18="18" src="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.png">
+
+
 PHP SEPA XML Generator v.0.6
 ====
 
