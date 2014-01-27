@@ -481,8 +481,12 @@ class SEPAXmlFile {
 	 * View Xml File
 	 * @return $this
 	 */
-	public function view() {
-		header ("Content-Type:text/xml");
+	public function view($withOutOfHeader = false) {
+
+		if ( !$withOutOfHeader ) {
+			header ("Content-Type:text/xml");
+		}
+
 		echo $this->xmlGeneratorObject->getGeneratedXml();
 		return $this;
 	}
