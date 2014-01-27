@@ -1,12 +1,11 @@
 <a data-ember-action="19" target="_blank" class="open-popup" name="status-images" id="status-image-popup" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator">
     <img title="Build Status Images" data-bindattr-20="20" src="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.png">
-  </a>
+</a>
 
-PHP SEPA XML Generator v.0.6
+PHP SEPA XML Generator v.0.7
 ====
 
-In this new release was added an other advanced example how you can use a Factory to generate SEPA xml file.
-I recommend for using Factory because is very optimised version, we do xml file in moment when you do parsing of your DB record
+In this new release was added PHP unit test which has, application building passing with success
 
 Guide ISO20022 SDD  V1_0 20122009
 
