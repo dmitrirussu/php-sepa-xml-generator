@@ -11,7 +11,7 @@ class SepaXmlFileTest extends PHPUnit_Framework_TestCase {
 	public function testSaveFile() {
 		$SEPAXml = new SEPAXmlFile();
 
-		$SEPAXml::$_XML_FILES_REPOSITORY = realpath(__DIR__) . '../xml_files/';
+		$SEPAXml::$_XML_FILES_REPOSITORY = realpath(__DIR__) . '/xml_files/';
 		$SEPAXml::$_FILE_NAME = 'sepa_test.xml';
 
 		//Simple Example of Sepa Xml File Messages
