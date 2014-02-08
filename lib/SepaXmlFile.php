@@ -5,6 +5,7 @@ use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
 
 /**
  * Created By Dumitru Russu, e-mail: dmitri.russu@gmail.com
+ *
  * Class SEPAXmlFile
  * @package SEPA
  */
