@@ -1,7 +1,7 @@
 <a data-ember-action="19" target="_blank" class="open-popup" name="status-images" id="status-image-popup" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator">
     <img title="Build Status Images" data-bindattr-20="20" src="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.png">
 </a>
-
+<a href="http://badge.fury.io/gh/dmitrirussu%2Fphp-sepa-xml-generator"><img src="https://badge.fury.io/gh/dmitrirussu%2Fphp-sepa-xml-generator.svg" alt="GitHub version" height="18"></a>
 PHP SEPA XML Generator v 1.0.7
 ====
 
