@@ -2,7 +2,7 @@
     <img title="Build Status Images" data-bindattr-20="20" src="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.png">
 </a>
 
-PHP SEPA XML Generator v.0.7
+PHP SEPA XML Generator v 1.0.7
 ====
 
 In this new release was added PHP unit test which has, application building passing with success
