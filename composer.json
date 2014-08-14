@@ -16,7 +16,6 @@
 			"SEPA": "lib/"
 		}
 	},
-
 	"require": {
 		"php": ">=5.3.2",
 		"dmitrirussu/php-sepa-xml-generator": "1.0.7"
