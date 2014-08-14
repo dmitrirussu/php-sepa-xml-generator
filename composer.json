@@ -1,6 +1,5 @@
 {
-	"packages": {
-		"1.0.16": {"name": "dmitrirussu/php-sepa-xml-generator",
+	"name": "dmitrirussu/php-sepa-xml-generator",
 	"version": "1.0.7",
 	"type": "library",
 	"description": "Creates an XML file for a Single Euro Payments Area (SEPA) Direct Debit Payment.",
@@ -21,5 +20,4 @@
 		"php": ">=5.3.2",
 		"dmitrirussu/php-sepa-xml-generator": "1.0.7"
 	}
-	}}
 }
