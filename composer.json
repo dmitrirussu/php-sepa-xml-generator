@@ -1,6 +1,6 @@
 {
 	"name": "dmitrirussu/php-sepa-xml-generator",
-	"version": "1.0.*",
+	"version": "1.0.7.*",
 	"type": "library",
 	"description": "Creates an XML file for a Single Euro Payments Area (SEPA) Direct Debit Payment.",
 	"keywords": ["dirdebit","banking", "sepa", "xml", "sepa-xml","sepa-dirdebit"],
