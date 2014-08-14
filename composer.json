@@ -15,6 +15,7 @@
 		"psr-0": {
 			"SEPA": "lib/"
 		}
+
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
