@@ -21,6 +21,17 @@ interface DirectDebitTransactionInterface {
  * @package SEPA
  */
 class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransactionInterface {
+
+	/**
+	 * BIC Code not provided
+	 */
+	const BIC_NOTPROVIDED = 'NOTPROVIDED';
+
+	/**
+	 * Direct Debit Currency
+	 */
+	const CURRENCY = 'EUR';
+
 	/**
 	 * Unique identification as assigned by an instructing party for an instructed party to unambiguously identify
 	 * the instruction.
@@ -34,13 +45,6 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 	 * @var string
 	 */
 	private $EndToEndIdentification = '';
-
-	/**
-	 * Direct Debit Currency
-	 *
-	 * @var string
-	 */
-	const CURRENCY = 'EUR';
 
 	private $currency = '';
 
@@ -320,6 +324,12 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 				->addChild('FinInstnId');
 			$debtorAgent->addChild('BIC', $this->getBIC());
 		}
+		else {
+			$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
+				->addChild('FinInstnId')->addChild('Othr');
+			$debtorAgent->addChild('Id', self::BIC_NOTPROVIDED);
+		}
+
 
 		$debtor = $directDebitTransactionInformation->addChild('Dbtr');
 		$debtor->addChild('Nm', $this->getDebtorName());
