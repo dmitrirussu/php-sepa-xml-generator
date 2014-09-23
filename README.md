@@ -50,7 +50,7 @@ Example of using.
         						->setInstructedAmount(100.5)
         						->setDebtorName('Roy SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0713')
         						->setDateOfSignature('2013-08-03')
         						//->setCurrency('EUR')
@@ -62,7 +62,7 @@ Example of using.
         						'amount' => 10.4,
         						'umr' => 'SDD000000016PFX0714',
         						'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-        						'bic' => 'AABAFI42',
+        						'bic' => 'AABAFI42', //Optional
         						'mandate_sign_date' => '2013-08-03',
         						'invoice' => 1223
         					)
@@ -112,7 +112,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('Roy SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0713') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
@@ -124,7 +124,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('Roy SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0713') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
@@ -136,7 +136,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('ND SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0714') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
