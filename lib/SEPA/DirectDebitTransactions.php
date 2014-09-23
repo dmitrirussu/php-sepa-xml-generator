@@ -289,7 +289,7 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 	 * @return bool
 	 */
 	public function checkIsValidTransaction() {
-		if ( !$this->getIBAN() || !$this->getBIC() || !$this->getDirectDebitInvoice() || !$this->getDebtorName()) {
+		if ( !$this->getIBAN() || !$this->getDirectDebitInvoice() || !$this->getDebtorName()) {
 
 			return false;
 		}
