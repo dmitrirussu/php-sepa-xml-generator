@@ -315,9 +315,11 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 		$mandateRelatedInformation->addChild('MndtId', $this->getMandateIdentification());
 		$mandateRelatedInformation->addChild('DtOfSgntr', $this->getDateOfSignature());
 
-		$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
-			->addChild('FinInstnId');
-		$debtorAgent->addChild('BIC', $this->getBIC());
+		if ( $this->getBIC() ) {
+			$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
+				->addChild('FinInstnId');
+			$debtorAgent->addChild('BIC', $this->getBIC());
+		}
 
 		$debtor = $directDebitTransactionInformation->addChild('Dbtr');
 		$debtor->addChild('Nm', $this->getDebtorName());
