@@ -221,9 +221,8 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 	 */
 	public function setDebitBIC($BIC) {
 
-		$BIC  = $this->removeSpaces($BIC);
+		$this->BIC = $this->removeSpaces($BIC);
 
-		$this->BIC = $BIC;
 		return $this;
 	}
 
