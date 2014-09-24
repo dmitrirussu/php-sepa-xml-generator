@@ -224,10 +224,6 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 
 		$BIC  = $this->removeSpaces($BIC);
 
-		if ( !$this->checkBIC($BIC)) {
-
-			throw new \Exception(ERROR_MSG_DD_CHECK_BIC . $this->getInstructionIdentification());
-		}
 		$this->BIC = $BIC;
 		return $this;
 	}
