@@ -218,7 +218,6 @@ class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransacti
 	 * max length
 	 * @param $BIC
 	 * @return $this
-	 * @throws \Exception
 	 */
 	public function setDebitBIC($BIC) {
 
