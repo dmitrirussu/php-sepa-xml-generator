@@ -153,9 +153,31 @@ interface PaymentInfoInterface {
 		 */
 		private $errorTransactionsIds = array();
 
+        private $aggregatePerMandate = true;
+
 		public function __construct() {
 
 		}
+
+        /**
+         * @return boolean
+         */
+        public function getAggregatePerMandate()
+        {
+            return $this->aggregatePerMandate;
+        }
+
+        /**
+         * @param boolean $aggregatePerMandate
+         * @return $this
+         */
+        public function setAggregatePerMandate($aggregatePerMandate)
+        {
+            $this->aggregatePerMandate = $aggregatePerMandate;
+            return $this;
+        }
+
+
 
 		/**
 		 * @return array
@@ -433,22 +455,28 @@ interface PaymentInfoInterface {
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
 			try {
-				if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
-					/** @var $existTransaction \SEPA\DirectDebitTransaction */
-					$existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
+                if ($this->aggregatePerMandate) {
+                    if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
+                        /** @var $existTransaction \SEPA\DirectDebitTransaction */
+                        $existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
 
-					//sum of Instructed Amount
-					$existTransaction->setInstructedAmount(
-						$this->sumOfTwoOperands($existTransaction->getInstructedAmount(),
-							$directDebitTransactionObject->getInstructedAmount())
-					);
+                        //sum of Instructed Amount
+                        $existTransaction->setInstructedAmount(
+                            $this->sumOfTwoOperands($existTransaction->getInstructedAmount(),
+                                $directDebitTransactionObject->getInstructedAmount())
+                        );
 
-					$existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
-				}
-				else {
+                        $existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
+                    }
+                    else {
 
-					$this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
-				}
+                        $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
+                    }
+                }
+                else {
+                    $this->directDebitTransactionObjects[] = $directDebitTransactionObject;
+                }
+
 			} catch(\Exception $e) {
 
 				$this->writeLog($e->getMessage());
