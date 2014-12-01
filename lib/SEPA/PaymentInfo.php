@@ -153,7 +153,16 @@ interface PaymentInfoInterface {
 		 */
 		private $errorTransactionsIds = array();
 
+
+		/**
+		 * This field offer possibility to aggregate many transaction by unique MANDATE-ID,
+		 * also can be disabled by ->setAggregation(false).
+		 * You have to check with your Bank if Aggregation is required or not.
+		 * Option By default = true
+		 * @var bool
+		 */
         private $aggregatePerMandate = true;
+
 
 		public function __construct() {
 
@@ -168,6 +177,7 @@ interface PaymentInfoInterface {
         }
 
         /**
+		 * Set Transactions Aggregation by Unique Mandate ID
          * @param boolean $aggregatePerMandate
          * @return $this
          */

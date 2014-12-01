@@ -105,6 +105,7 @@ An other way to generate XML (Recommended - it is more optimized)
         				->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
         				->setCreditorSchemeIdentification('FR07ZZZ519993')
         				->setRequestedCollectionDate('2013-08-06')
+						->setAggregatePerMandate(true) //Default Transaction aggregation option = true
         				->addDirectDebitTransaction( //First transaction
         					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
         						->setInstructionIdentification(3)

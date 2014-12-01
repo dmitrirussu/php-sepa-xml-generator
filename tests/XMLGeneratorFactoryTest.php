@@ -81,6 +81,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 						->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
 						->setCreditorSchemeIdentification('FR07ZZZ519993')
 						->setRequestedCollectionDate('2013-08-06')
+						->setAggregatePerMandate(true) //Default option = true
 						->addDirectDebitTransaction( //First transaction
 							SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
 								->setInstructionIdentification(3)
@@ -91,7 +92,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 								->setDebitBIC('AABAFI22')
 								->setMandateIdentification('SDD000000016PFX0713') //unique Identifier
 								->setDateOfSignature('2013-08-03')
-//						->setCurrency('EUR')
+//								->setCurrency('EUR')
 								->setDirectDebitInvoice(122)
 						)
 						->addDirectDebitTransaction( //Second transaction are the same client transaction
