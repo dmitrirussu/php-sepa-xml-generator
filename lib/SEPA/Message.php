@@ -46,10 +46,17 @@ class Message extends XMLGenerator implements MessageInterface {
 	 */
 	private $paymentInfoObjects = array();
 
+    const DIRECT_DEBIT_INITIATION = "CstmrDrctDbtInitn";
+    const CREDIT_TRANSFERT_INITIATION = "CstmrCdtTrfInitn";
+
 	public function __construct() {
-		$this->message = new \SimpleXMLElement('<CstmrDrctDbtInitn></CstmrDrctDbtInitn>');
+		$this->setRootNodeType(self::DIRECT_DEBIT_INITIATION);
 		$this->storeXmlPaymentsInfo = new \SimpleXMLElement('<payments></payments>');
 	}
+
+    public function setRootNodeType($node_type) {
+        $this->message = new \SimpleXMLElement("<$node_type></$node_type>");
+    }
 
 	/**
 	 * Add Group Header

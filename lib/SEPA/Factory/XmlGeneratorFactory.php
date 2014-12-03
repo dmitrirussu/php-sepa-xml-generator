@@ -16,6 +16,7 @@ require_once dirname(__FILE__) . '/../Message.php';
 require_once dirname(__FILE__) . '/../GroupHeader.php';
 require_once dirname(__FILE__) . '/../PaymentInfo.php';
 require_once dirname(__FILE__) . '/../DirectDebitTransactions.php';
+require_once dirname(__FILE__) . '/../CreditTransertTransactions.php';
 
 class XmlGeneratorFactory {
 
@@ -70,4 +71,11 @@ class XmlGeneratorFactory {
 	public static function createXMLDirectDebitTransaction() {
 		return new \SEPA\DirectDebitTransaction();
 	}
+
+    /**
+     * @return SEPA\CreditTransertTransaction
+     */
+    public static function createXMLCreditTransfertTransaction() {
+        return new \SEPA\CreditTransertTransaction();
+    }
 }
