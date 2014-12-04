@@ -30,7 +30,7 @@ interface XMLGeneratorInterface {
  * Class XMLGenerator
  * @package SEPA
  */
-class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
+class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 	/**
 	 * Path Logs Directory
@@ -70,7 +70,7 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	public function __construct($documentPainMode = self::PAIN_008_001_02) {
 
 		$this->setDocumentPainMode($documentPainMode);
-		$this->xml = new \SimpleXMLElement($documentPainMode);
+		$this->xml = new \SimpleXMLElement($this->getDocumentPainMode());
 	}
 
 
