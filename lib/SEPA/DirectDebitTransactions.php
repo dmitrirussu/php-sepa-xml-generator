@@ -9,18 +9,10 @@
 namespace SEPA;
 
 /**
- * Class DirectDebitTransactionInterface
- * @package SEPA
- */
-interface DirectDebitTransactionInterface {
-	public function checkIsValidTransaction();
-	public function getSimpleXMLElementTransaction();
-}
-/**
  * Class SepaDirectDebitTransactions
  * @package SEPA
  */
-class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransactionInterface {
+class DirectDebitTransaction extends PaymentInfo implements TransactionInterface {
 
 	/**
 	 * BIC Code not provided

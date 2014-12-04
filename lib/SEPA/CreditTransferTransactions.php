@@ -8,20 +8,13 @@
 
 namespace SEPA;
 
-
-/**
- * Class CreditTransertTransactionInterface
- * @package SEPA
- */
-interface CreditTransertTransactionInterface {
-    public function checkIsValidTransaction();
-    public function getSimpleXMLElementTransaction();
-}
 /**
  * Class SepaDirectDebitTransaction
  * @package SEPA
  */
-class CreditTransertTransaction implements CreditTransertTransactionInterface {
+class CreditTransferTransaction extends PaymentInfo implements TransactionInterface {
+
+	const DEFAULT_CURRENCY = 'EUR';
 
     /**
      * Unique identification as assigned by an instructing party for an instructed party to unambiguously identify
@@ -74,20 +67,7 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
     private $creditorName = '';
 
 
-    const DEFAULT_CURRENCY = 'EUR';
     private $currency = '';
-
-
-    /**
-     * @var \Sepa\ValidationRules
-     */
-    private $validationRules = null;
-
-    function __construct()
-    {
-        $this->validationRules = new \SEPA\ValidationRules();
-    }
-
 
     /**
      * @param $instructionIdentifier
@@ -128,7 +108,7 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
      * @return $this
      */
     public function setInstructedAmount($amount) {
-        $this->InstructedAmount = $this->validationRules->amountToString($amount);
+        $this->InstructedAmount = $this->amountToString($amount);
         return $this;
     }
 
@@ -152,7 +132,7 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
      */
     public function setBIC($BIC) {
 
-        $this->BIC = $this->validationRules->removeSpaces($BIC);
+        $this->BIC = $this->removeSpaces($BIC);
 
         return $this;
     }
@@ -173,9 +153,9 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
      * @return $this
      */
     public function setIBAN($IBAN) {
-        $IBAN = $this->validationRules->removeSpaces($IBAN);
+        $IBAN = $this->removeSpaces($IBAN);
 
-        if ( !$this->validationRules->checkIBAN($IBAN) ) {
+        if ( !$this->checkIBAN($IBAN) ) {
 
             throw new \Exception(ERROR_MSG_DD_IBAN . $this->getInstructionIdentification());
         }
@@ -199,7 +179,7 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
      * @throws \Exception
      */
     public function setCreditInvoice($invoice) {
-        if ( !$this->validationRules->checkStringLength($invoice, 140) ) {
+        if ( !$this->checkStringLength($invoice, 140) ) {
 
             throw new \Exception(ERROR_MSG_DD_INVOICE_NUMBER . $this->getInstructionIdentification());
         }
@@ -222,7 +202,7 @@ class CreditTransertTransaction implements CreditTransertTransactionInterface {
      * @throws \Exception
      */
     public function setCreditorName($name) {
-        if ( !$this->validationRules->checkStringLength($name, 70) ) {
+        if ( !$this->checkStringLength($name, 70) ) {
 
             throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
         }
