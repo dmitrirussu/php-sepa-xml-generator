@@ -644,7 +644,7 @@ interface PaymentInfoInterface {
 			return $this->directDebitTransactionObjects;
 		}
 
-        public function addCreditTransfertTransaction(CreditTransertTransactionInterface $creditTransertTransactionObject) {
+        public function addCreditTransfertTransaction(CreditTransferTransaction $creditTransferTransactionObject) {
 
             if (! empty($this->directDebitTransactionObjects)) {
                 throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
@@ -654,7 +654,7 @@ interface PaymentInfoInterface {
                 $this->setPaymentMethod(self::PAYMENT_METHOD_CREDIT_TRANSFERT);
             }
 
-            $this->creditTransfertTransactionObjects[] = $creditTransertTransactionObject;
+            $this->creditTransfertTransactionObjects[] = $creditTransferTransactionObject;
         }
 
 		/**

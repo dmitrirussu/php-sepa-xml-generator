@@ -13,7 +13,6 @@ namespace SEPA;
  * @package SEPA
  */
 class CreditTransferTransaction extends PaymentInfo implements TransactionInterface {
-
 	const DEFAULT_CURRENCY = 'EUR';
 
     /**
