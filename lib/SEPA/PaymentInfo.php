@@ -740,6 +740,7 @@ interface PaymentInfoInterface {
          */
         public function setPaymentMethod($paymentMethod) {
             $this->paymentMethod = $paymentMethod;
+            return $this;
         }
 
 
