@@ -165,6 +165,29 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 		$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
 	}
 
+	/**
+	 * Rename XML Node Name
+	 * @param \DOMElement $node
+	 * @param $newName
+	 * @return \DOMElement
+	 */
+	function renameXmlNodeName(\DOMElement $node, $newName) {
+		$newNode = $node->ownerDocument->createElement($newName);
+
+		foreach ($node->childNodes as $child){
+			$child = $node->ownerDocument->importNode($child, true);
+			$newNode->appendChild($child, true);
+		}
+
+		foreach ($node->attributes as $attrName => $attrNode) {
+			$newNode->setAttribute($attrName, $attrNode);
+		}
+
+		$newNode->ownerDocument->replaceChild($newNode, $node);
+
+		return $newNode;
+	}
+
 	public function __destruct() {
 		unset($this);
 	}
