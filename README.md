@@ -19,76 +19,8 @@ transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU memb
 (Iceland, Liechtenstein, Norway and Switzerland) and Monaco.
 
 Example of using.
-====
-```php
-        $SEPAXml = new SEPAXmlFile();
-
-        $SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
-        $SEPAXml::$_FILE_NAME = 'sepa_test.xml';
-
-        //Simple Example of Sepa Xml File Messages
-        $SEPAXml::$_MESSAGES = array(
-        	array('message_id' => 1,
-        		'group_header' => array(
-        			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва ',
-                    'organisation_id' => 'ZZ00001X11111112', //is an optional field
-                  //'private_id' => 'ZZ00001X11111112' //is an optional field
-        		),
-        		'payment_info' => array(
-        			'FRST' => array(
-        				'id' => 6222,
-        				'creditor_iban' => 'MD24 AG00 0225 1000 1310 4168',
-        				'creditor_bic' => 'AABAFI42',
-        				'creditor_name' => 'Amazing SRL',
-        				'scheme_identifier' => 'FR07ZZZ519993',
-        //				'proprietary_name' => 'SEPA', //default value is = 'SEPA', You can SET only proprietary_name OR schema_name
-        //				'schema_name' => 'CORE', // default value is = 'CORE', You can SET only proprietary_name OR schema_name
-        				'transactions' => array(
-        					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
-        						->setInstructionIdentification(3)
-        						->setEndToEndIdentification(39)
-        						->setInstructedAmount(100.5)
-        						->setDebtorName('Roy SRL')
-        						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22') //Optional
-        						->setMandateIdentification('SDD000000016PFX0713')
-        						->setDateOfSignature('2013-08-03')
-        						//->setCurrency('EUR')
-        						->setDirectDebitInvoice(122),
-        					array(
-        						'id' => 3,
-        						'endId' => 3,
-        						'company_name' => 'Toy SRL',
-        						'amount' => 10.4,
-        						'umr' => 'SDD000000016PFX0714',
-        						'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-        						'bic' => 'AABAFI42', //Optional
-        						'mandate_sign_date' => '2013-08-03',
-        						'invoice' => 1223
-        					)
-        				)
-        			))));
-
-        //Sepa Export View
-        //	$SEPAXml->export()->view();
-
-        //Sepa Export Save
-        //	$SEPAXml->export()->save();
-
-        //Sepa Export Save and View
-        //	$SEPAXml->export()->save()->view();
-
-        //Seepa Export View and Save
-        $SEPAXml->export()->view()->save();
-
-        // SEPA Xml export validation with ISO20022
-        //var_dump($SEPAXml->export()->validation('pain.008.001.02'));
-
-        //SEPA xml export convert to array
-        //$SEPAXml->export()->convertToArray();
-```
 ===
-An other way to generate XML (Recommended - it is more optimized)
+SEPA Direct Debit generator
 ===
 ```php
 		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
