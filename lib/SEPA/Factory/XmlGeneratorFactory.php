@@ -32,8 +32,9 @@ class XmlGeneratorFactory {
 	/**
 	 * @return SEPA\XMLGenerator
 	 */
-	public static function createXmlGeneratorObject() {
-		return new \SEPA\XMLGenerator(\SEPA\XMLGenerator::PAIN_008_001_02);
+	public static function createXmlGeneratorObject($documentPainMode = \SEPA\XMLGenerator::PAIN_008_001_02) {
+
+		return new \SEPA\XMLGenerator($documentPainMode);
 	}
 
 	/**

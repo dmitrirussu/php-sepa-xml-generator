@@ -21,7 +21,11 @@ transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU memb
 Example of using
 ===
 ```php
-		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
+		//When you start to generate a SEPA Xml File, need to choose PAIN
+		$directDebitTransaction = \SEPA\XMLGenerator::PAIN_008_001_02; // For Direct Debit transactions is By Defaut
+		$creditTransfer = \SEPA\XMLGenerator::PAIN_001_001_02; //For Credit Transfer
+
+		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject($directDebitTransaction)->addXmlMessage(
         	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
         		->setMessageGroupHeader(
         			SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
