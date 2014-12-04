@@ -345,6 +345,12 @@ interface PaymentInfoInterface {
 		 * Date and time at which the creditor requests that the amount of money is to be collected from the debtor.
 		 */
 		public function getRequestedCollectionDate() {
+
+            if ( empty($this->requestedCollectionDate) ) {
+                $dateTime = new \DateTime();
+                $this->requestedCollectionDate = $dateTime->format('Y-m-d');
+            }
+
 			return $this->requestedCollectionDate;
 		}
 
@@ -352,6 +358,12 @@ interface PaymentInfoInterface {
          * Date and time at which the debitor requests that the amount of money is to be transfered to the creditor.
          */
         public function getRequestedExecutionDate() {
+
+            if ( empty($this->requestedExecutionDate) ) {
+                $dateTime = new \DateTime();
+                $this->requestedExecutionDate = $dateTime->format('Y-m-d');
+            }
+
             return $this->requestedExecutionDate;
         }
 
@@ -826,12 +838,13 @@ interface PaymentInfoInterface {
                 $paymentTypeInfo->addChild('CtgyPurp', $this->getCategoryPurpose());
             }
 
-            if ($this->getRequestedExecutionDate()) {
-                $paymentInfo->addChild('ReqdExctnDt', $this->getRequestedExecutionDate());
-            }
-
-            if ($this->getRequestedCollectionDate()) {
-                $paymentInfo->addChild('ReqdColltnDt', $this->getRequestedCollectionDate());
+            switch($this->getPaymentMethod()) {
+                case self::PAYMENT_METHOD_DIRECT_DEBIT:
+                    $paymentInfo->addChild('ReqdColltnDt', $this->getRequestedCollectionDate());
+                    break;
+                case self::PAYMENT_METHOD_CREDIT_TRANSFERT:
+                    $paymentInfo->addChild('ReqdExctnDt', $this->getRequestedExecutionDate());
+                    break;
             }
         }
 
