@@ -125,6 +125,13 @@ interface PaymentInfoInterface {
 		 */
 		private $requestedCollectionDate = '';
 
+
+        /**
+         * Date and time at which the debitor requests that the amount of money is to be transfered to the creditor.
+         * @var string
+         */
+        private $requestedExecutionDate = '';
+
 		/**
 		 * Creditor Schema Id
 		 * @var string
@@ -295,6 +302,17 @@ interface PaymentInfoInterface {
 			return $this;
 		}
 
+        /**
+         * @param $requestedExecutionDate
+         * @return $this
+         */
+        public function setRequestedExecutionDate($requestedExecutionDate) {
+            $this->requestedExecutionDate = $requestedExecutionDate;
+            return $this;
+        }
+
+
+
 		/**
 		 * @param bool $default
 		 */
@@ -327,15 +345,15 @@ interface PaymentInfoInterface {
 		 * Date and time at which the creditor requests that the amount of money is to be collected from the debtor.
 		 */
 		public function getRequestedCollectionDate() {
-			
-			if ( empty($this->requestedCollectionDate) ) {
-
-				$dateTime = new \DateTime();
-				$this->requestedCollectionDate = $dateTime->format('Y-m-d');
-			}
-
 			return $this->requestedCollectionDate;
 		}
+
+        /**
+         * Date and time at which the debitor requests that the amount of money is to be transfered to the creditor.
+         */
+        public function getRequestedExecutionDate() {
+            return $this->requestedExecutionDate;
+        }
 
 		/**
 		 * For example PopFax
@@ -729,10 +747,10 @@ interface PaymentInfoInterface {
 			$paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
 			$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
 
-            if ($this->getPaymentMethod() == self::PAYMENT_METHOD_DIRECT_DEBIT) {
-                $paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
-                $paymentInfo->addChild('CtrlSum', $this->getControlSum());
-            }
+
+            $paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
+            $paymentInfo->addChild('CtrlSum', $this->getControlSum());
+
 
 
             $this->addPaymentTypeInfoToXml($paymentInfo);
@@ -772,11 +790,9 @@ interface PaymentInfoInterface {
             }
 
 
-            if ($this->getPaymentMethod() == self::PAYMENT_METHOD_DIRECT_DEBIT) {
-                //Once we have taken care of all the transactions, we can update the total number of transactions and the control sum
-                $paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
-                $paymentInfo->CtrlSum = $this->getControlSum();
-            }
+            //Once we have taken care of all the transactions, we can update the total number of transactions and the control sum
+            $paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
+            $paymentInfo->CtrlSum = $this->getControlSum();
 
 
 			return $paymentInfo;
@@ -799,7 +815,10 @@ interface PaymentInfoInterface {
             $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
             $localInstrument->addChild('Cd', self::LOCAL_INSTRUMENT_CODE);
 
-            $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
+            if ($this->getSequenceType()) {
+                $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
+            }
+
 
             //This property is optional
             if ( $this->getCategoryPurpose() ) {
@@ -807,6 +826,9 @@ interface PaymentInfoInterface {
                 $paymentTypeInfo->addChild('CtgyPurp', $this->getCategoryPurpose());
             }
 
+            if ($this->getRequestedExecutionDate()) {
+                $paymentInfo->addChild('ReqdExctnDt', $this->getRequestedExecutionDate());
+            }
 
             if ($this->getRequestedCollectionDate()) {
                 $paymentInfo->addChild('ReqdColltnDt', $this->getRequestedCollectionDate());
