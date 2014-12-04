@@ -19,7 +19,7 @@ transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU memb
 (Iceland, Liechtenstein, Norway and Switzerland) and Monaco.
 
 ===
-SEPA Direct Debit generator
+SEPA XML generator
 ===
 ```php
 		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
