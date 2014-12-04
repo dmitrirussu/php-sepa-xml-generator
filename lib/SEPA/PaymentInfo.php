@@ -25,12 +25,9 @@ interface PaymentInfoInterface {
 	 */
 	class PaymentInfo extends Message implements PaymentInfoInterface {
 
-		/**
-		 * Specifies the means of payment that will be used to move the amount of money.
-		 * Max 35 length
-		 * @var string
-		 */
-		const PAYMENT_METHOD = 'DD';
+
+        const PAYMENT_METHOD_DIRECT_DEBIT = "DD";
+        const PAYMENT_METHOD_CREDIT_TRANSFERT = "TRF";
 
 		/**
 		 * Specifies a pre-agreed service or level of service between the parties, as published in an external service
@@ -81,6 +78,12 @@ interface PaymentInfoInterface {
 		 */
 		private $creditorName = '';
 
+        /**
+         * Name by which a party is known and which is usually used to identify that party.
+         * @var string
+         */
+        private $debitorName = '';
+
 		/**
 		 * International Bank Account Number (IBAN) - identifier used internationally by financial institutions
 		 * to uniquely identify the account of a customer.
@@ -88,12 +91,27 @@ interface PaymentInfoInterface {
 		 */
 		private $creditorAccountIBAN = '';
 
+        /**
+         * International Bank Account Number (IBAN) - identifier used internationally by financial institutions
+         * to uniquely identify the account of a customer.
+         * @var string
+         */
+        private $debitorAccountIBAN = '';
+
 		/**
 		 * Unique and unambiguous identifier of a financial institution, as assigned under an internationally
 		 * recognised or proprietary identification scheme.
 		 * @var string
 		 */
 		private $creditorBIC = '';
+
+
+        /**
+         * Unique and unambiguous identifier of a financial institution, as assigned under an internationally
+         * recognised or proprietary identification scheme.
+         * @var string
+         */
+        private $debitorBIC = '';
 
 		/**
 		 * Identifies the direct debit sequence, such as first, recurrent, final or one-off.
@@ -106,6 +124,13 @@ interface PaymentInfoInterface {
 		 * @var string
 		 */
 		private $requestedCollectionDate = '';
+
+
+        /**
+         * Date and time at which the debitor requests that the amount of money is to be transfered to the creditor.
+         * @var string
+         */
+        private $requestedExecutionDate = '';
 
 		/**
 		 * Creditor Schema Id
@@ -148,6 +173,13 @@ interface PaymentInfoInterface {
 		 */
 		private $directDebitTransactionObjects = array();
 
+
+        /**
+         * Credit Transfert Transaction objects is a storage of Payment Info transactions for Credit Transfert
+         * @var array
+         */
+        private $creditTransfertTransactionObjects = array();
+
 		/**
 		 * @var array
 		 */
@@ -162,6 +194,14 @@ interface PaymentInfoInterface {
 		 * @var bool
 		 */
         private $aggregatePerMandate = true;
+
+        /**
+         * Specifies the means of payment that will be used to move the amount of money.
+         * Max 35 length
+         * @var string
+         */
+        private $paymentMethod;
+
 
 
 		public function __construct() {
@@ -208,6 +248,10 @@ interface PaymentInfoInterface {
 
 			return $this->creditorName;
 		}
+
+        public function getDebitorName() {
+            return $this->debitorName;
+        }
 
 		/**
 		 * Unique identification, as assigned by a sending party, to unambiguously identify
@@ -258,6 +302,17 @@ interface PaymentInfoInterface {
 			return $this;
 		}
 
+        /**
+         * @param $requestedExecutionDate
+         * @return $this
+         */
+        public function setRequestedExecutionDate($requestedExecutionDate) {
+            $this->requestedExecutionDate = $requestedExecutionDate;
+            return $this;
+        }
+
+
+
 		/**
 		 * @param bool $default
 		 */
@@ -290,15 +345,27 @@ interface PaymentInfoInterface {
 		 * Date and time at which the creditor requests that the amount of money is to be collected from the debtor.
 		 */
 		public function getRequestedCollectionDate() {
-			
-			if ( empty($this->requestedCollectionDate) ) {
 
-				$dateTime = new \DateTime();
-				$this->requestedCollectionDate = $dateTime->format('Y-m-d');
-			}
+            if ( empty($this->requestedCollectionDate) ) {
+                $dateTime = new \DateTime();
+                $this->requestedCollectionDate = $dateTime->format('Y-m-d');
+            }
 
 			return $this->requestedCollectionDate;
 		}
+
+        /**
+         * Date and time at which the debitor requests that the amount of money is to be transfered to the creditor.
+         */
+        public function getRequestedExecutionDate() {
+
+            if ( empty($this->requestedExecutionDate) ) {
+                $dateTime = new \DateTime();
+                $this->requestedExecutionDate = $dateTime->format('Y-m-d');
+            }
+
+            return $this->requestedExecutionDate;
+        }
 
 		/**
 		 * For example PopFax
@@ -317,6 +384,17 @@ interface PaymentInfoInterface {
 			$this->creditorName = $creditorName;
 			return $this;
 		}
+
+        public function setDebitorName($debitorName) {
+            $debitorName = $this->unicodeDecode($debitorName);
+
+            if ( !$this->checkStringLength($debitorName, 70) ) {
+                throw new \Exception(ERROR_MSG_DEBITOR_NAME);
+            }
+
+            $this->debitorName = $debitorName;
+            return $this;
+        }
 
 		/**
 		 * International Bank Account Number (IBAN) - identifier used internationally by financial institutions to
@@ -339,13 +417,41 @@ interface PaymentInfoInterface {
 			return $this;
 		}
 
-		/**
+        /**
 		 * @return string
 		 */
 		public function getCreditorAccountIBAN() {
 
 			return $this->creditorAccountIBAN;
 		}
+
+
+        /**
+         * International Bank Account Number (IBAN) - identifier used internationally by financial institutions to
+         * uniquely identify the account of a customer.
+         * max 34 length
+         * @param $debitorAccountIBAN
+         * @return $this
+         * @throws \Exception
+         */
+        public function setDebitorAccountIBAN($debitorAccountIBAN) {
+            $debitorAccountIBAN = $this->removeSpaces($debitorAccountIBAN);
+            if ( !$this->checkIBAN($debitorAccountIBAN) ) {
+
+                throw new \Exception(ERROR_MSG_DEBITOR_IBAN);
+            }
+
+            $this->debitorAccountIBAN = $debitorAccountIBAN;
+            return $this;
+        }
+
+        /**
+         * @return string
+         */
+        public function getDebitorAccountIBAN() {
+
+            return $this->debitorAccountIBAN;
+        }
 
 		/**
 		 * Bank Identifier Code.
@@ -370,6 +476,31 @@ interface PaymentInfoInterface {
 
 			return $this->creditorBIC;
 		}
+
+
+        /**
+         * Bank Identifier Code.
+         * @param $creditorBIC
+         * @return $this
+         * @throws \Exception
+         */
+        public function setDebitorAccountBIC($debitorBIC) {
+            if ( !$this->checkBIC($debitorBIC) ) {
+
+                throw new \Exception(ERROR_MSG_DEBITOR_BIC);
+            }
+
+            $this->debitorBIC = $debitorBIC;
+            return $this;
+        }
+
+        /**
+         * @return string
+         */
+        public function getDebitorAccountBIC() {
+
+            return $this->debitorBIC;
+        }
 
 		/**
 		 * Creditor Schema Id
@@ -464,6 +595,14 @@ interface PaymentInfoInterface {
 		 * @return $this
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
+            if (! empty($this->creditTransfertTransactionObjects)) {
+                throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
+            }
+
+            if (!$this->getPaymentMethod()) {
+                $this->setPaymentMethod(self::PAYMENT_METHOD_DIRECT_DEBIT);
+            }
+
 			try {
                 if ($this->aggregatePerMandate) {
                     if ( isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()]) ) {
@@ -505,11 +644,24 @@ interface PaymentInfoInterface {
 			return $this->directDebitTransactionObjects;
 		}
 
+        public function addCreditTransfertTransaction(CreditTransertTransactionInterface $creditTransertTransactionObject) {
+
+            if (! empty($this->directDebitTransactionObjects)) {
+                throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
+            }
+
+            if (!$this->getPaymentMethod()) {
+                $this->setPaymentMethod(self::PAYMENT_METHOD_CREDIT_TRANSFERT);
+            }
+
+            $this->creditTransfertTransactionObjects[] = $creditTransertTransactionObject;
+        }
+
 		/**
 		 * @param $value
 		 * @return $this
 		 */
-		public function setCtrlSum($value) {
+		public function addToCtrlSum($value) {
 
 			$this->ctrlSum += $value;
 			return $this;
@@ -523,7 +675,7 @@ interface PaymentInfoInterface {
 			return $this->amountToString($this->ctrlSum);
 		}
 
-		public function setNumberOfTransactions($value) {
+		public function addToNumberOfTransactions($value) {
 
 			$this->numberOfTransactions += $value;
 			return $this;
@@ -555,12 +707,43 @@ interface PaymentInfoInterface {
 		public function checkIsValidPaymentInfo() {
 
 			//For the BIC and IBAN, use their own validation methods
-			if ( !$this->getPaymentInformationIdentification() || !$this->getCreditorAccountIBAN() || !$this->getCreditorAccountBIC()) {
-
+			if ( !$this->getPaymentInformationIdentification()
+                || ( $this->getPaymentMethod() == self::PAYMENT_METHOD_DIRECT_DEBIT
+                    && (
+                        !$this->getCreditorAccountIBAN()
+                        || !$this->getCreditorAccountBIC()
+                    )
+                )
+                || ( $this->getPaymentMethod() == self::PAYMENT_METHOD_CREDIT_TRANSFERT
+                    && (
+                        !$this->getDebitorAccountIBAN()
+                        || !$this->getDebitorAccountBIC()
+                    )
+                )
+            ) {
 				return false;
 			}
 			return true;
 		}
+
+        /**
+         * Get the means of payment that will be used to move the amount of money.
+         * @return string
+         */
+        public function getPaymentMethod() {
+            return $this->paymentMethod;
+        }
+
+        /**
+         * Set the means of payment that will be used to move the amount of money.
+         * @param $paymentMethod
+         */
+        public function setPaymentMethod($paymentMethod) {
+            $this->paymentMethod = $paymentMethod;
+            return $this;
+        }
+
+
 
 		/**
 		 * Get Simple XML Element Payment Info is a method which generate a payment info xml elements
@@ -571,100 +754,162 @@ interface PaymentInfoInterface {
 			$paymentInfo = new \SimpleXMLElement("<PmtInf></PmtInf>");
 
 			$paymentInfo->addChild('PmtInfId', $this->getPaymentInformationIdentification());
-			$paymentInfo->addChild('PmtMtd', self::PAYMENT_METHOD);
+            if (!$this->getPaymentMethod()) {
+                throw new \Exception(ERROR_MSG_PM_METHOD_NOT_DEFINED);
+            }
+			$paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
 			$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
 
-			$paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
-			$paymentInfo->addChild('CtrlSum', $this->getControlSum());
 
-			$paymentTypeInfo = $paymentInfo->addChild('PmtTpInf');
-			$serviceLevel = $paymentTypeInfo->addChild('SvcLvl');
-			$serviceLevel->addChild('Cd', self::SERVICE_LEVEL_CODE);
+            $paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
+            $paymentInfo->addChild('CtrlSum', $this->getControlSum());
 
-			$localInstrument = $paymentTypeInfo->addChild('LclInstrm');
-			$localInstrument->addChild('Cd', self::LOCAL_INSTRUMENT_CODE);
 
-			$paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
 
-			//This property is optional
-			if ( $this->getCategoryPurpose() ) {
+            $this->addPaymentTypeInfoToXml($paymentInfo);
 
-				$paymentTypeInfo->addChild('CtgyPurp', $this->getCategoryPurpose());
-			}
 
-			$paymentInfo->addChild('ReqdColltnDt', $this->getRequestedCollectionDate());
+            switch($this->getPaymentMethod()) {
+                case self::PAYMENT_METHOD_DIRECT_DEBIT:
+                    $this->addCreditorFieldsToXml($paymentInfo);
+                    break;
+                case self::PAYMENT_METHOD_CREDIT_TRANSFERT:
+                    $this->addDebitorFieldsToXml($paymentInfo);
+                    break;
+            }
 
-			//Creditor Information
-			$creditor = $paymentInfo->addChild('Cdtr');
-			$creditor->addChild('Nm', $this->getCreditorName());
 
-			$creditorAccount = $paymentInfo->addChild('CdtrAcct');
-			$creditorAccountID = $creditorAccount->addChild('Id');
-			$creditorAccountID->addChild('IBAN', $this->getCreditorAccountIBAN());
+            $this->resetControlSum();
+            $this->resetNumberOfTransactions();
 
-			$creditorAgent = $paymentInfo->addChild('CdtrAgt');
-			$financialInstitutionIdentification = $creditorAgent->addChild('FinInstnId');
-			$financialInstitutionIdentification->addChild('BIC', $this->getCreditorAccountBIC());
+            foreach ($this->aggregateTransactions() as $transaction) {
 
-			//UltimateCreditor optional
-			if ( !empty($this->UltimateCreditor) ) {
+                //check if is Valid Transaction
+                if ( $transaction->checkIsValidTransaction() ) {
+                    //get the xml for the transaction object
+                    $xmlTransaction = $transaction->getSimpleXMLElementTransaction();
 
-				$paymentInfo->addChild('UltmtCdtr', $this->getUltimateCreditor());
-			}
+                    //Add each paymentInfo to the PaymentInfo node
+                    $this->simpleXmlAppend($paymentInfo, $xmlTransaction);
 
-			$paymentInfo->addChild('ChrgBr', self::CHARGE_BEARER);
+                    $this->addToNumberOfTransactions(1);
+                    $this->addToCtrlSum($transaction->getInstructedAmount());
+                } else {
+                    $this->writeLog(ERROR_MSG_INVALID_TRANSACTION . $transaction->getInstructionIdentification() );
 
-			$creditorSchemeIdentification = $paymentInfo->addChild('CdtrSchmeId');
-			$creditorSchemeIdentificationID = $creditorSchemeIdentification->addChild('Id');
-			$privateIdentification = $creditorSchemeIdentificationID->addChild('PrvtId');
-			$othr = $privateIdentification->addChild('Othr');
+                    //if a transaction is rejected, we need to update the number of valid transactions and the total amount
+                    $this->errorTransactionsIds[] = $transaction->getInstructionIdentification();
+                }
+            }
 
-			if ( !empty($this->CreditorSchemeIdentification) ) {
-				$othr->addChild('Id', $this->CreditorSchemeIdentification);
-			}
 
-			$schemeName = $othr->addChild('SchmeNm');
+            //Once we have taken care of all the transactions, we can update the total number of transactions and the control sum
+            $paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
+            $paymentInfo->CtrlSum = $this->getControlSum();
 
-			if ( $this->getUseProprietaryName() && !is_string($this->getUseSchemaNameCore()) ) {
-
-				$schemeName->addChild('Prtry', (!is_bool($this->getUseProprietaryName()) ?
-															$this->getUseProprietaryName() : self::PROPRIETARY_NAME ));
-			}
-			elseif ( $this->getUseSchemaNameCore() ) {
-
-				$schemeName->addChild('Cd', (!is_bool($this->getUseSchemaNameCore()) ?
-														$this->getUseSchemaNameCore() : self::LOCAL_INSTRUMENT_CODE));
-			}
-
-			if ( !empty($this->directDebitTransactionObjects) ) {
-
-				/**@var $transaction DirectDebitTransaction */
-				foreach ($this->directDebitTransactionObjects as $transaction) {
-
-					//check if is Valid Transaction
-					if ( $transaction->checkIsValidTransaction() ) {
-//						get the xml for the transaction object
-						$xmlTransaction = $transaction->getSimpleXMLElementTransaction();
-
-						//Add each paymentInfo to the PaymentInfo node
-						$this->simpleXmlAppend($paymentInfo, $xmlTransaction);
-
-						$this->setNumberOfTransactions(1);
-						$this->setCtrlSum($transaction->getInstructedAmount());
-					} else {
-						$this->writeLog(ERROR_MSG_INVALID_TRANSACTION . $transaction->getInstructionIdentification() );
-
-						//if a transaction is rejected, we need to update the number of valid transactions and the total amount
-						$this->errorTransactionsIds[] = $transaction->getInstructionIdentification();
-
-					}
-				}
-
-				//Once we have taken care of all the transactions, we can update the total number of transactions and the control sum
-				$paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
-				$paymentInfo->CtrlSum = $this->getControlSum();
-			}
 
 			return $paymentInfo;
 		}
-	}
+
+        protected function aggregateTransactions() {
+            return array_merge(
+                $this->directDebitTransactionObjects,
+                $this->creditTransfertTransactionObjects
+            );
+        }
+
+
+
+        protected function addPaymentTypeInfoToXml(\SimpleXMLElement $paymentInfo) {
+            $paymentTypeInfo = $paymentInfo->addChild('PmtTpInf');
+            $serviceLevel = $paymentTypeInfo->addChild('SvcLvl');
+            $serviceLevel->addChild('Cd', self::SERVICE_LEVEL_CODE);
+
+            $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
+            $localInstrument->addChild('Cd', self::LOCAL_INSTRUMENT_CODE);
+
+            if ($this->getSequenceType()) {
+                $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
+            }
+
+
+            //This property is optional
+            if ( $this->getCategoryPurpose() ) {
+
+                $paymentTypeInfo->addChild('CtgyPurp', $this->getCategoryPurpose());
+            }
+
+            switch($this->getPaymentMethod()) {
+                case self::PAYMENT_METHOD_DIRECT_DEBIT:
+                    $paymentInfo->addChild('ReqdColltnDt', $this->getRequestedCollectionDate());
+                    break;
+                case self::PAYMENT_METHOD_CREDIT_TRANSFERT:
+                    $paymentInfo->addChild('ReqdExctnDt', $this->getRequestedExecutionDate());
+                    break;
+            }
+        }
+
+
+        protected function addCreditorFieldsToXml(\SimpleXMLElement $paymentInfo){
+            $creditor = $paymentInfo->addChild('Cdtr');
+            $creditor->addChild('Nm', $this->getCreditorName());
+
+            $creditorAccount = $paymentInfo->addChild('CdtrAcct');
+            $creditorAccountID = $creditorAccount->addChild('Id');
+            $creditorAccountID->addChild('IBAN', $this->getCreditorAccountIBAN());
+
+            $creditorAgent = $paymentInfo->addChild('CdtrAgt');
+            $financialInstitutionIdentification = $creditorAgent->addChild('FinInstnId');
+            $financialInstitutionIdentification->addChild('BIC', $this->getCreditorAccountBIC());
+
+
+
+            //UltimateCreditor optional
+            if ( !empty($this->UltimateCreditor) ) {
+
+                $paymentInfo->addChild('UltmtCdtr', $this->getUltimateCreditor());
+            }
+
+            $paymentInfo->addChild('ChrgBr', self::CHARGE_BEARER);
+
+            $creditorSchemeIdentification = $paymentInfo->addChild('CdtrSchmeId');
+            $creditorSchemeIdentificationID = $creditorSchemeIdentification->addChild('Id');
+            $privateIdentification = $creditorSchemeIdentificationID->addChild('PrvtId');
+            $othr = $privateIdentification->addChild('Othr');
+
+            if ( !empty($this->CreditorSchemeIdentification) ) {
+                $othr->addChild('Id', $this->CreditorSchemeIdentification);
+            }
+
+            $schemeName = $othr->addChild('SchmeNm');
+
+            if ( $this->getUseProprietaryName() && !is_string($this->getUseSchemaNameCore()) ) {
+
+                $schemeName->addChild('Prtry', (!is_bool($this->getUseProprietaryName()) ?
+                    $this->getUseProprietaryName() : self::PROPRIETARY_NAME ));
+            }
+            elseif ( $this->getUseSchemaNameCore() ) {
+
+                $schemeName->addChild('Cd', (!is_bool($this->getUseSchemaNameCore()) ?
+                    $this->getUseSchemaNameCore() : self::LOCAL_INSTRUMENT_CODE));
+            }
+        }
+
+        public function addDebitorFieldsToXml(\SimpleXMLElement $paymentInfo) {
+            $debitor = $paymentInfo->addChild('Dbtr');
+            $debitor->addChild('Nm', $this->getDebitorName());
+
+            $debitorAccount = $paymentInfo->addChild('DbtrAcct');
+            $debitorAccountID = $debitorAccount->addChild('Id');
+            $debitorAccountID->addChild('IBAN', $this->getDebitorAccountIBAN());
+
+            $debitorAgent = $paymentInfo->addChild('DbtrAgt');
+            $financialInstitutionIdentification = $debitorAgent->addChild('FinInstnId');
+            $financialInstitutionIdentification->addChild('BIC', $this->getDebitorAccountBIC());
+
+            $paymentInfo->addChild('ChrgBr', self::CHARGE_BEARER);
+        }
+
+
+
+    }

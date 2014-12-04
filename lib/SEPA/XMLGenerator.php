@@ -47,11 +47,18 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	/**
 	 *
 	 */
-	const INITIAL_HEADLINE = '<?xml version="1.0" encoding="UTF-8"?>
+	const PAIN_008_001_02 = '<?xml version="1.0" encoding="UTF-8"?>
 						<Document
 							xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02"
 							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 							xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
+						</Document>';
+
+    const PAIN_001_001_02 = '<?xml version="1.0" encoding="UTF-8"?>
+						<Document
+							xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02 pain.001.001.02.xsd">
 						</Document>';
 	/**
 	 * @var array
@@ -64,9 +71,13 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	private $xml;
 
 	public function __construct() {
-
-		$this->xml = new \SimpleXMLElement(self::INITIAL_HEADLINE);
+        $this->setDocument(self::PAIN_008_001_02);
 	}
+
+    public function setDocument($document) {
+        $this->xml = new \SimpleXMLElement($document);
+        return $this;
+    }
 
 	/**
 	 * Add Xml Messages
@@ -139,7 +150,6 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	public function getGeneratedXml() {
 		if ( !$this->xml->children() ) {
 			$this->generateMessages();
-			return $this->xml->asXML();
 		}
 		return $this->xml->asXML();
 	}

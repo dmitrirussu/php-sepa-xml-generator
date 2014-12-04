@@ -135,6 +135,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 			->setDebitBIC('AABAFI22')
 			->setMandateIdentification('SDD000000016PFX0714') //unique Identifier
 			->setDateOfSignature('2013-08-03')
+            ->setPaymentMethod(SEPA\PaymentInfo::PAYMENT_METHOD_DIRECT_DEBIT)
 //		    ->setCurrency('EUR')
 			->setDirectDebitInvoice(122)->getSimpleXMLElementPaymentInfo();
 
