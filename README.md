@@ -18,7 +18,6 @@ The Single Euro Payments Area (SEPA) is a payment-integration initiative of the 
 transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU member states, the four members of the EFTA
 (Iceland, Liechtenstein, Norway and Switzerland) and Monaco.
 
-Example of using.
 ===
 SEPA Direct Debit generator
 ===
