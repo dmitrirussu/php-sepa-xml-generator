@@ -19,7 +19,6 @@ require_once dirname(__FILE__) . '/../iban/php-iban.php';
  * @package SEPA
  */
 interface XMLGeneratorInterface {
-	public function __construct();
 	public function addXmlMessage( Message $message );
 	public function getGeneratedXml();
 	public function save( $fileName );
@@ -68,21 +67,18 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 
 	public function __construct($documentPainMode = self::PAIN_008_001_02) {
-
 		$this->setDocumentPainMode($documentPainMode);
 		$this->xml = new \SimpleXMLElement($this->getDocumentPainMode());
 	}
 
 
     public function setDocumentPainMode($documentPainMode) {
-        $this->documentPainMode = <<<DOCUMENT_PAIN_MODE
-		<?xml version="1.0" encoding="UTF-8"?>
-		<Document
-			xmlns="urn:iso:std:iso:20022:tech:xsd:$documentPainMode"
-			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:$documentPainMode $documentPainMode.xsd">
-		</Document>
-DOCUMENT_PAIN_MODE;
+        $this->documentPainMode = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<Document
+	xmlns=\"urn:iso:std:iso:20022:tech:xsd:$documentPainMode\"
+	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+	xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:$documentPainMode $documentPainMode.xsd\">
+</Document>";
 
 		return $this;
 	}
@@ -194,19 +190,20 @@ DOCUMENT_PAIN_MODE;
 	 * @param $newName
 	 * @return \DOMElement
 	 */
-	function renameXmlNodeName(\DOMElement $node, $newName) {
-		$newNode = $node->ownerDocument->createElement($newName);
+	function renameXmlNodeName(\SimpleXMLElement $node, $newName) {
+		$newNode = new \SimpleXMLElement("<$newName></$newName>");
 
-		foreach ($node->childNodes as $child){
-			$child = $node->ownerDocument->importNode($child, true);
-			$newNode->appendChild($child, true);
+		if ( $node->childNodes ) {
+			foreach ($node->childNodes as $child){
+				$newNode->addChild($child);
+			}
 		}
 
-		foreach ($node->attributes as $attrName => $attrNode) {
-			$newNode->setAttribute($attrName, $attrNode);
+		if ( $node->attributes ) {
+			foreach ($node->attributes as $attrName => $attrNode) {
+				$newNode->addAttribute($attrName, $attrNode);
+			}
 		}
-
-		$newNode->ownerDocument->replaceChild($newNode, $node);
 
 		return $newNode;
 	}

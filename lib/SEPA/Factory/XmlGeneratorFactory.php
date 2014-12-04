@@ -11,6 +11,7 @@ namespace SEPA\Factory;
 use SEPA;
 
 require_once dirname(__FILE__) . '/../ValidationRules.php';
+require_once dirname(__FILE__) . '/../TransactionInterface.php';
 require_once dirname(__FILE__) . '/../XMLGenerator.php';
 require_once dirname(__FILE__) . '/../Message.php';
 require_once dirname(__FILE__) . '/../GroupHeader.php';
@@ -32,7 +33,7 @@ class XmlGeneratorFactory {
 	 * @return SEPA\XMLGenerator
 	 */
 	public static function createXmlGeneratorObject() {
-		return new \SEPA\XMLGenerator();
+		return new \SEPA\XMLGenerator(\SEPA\XMLGenerator::PAIN_008_001_02);
 	}
 
 	/**

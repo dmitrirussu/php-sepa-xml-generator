@@ -26,6 +26,9 @@ interface PaymentInfoInterface {
 	class PaymentInfo extends Message implements PaymentInfoInterface {
 
 
+		/**
+		 * Payment Methods
+		 */
         const PAYMENT_METHOD_DIRECT_DEBIT = "DD";
         const PAYMENT_METHOD_CREDIT_TRANSFERT = "TRF";
 
@@ -178,7 +181,7 @@ interface PaymentInfoInterface {
          * Credit Transfert Transaction objects is a storage of Payment Info transactions for Credit Transfert
          * @var array
          */
-        private $creditTransfertTransactionObjects = array();
+        private $creditTransferTransactionObjects = array();
 
 		/**
 		 * @var array
@@ -195,24 +198,22 @@ interface PaymentInfoInterface {
 		 */
         private $aggregatePerMandate = true;
 
+
         /**
          * Specifies the means of payment that will be used to move the amount of money.
          * Max 35 length
          * @var string
          */
-        private $paymentMethod;
+        private $paymentMethod = self::PAYMENT_METHOD_DIRECT_DEBIT;
 
 
+		public function __construct() {}
 
-		public function __construct() {
-
-		}
 
         /**
          * @return boolean
          */
-        public function getAggregatePerMandate()
-        {
+        public function getAggregatePerMandate() {
             return $this->aggregatePerMandate;
         }
 
@@ -592,15 +593,12 @@ interface PaymentInfoInterface {
 		/**
 		 * Payment info Direct Debit Transactions Object
 		 * @param $directDebitTransactionObject DirectDebitTransaction
+		 * @throws \Exception
 		 * @return $this
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
             if (! empty($this->creditTransfertTransactionObjects)) {
                 throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
-            }
-
-            if (!$this->getPaymentMethod()) {
-                $this->setPaymentMethod(self::PAYMENT_METHOD_DIRECT_DEBIT);
             }
 
 			try {
@@ -629,7 +627,6 @@ interface PaymentInfoInterface {
 			} catch(\Exception $e) {
 
 				$this->writeLog($e->getMessage());
-
 			}
 
 			return $this;
@@ -644,17 +641,29 @@ interface PaymentInfoInterface {
 			return $this->directDebitTransactionObjects;
 		}
 
-        public function addCreditTransfertTransaction(CreditTransferTransaction $creditTransferTransactionObject) {
+		/**
+		 * Get Credit Transfer Transactions
+		 * @return array
+		 */
+		public function getCreditTransferTransactionObjects() {
+			return $this->creditTransferTransactionObjects;
+		}
 
-            if (! empty($this->directDebitTransactionObjects)) {
+		/**
+		 * @param CreditTransferTransaction $creditTransferTransactionObject
+		 * @throws \Exception
+		 */
+        public function addCreditTransferTransaction(CreditTransferTransaction $creditTransferTransactionObject) {
+
+            if (!empty($this->directDebitTransactionObjects)) {
                 throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
             }
 
-            if (!$this->getPaymentMethod()) {
+            if ( $this->getPaymentMethod() !== self::PAYMENT_METHOD_CREDIT_TRANSFERT) {
                 $this->setPaymentMethod(self::PAYMENT_METHOD_CREDIT_TRANSFERT);
             }
 
-            $this->creditTransfertTransactionObjects[] = $creditTransferTransactionObject;
+            $this->creditTransferTransactionObjects[] = $creditTransferTransactionObject;
         }
 
 		/**
@@ -734,19 +743,20 @@ interface PaymentInfoInterface {
             return $this->paymentMethod;
         }
 
-        /**
-         * Set the means of payment that will be used to move the amount of money.
-         * @param $paymentMethod
-         */
+		/**
+		 * Set the means of payment that will be used to move the amount of money.
+		 * @param $paymentMethod
+		 * @return $this
+		 */
         public function setPaymentMethod($paymentMethod) {
             $this->paymentMethod = $paymentMethod;
             return $this;
         }
 
 
-
 		/**
 		 * Get Simple XML Element Payment Info is a method which generate a payment info xml elements
+		 * @throws \Exception
 		 * @return \SimpleXMLElement
 		 */
 		public function getSimpleXMLElementPaymentInfo() {
@@ -782,6 +792,9 @@ interface PaymentInfoInterface {
             $this->resetControlSum();
             $this->resetNumberOfTransactions();
 
+			/**
+			 * @var $transaction TransactionInterface
+			 */
             foreach ($this->aggregateTransactions() as $transaction) {
 
                 //check if is Valid Transaction
@@ -814,7 +827,7 @@ interface PaymentInfoInterface {
         protected function aggregateTransactions() {
             return array_merge(
                 $this->directDebitTransactionObjects,
-                $this->creditTransfertTransactionObjects
+                $this->creditTransferTransactionObjects
             );
         }
 
@@ -849,7 +862,10 @@ interface PaymentInfoInterface {
             }
         }
 
-
+		/**
+		 * Add Creditor Fields Information to XML Document
+		 * @param \SimpleXMLElement $paymentInfo
+		 */
         protected function addCreditorFieldsToXml(\SimpleXMLElement $paymentInfo){
             $creditor = $paymentInfo->addChild('Cdtr');
             $creditor->addChild('Nm', $this->getCreditorName());
@@ -861,7 +877,6 @@ interface PaymentInfoInterface {
             $creditorAgent = $paymentInfo->addChild('CdtrAgt');
             $financialInstitutionIdentification = $creditorAgent->addChild('FinInstnId');
             $financialInstitutionIdentification->addChild('BIC', $this->getCreditorAccountBIC());
-
 
 
             //UltimateCreditor optional
@@ -895,6 +910,10 @@ interface PaymentInfoInterface {
             }
         }
 
+		/**
+		 * Add Debitor's Fields information to XML Document
+		 * @param \SimpleXMLElement $paymentInfo
+		 */
         public function addDebitorFieldsToXml(\SimpleXMLElement $paymentInfo) {
             $debitor = $paymentInfo->addChild('Dbtr');
             $debitor->addChild('Nm', $this->getDebitorName());
@@ -909,7 +928,4 @@ interface PaymentInfoInterface {
 
             $paymentInfo->addChild('ChrgBr', self::CHARGE_BEARER);
         }
-
-
-
-    }
+	}

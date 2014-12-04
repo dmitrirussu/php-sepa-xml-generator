@@ -232,8 +232,7 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
         return true;
     }
 
-    public function getSimpleXMLElementTransaction()
-    {
+    public function getSimpleXMLElementTransaction() {
         $creditTransferTransactionInformation = new \SimpleXMLElement('<CdtTrfTxInf></CdtTrfTxInf>');
 
         $paymentIdentification = $creditTransferTransactionInformation->addChild('PmtId');
