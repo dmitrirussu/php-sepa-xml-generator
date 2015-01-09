@@ -651,6 +651,7 @@ interface PaymentInfoInterface {
 
 		/**
 		 * @param CreditTransferTransaction $creditTransferTransactionObject
+		 * @return $this
 		 * @throws \Exception
 		 */
         public function addCreditTransferTransaction(CreditTransferTransaction $creditTransferTransactionObject) {
