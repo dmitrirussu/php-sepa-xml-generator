@@ -71,7 +71,7 @@ SEPA Credit Transfer
 
 		$this->assertTrue(file_exists($fileExist));
 
-
+```
 
 SEPA Direct Debit
 ===
