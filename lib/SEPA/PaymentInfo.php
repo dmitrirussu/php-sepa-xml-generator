@@ -664,6 +664,8 @@ interface PaymentInfoInterface {
             }
 
             $this->creditTransferTransactionObjects[] = $creditTransferTransactionObject;
+
+			return $this;
         }
 
 		/**
