@@ -77,7 +77,7 @@ class XmlGeneratorFactory {
     /**
      * @return SEPA\CreditTransferTransaction
      */
-    public static function createXMLCreditTransfertTransaction() {
+    public static function createXMLCreditTransferTransaction() {
         return new \SEPA\CreditTransferTransaction();
     }
 }
