@@ -108,6 +108,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 		$date = new \DateTime();
 
 		if( !$this->CreationDateTime ) {
+
 			$this->CreationDateTime = $date->format('Y-m-d\TH:i:s');
 		}
 
