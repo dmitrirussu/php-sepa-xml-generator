@@ -106,10 +106,11 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 
 	public function getCreationDateTime() {
 		$date = new \DateTime();
-		if( !$this->CreationDateTime ) {
 
-			$this->CreationDateTime = str_replace(' ', 'T', $date->format('Y-m-d h:i:s'));
+		if( !$this->CreationDateTime ) {
+			$this->CreationDateTime = $date->format('Y-m-d\TH:i:s');
 		}
+
 		return $this->CreationDateTime;
 	}
 
