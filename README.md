@@ -4,7 +4,6 @@
 <a href="http://badge.fury.io/gh/dmitrirussu%2Fphp-sepa-xml-generator"><img src="https://badge.fury.io/gh/dmitrirussu%2Fphp-sepa-xml-generator.svg" alt="GitHub version" height="18"></a>
 PHP SEPA XML Generator v 1.0.7
 ====
-
 In this new release was added PHP unit test which has, application building passing with success
 
 Guide ISO20022 SDD  V1_0 20122009
