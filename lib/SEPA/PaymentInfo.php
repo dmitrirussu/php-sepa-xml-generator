@@ -206,11 +206,11 @@ interface PaymentInfoInterface {
          */
         private $paymentMethod = self::PAYMENT_METHOD_DIRECT_DEBIT;
 
-	/**
-	 * Specifies the local instrument code.
-	 * @var strign
-	 */
-	private $localInstrumentCode = self::LOCAL_INSTRUMENT_CODE;
+		/**
+		 * Specifies the local instrument code.
+		 * @var string
+		 */
+		private $localInstrumentCode = self::LOCAL_INSTRUMENT_CODE;
 
 
 		public function __construct() {}
