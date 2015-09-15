@@ -206,6 +206,12 @@ interface PaymentInfoInterface {
          */
         private $paymentMethod = self::PAYMENT_METHOD_DIRECT_DEBIT;
 
+	/**
+	 * Specifies the local instrument code.
+	 * @var strign
+	 */
+	private $localInstrumentCode = self::LOCAL_INSTRUMENT_CODE;
+
 
 		public function __construct() {}
 
@@ -591,6 +597,28 @@ interface PaymentInfoInterface {
 		}
 
 		/**
+		 * Change the default local instrument code to the specified in the argument.
+		 * @param $localInstrumentCode The new code for local instrument.
+		 * @return $this
+		 */
+		public function setLocalInstrumentCode($localInstrumentCode) {
+
+			$this->localInstrumentCode = $localInstrumentCode;
+			return $this;
+
+		}
+
+		/**
+		 * Get the local instrument code which will be used.
+		 * @return string
+		 */
+		public function getLocalInstrumentCode() {
+
+			return this->localInstrumentCode;
+
+		}
+
+		/**
 		 * Payment info Direct Debit Transactions Object
 		 * @param $directDebitTransactionObject DirectDebitTransaction
 		 * @throws \Exception
@@ -842,7 +870,7 @@ interface PaymentInfoInterface {
             $serviceLevel->addChild('Cd', self::SERVICE_LEVEL_CODE);
 
             $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
-            $localInstrument->addChild('Cd', self::LOCAL_INSTRUMENT_CODE);
+            $localInstrument->addChild('Cd', $this->getLocalInstrumentCode());
 
             if ($this->getSequenceType()) {
                 $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
