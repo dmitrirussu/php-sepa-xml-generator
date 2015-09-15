@@ -604,8 +604,8 @@ interface PaymentInfoInterface {
 		public function setLocalInstrumentCode($localInstrumentCode) {
 
 			$this->localInstrumentCode = $localInstrumentCode;
-			return $this;
 
+			return $this;
 		}
 
 		/**
@@ -614,8 +614,7 @@ interface PaymentInfoInterface {
 		 */
 		public function getLocalInstrumentCode() {
 
-			return this->localInstrumentCode;
-
+			return $this->localInstrumentCode;
 		}
 
 		/**
