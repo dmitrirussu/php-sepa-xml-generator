@@ -56,6 +56,11 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 	private $documentPainMode;
 
 	/**
+	 * @var
+	 */
+	private $document;
+
+	/**
 	 * @var array
 	 */
 	private $sepaMessageObjects = array();
@@ -68,16 +73,18 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 	public function __construct($documentPainMode = self::PAIN_008_001_02) {
 		$this->setDocumentPainMode($documentPainMode);
-		$this->xml = new \SimpleXMLElement($this->getDocumentPainMode());
+		$this->xml = new \SimpleXMLElement($this->getDocument());
 	}
 
 
     public function setDocumentPainMode($documentPainMode) {
-        $this->documentPainMode = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        $this->documentPainMode = $documentPainMode;
+
+		$this->document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <Document
-	xmlns=\"urn:iso:std:iso:20022:tech:xsd:$documentPainMode\"
+	xmlns=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode}\"
 	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-	xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:$documentPainMode $documentPainMode.xsd\">
+	xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode} {$documentPainMode}.xsd\">
 </Document>";
 
 		return $this;
@@ -86,6 +93,11 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 	public function getDocumentPainMode() {
 
 		return $this->documentPainMode;
+	}
+
+	public function getDocument() {
+
+		return $this->document;
 	}
 
 	/**
