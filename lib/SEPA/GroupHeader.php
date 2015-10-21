@@ -57,6 +57,10 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	 */
 	private $InitiatingPartyName = '';
 
+	//Postal Address
+	private $AddressLine = '';
+	private $Country = '';
+
 	/**
 	 * Total of all individual amounts included in the message, irrespective of currencies
 	 * @var float
@@ -153,9 +157,42 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 		return $this;
 	}
 
+	public function setPostalAddress($name) {
+		if ( !$this->checkStringLength($name, 140)) {
+
+			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
+		}
+
+		$this->AddressLine = $name;
+
+		return $this;
+	}
+
+
+	public function setPostalCountry($name) {
+		if ( !$this->checkStringLength($name, 140)) {
+
+			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
+		}
+
+		$this->Country = $name;
+
+		return $this;
+	}
+
 	public function getInitiatingPartyName() {
 
 		return $this->InitiatingPartyName;
+	}
+
+
+	public function getAddressLine() {
+		return $this->AddressLine;
+	}
+
+
+	public function getCountry() {
+		return $this->Country;
 	}
 
 	/**
@@ -228,6 +265,12 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 			$concrete_id = $id->addChild('PrvtId');
 			$other = $concrete_id->addChild('Othr');
 			$other->addChild('Id', $this->PrivateIdentification);
+		}
+
+		if ( $this->getAddressLine() && $this->getCountry()) {
+			$postalAddress = $initiatingParty->addChild('PstlAdr');
+			$postalAddress->addChild('AdrLine', $this->getAddressLine());
+			$postalAddress->addChild('Ctry', $this->getCountry());
 		}
 
 		return $groupHeader;
