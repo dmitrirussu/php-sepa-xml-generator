@@ -157,7 +157,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 		return $this;
 	}
 
-	public function setPostalAddress($name) {
+	public function setAddressLine($name) {
 		if ( !$this->checkStringLength($name, 140)) {
 
 			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
@@ -169,7 +169,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	}
 
 
-	public function setPostalCountry($name) {
+	public function setCountry($name) {
 		if ( !$this->checkStringLength($name, 140)) {
 
 			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);

@@ -70,9 +70,12 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 
 		$xmlFile = SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject(\SEPA\XMLGenerator::PAIN_001_001_02)->addXmlMessage(
 			SEPA\Factory\XMLGeneratorFactory::createXMLMessage()->setMessageGroupHeader(
+
 				SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
 					->setMessageIdentification(1)
-					->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва'))
+					->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва')
+					->setAddressLine('Chisinau, str. Stefan Cel Mare 145')->setCountry('Moldova') // Optional
+			)
 				->addMessagePaymentInfo(
 					SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
 						->setAggregatePerMandate(false)
