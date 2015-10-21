@@ -273,6 +273,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 			$postalAddress->addChild('Ctry', $this->getCountry());
 		}
 
+
 		return $groupHeader;
 	}
 }
