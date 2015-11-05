@@ -4,7 +4,7 @@
     
 PHP SEPA XML Generator v 1.0.8
 ====
-In this new release was added PHP unit test which has, application building passing with success
+Now in this release you are able todo SEPA CreditTransfer and DirDebit
 
 Guide ISO20022 SDD  V1_0 20122009
 
