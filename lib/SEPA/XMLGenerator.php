@@ -147,7 +147,6 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 		/** @var $message Message */
 		foreach ($this->sepaMessageObjects as $message ) {
 			try {
-
 				$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
 
 			} catch(\Exception $e) {
@@ -198,9 +197,9 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 	/**
 	 * Rename XML Node Name
-	 * @param \DOMElement $node
+	 * @param \SimpleXMLElement $node
 	 * @param $newName
-	 * @return \DOMElement
+	 * @return \SimpleXMLElement
 	 */
 	function renameXmlNodeName(\SimpleXMLElement $node, $newName) {
 		$newNode = new \SimpleXMLElement("<$newName></$newName>");
