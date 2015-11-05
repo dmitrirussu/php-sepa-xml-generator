@@ -162,7 +162,18 @@ class Message extends XMLGenerator implements MessageInterface {
 
 		$this->simpleXmlAppend($this->message, $this->getMessageGroupHeader()->getSimpleXmlGroupHeader());
 
-		foreach (dom_import_simplexml($this->storeXmlPaymentsInfo)->childNodes as $element) {
+		if  ( $this->storeXmlPaymentsInfo instanceof \SimpleXMLElement ) {
+			$domImport = dom_import_simplexml($this->storeXmlPaymentsInfo);
+		}
+		else {
+			$domImport = $this->storeXmlPaymentsInfo;
+		}
+
+		if ( empty($domImport) ) {
+			throw new \Exception('Was not possible to store XML Payment Info');
+		}
+
+		foreach ($domImport->childNodes as $element) {
 
 			$this->simpleXmlAppend($this->message, $element);
 		}
