@@ -80,7 +80,6 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 					SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
 						->setAggregatePerMandate(false)
 						->setPaymentInformationIdentification(6222)
-						->setSequenceType('FRST')
 						->setDebitorAccountIBAN('MD24 AG00 0225 1000 1310 4168')
 						->setDebitorAccountBIC('AABAFI42')
 						->setDebitorName('Amazing SRL')
@@ -113,7 +112,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 								->setIBAN('MD24 AG000225100013104168')
 						)
 			)
-		)->save($fileExist = realpath(__DIR__) . '/xml_files/sepa_test.xml');
+		)->save($fileExist = realpath(__DIR__) . '/xml_files/sepa_ct.xml');
 
 		$this->assertTrue(file_exists($fileExist));
 	}
@@ -172,7 +171,7 @@ class XMLGeneratorFactoryTest extends PHPUnit_Framework_TestCase {
 //						->setCurrency('EUR')
 								->setDirectDebitInvoice(122))
 				)
-		)->view(true)->save($fileExist = realpath(__DIR__) . '/xml_files/sepa_test.xml');
+		)->view(true)->save($fileExist = realpath(__DIR__) . '/xml_files/sepa_dd.xml');
 
 		$this->assertTrue(file_exists($fileExist));
 	}

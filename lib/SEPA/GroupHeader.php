@@ -24,6 +24,9 @@ interface GroupHeaderInterface {
  */
 class GroupHeader extends Message implements GroupHeaderInterface {
 
+	const GROUPING = 'MIXD';
+
+
 	/**
 	 * Point to point reference assigned by the instructing party and sent to the next party in the chain
 	 * to unambiguously identify the message.
@@ -73,6 +76,13 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	 * @var int
 	 */
 	private $NumberOfTransactions = 0;
+
+	/**
+	 * Identifies whether a single entry per individual transaction or a batch entry for the sum of the amounts of
+	 * alltransactions within the group of a message is requested.
+	 * @var string
+	 */
+	private $batchBooking = false;
 
 	/**
 	 * Group header Mesage Id setter
@@ -235,6 +245,32 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	}
 
 	/**
+	 * Identifies whether a single entry per individual transaction or a batch entry for the sum of the amounts of
+	 * all transactions within the group of a message is requested.
+	 * @param $value
+	 * @return $this
+	 * @throws \Exception
+	 */
+	public function setBatchBooking($value) {
+
+		if ( is_null($value) || empty($value)) {
+
+			throw new \Exception(ERROR_MSG_PM_BATCH_BOOKING);
+		}
+
+		$this->batchBooking = $value;
+		return $this;
+	}
+
+	/**
+	 * @return bool|string
+	 */
+	public function getBatchBooking() {
+
+		return $this->batchBooking;
+	}
+
+	/**
 	 * Returns a XML for the group Header object
 	 * @return \SimpleXMLElement
 	 */
@@ -244,8 +280,16 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 		$groupHeader = new \SimpleXMLElement("<GrpHdr></GrpHdr>");
 		$groupHeader->addChild('MsgId', $this->getMessageIdentification());
 		$groupHeader->addChild('CreDtTm', $this->getCreationDateTime());
+		if ( $this->getDocumentPainMode() === self::PAIN_001_001_02) {
+			$groupHeader->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
+		}
 		$groupHeader->addChild('NbOfTxs', $this->getNumberOfTransactions());
 		$groupHeader->addChild('CtrlSum', $this->getControlSum());
+
+		if ( $this->getDocumentPainMode() === self::PAIN_001_001_02) {
+			$groupHeader->addChild('Grpg', self::GROUPING);
+		}
+
 
 		$initiatingParty = $groupHeader->addChild('InitgPty');
 		$initiatingParty->addChild('Nm', $this->getInitiatingPartyName());

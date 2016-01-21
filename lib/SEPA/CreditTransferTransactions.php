@@ -226,7 +226,7 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
 
     public function checkIsValidTransaction()
     {
-        if ( !$this->getBIC() ||  !$this->getIBAN() || !$this->getCreditInvoice() || !$this->getCreditorName()) {
+        if ( !$this->getBIC() ||  !$this->getIBAN() || !$this->getCreditorName()) {
            return false;
         }
         return true;
@@ -255,8 +255,10 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
             ->addChild('Id')
             ->addChild('IBAN', $this->getIBAN());
 
-        $creditTransferTransactionInformation->addChild('RmtInf')
-            ->addChild('Ustrd', $this->getCreditInvoice());
+		if ( $this->getCreditInvoice() ) {
+			$creditTransferTransactionInformation->addChild('RmtInf')
+				->addChild('Ustrd', $this->getCreditInvoice());
+		}
 
         return $creditTransferTransactionInformation;
 

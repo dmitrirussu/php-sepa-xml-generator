@@ -798,11 +798,13 @@ interface PaymentInfoInterface {
                 throw new \Exception(ERROR_MSG_PM_METHOD_NOT_DEFINED);
             }
 			$paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
-			$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
 
 
-            $paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
-            $paymentInfo->addChild('CtrlSum', $this->getControlSum());
+			if ( !$this->getCreditTransferTransactionObjects() ) {
+				$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
+				$paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
+				$paymentInfo->addChild('CtrlSum', $this->getControlSum());
+			}
 
 
 
@@ -871,7 +873,7 @@ interface PaymentInfoInterface {
             $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
             $localInstrument->addChild('Cd', $this->getLocalInstrumentCode());
 
-            if ($this->getSequenceType()) {
+            if ($this->getSequenceType() && $this->getDocumentPainMode() === self::PAIN_001_001_02) {
                 $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
             }
 
