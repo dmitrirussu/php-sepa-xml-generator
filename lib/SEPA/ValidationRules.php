@@ -131,4 +131,34 @@ class ValidationRules implements Validation {
 
 		return false;
 	}
+
+
+	/**
+	 * This method can be used to validate the generated SEPA SDD or SCT xml files
+	 * @param $xmlSEPAFile -> path to the generated sepa xml file
+	 * @param $xsdPainRule -> path to the lib/ISO20022_RULES/pain.008.001.02.xsd
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function validation($xmlSEPAFile = null, $xsdPainRule) {
+		if ( empty($xmlSEPAFile) && !file_exists($xmlSEPAFile) ) {
+			throw new \InvalidArgumentException('Missing SEPA XML File');
+		}
+
+
+		if ( empty($xsdPainRule) || !file_exists($xsdPainRule) ) {
+			throw new \InvalidArgumentException('Missing XSD Pain Rule');
+		}
+
+
+		$dom = new \DOMDocument();
+		$dom->load($xmlSEPAFile,  LIBXML_NOBLANKS);
+
+
+		if ( !file_exists($xsdPainRule) ) {
+			throw new \Exception('XSD File not found!');
+		}
+
+		return $dom->schemaValidate($xsdPainRule);
+	}
 }
