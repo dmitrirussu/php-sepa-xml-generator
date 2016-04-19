@@ -6,6 +6,8 @@ PHP SEPA XML Generator v 1.0.8
 ====
 Now in this release you are able todo SEPA CreditTransfer and DirDebit
 
+Support: pain.008.001.02, pain.001.001.02
+
 Guide ISO20022 SDD  V1_0 20122009
 
 SEPA Direct Debit Core Scheme (SDD Core) 
