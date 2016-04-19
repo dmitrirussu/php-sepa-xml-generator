@@ -78,6 +78,7 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 
     public function setDocumentPainMode($documentPainMode) {
+
         self::$DOCUMENT_PAIN_MODE = $documentPainMode;
 
 		$this->document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>

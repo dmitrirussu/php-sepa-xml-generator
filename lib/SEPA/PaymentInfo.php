@@ -891,6 +891,7 @@ interface PaymentInfoInterface {
 
 
         protected function addPaymentTypeInfoToXml(\SimpleXMLElement $paymentInfo) {
+
             $paymentTypeInfo = $paymentInfo->addChild('PmtTpInf');
             $serviceLevel = $paymentTypeInfo->addChild('SvcLvl');
             $serviceLevel->addChild('Cd', self::SERVICE_LEVEL_CODE);
