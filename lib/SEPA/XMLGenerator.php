@@ -53,7 +53,7 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 	 * SEPA XML document PAIN mode (pain.008.001.02.xsd OR pain.001.001.02.xsd)
 	 * @var String
 	 */
-	private $documentPainMode;
+	private static $DOCUMENT_PAIN_MODE;
 
 	/**
 	 * @var
@@ -78,7 +78,7 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 
     public function setDocumentPainMode($documentPainMode) {
-        $this->documentPainMode = $documentPainMode;
+        self::$DOCUMENT_PAIN_MODE = $documentPainMode;
 
 		$this->document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <Document
@@ -92,7 +92,7 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 	public function getDocumentPainMode() {
 
-		return $this->documentPainMode;
+		return self::$DOCUMENT_PAIN_MODE;
 	}
 
 	public function getDocument() {

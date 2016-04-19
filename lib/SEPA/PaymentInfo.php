@@ -898,7 +898,7 @@ interface PaymentInfoInterface {
             $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
             $localInstrument->addChild('Cd', $this->getLocalInstrumentCode());
 
-            if ($this->getSequenceType() && $this->getDocumentPainMode() === self::PAIN_001_001_02) {
+            if ( $this->getSequenceType() && $this->getDocumentPainMode() === self::PAIN_008_001_02 ) {
                 $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
             }
 
