@@ -93,7 +93,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	 */
 	public function setMessageIdentification($msgId) {
 		if ( !$this->checkStringLength($msgId, 35) ) {
-			throw new \Exception(ERROR_MSG_MESSAGE_IDENTIFICATION);
+			throw new \Exception(ERROR_MSG_MESSAGE_IDENTIFICATION, ERROR_MSG_MESSAGE_IDENTIFICATION_CODE);
 		}
 		$this->messageIdentification = $msgId;
 		return $this;
@@ -161,7 +161,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 
 		if ( !$this->checkStringLength($name, 140)) {
 
-			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
+			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME, ERROR_MSG_INITIATING_PARTY_NAME_CODE);
 		}
 		$this->InitiatingPartyName = $name;
 		return $this;
@@ -170,7 +170,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	public function setAddressLine($name) {
 		if ( !$this->checkStringLength($name, 140)) {
 
-			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
+			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME, ERROR_MSG_INITIATING_PARTY_NAME_CODE);
 		}
 
 		$this->AddressLine = $name;
@@ -182,7 +182,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	public function setCountry($name) {
 		if ( !$this->checkStringLength($name, 140)) {
 
-			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
+			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME, ERROR_MSG_INITIATING_PARTY_NAME_CODE);
 		}
 
 		$this->Country = $name;
@@ -255,7 +255,7 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 
 		if ( is_null($value) || empty($value)) {
 
-			throw new \Exception(ERROR_MSG_PM_BATCH_BOOKING);
+			throw new \Exception(ERROR_MSG_PM_BATCH_BOOKING, ERROR_MSG_PM_BATCH_BOOKING_CODE);
 		}
 
 		$this->batchBooking = $value;

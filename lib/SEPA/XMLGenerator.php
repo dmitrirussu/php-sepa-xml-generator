@@ -47,7 +47,9 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 	 * XMl File PAIN ISO head line
 	 */
 	const PAIN_008_001_02 = 'pain.008.001.02';
-    const PAIN_001_001_02 = 'pain.001.001.02';
+	const PAIN_001_001_02 = 'pain.001.001.02';
+	const PAIN_001_001_03 = 'pain.001.001.03';
+
 
 	/**
 	 * SEPA XML document PAIN mode (pain.008.001.02.xsd OR pain.001.001.02.xsd)
@@ -77,15 +79,14 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 	}
 
 
-    public function setDocumentPainMode($documentPainMode) {
+	public function setDocumentPainMode($documentPainMode) {
 
-        self::$DOCUMENT_PAIN_MODE = $documentPainMode;
+		self::$DOCUMENT_PAIN_MODE = $documentPainMode;
 
 		$this->document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <Document
 	xmlns=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode}\"
-	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-	xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode} {$documentPainMode}.xsd\">
+	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">
 </Document>";
 
 		return $this;
