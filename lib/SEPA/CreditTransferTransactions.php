@@ -156,7 +156,7 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
 
 		if ( !$this->checkIBAN($IBAN) ) {
 
-			throw new \Exception(ERROR_MSG_DD_IBAN . $this->getInstructionIdentification());
+			throw new \Exception(ERROR_MSG_CT_IBAN . $this->getInstructionIdentification(), ERROR_MSG_CT_IBAN_CODE);
 		}
 		$this->IBAN = $IBAN;
 		return $this;
@@ -180,7 +180,7 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
 	public function setCreditInvoice($invoice) {
 		if ( !$this->checkStringLength($invoice, 140) ) {
 
-			throw new \Exception(ERROR_MSG_DD_INVOICE_NUMBER . $this->getInstructionIdentification());
+			throw new \Exception(ERROR_MSG_CT_INVOICE_NUMBER . $this->getInstructionIdentification(), ERROR_MSG_CT_INVOICE_NUMBER_CODE);
 		}
 		$this->creditInvoice = $invoice;
 		return $this;
@@ -203,7 +203,7 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
 	public function setCreditorName($name) {
 		if ( !$this->checkStringLength($name, 70) ) {
 
-			throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
+			throw new \Exception(ERROR_MSG_CT_NAME . $this->getInstructionIdentification(), ERROR_MSG_CT_NAME_CODE);
 		}
 		$this->creditorName = $name;
 		return $this;

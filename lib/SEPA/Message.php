@@ -148,7 +148,7 @@ class Message extends XMLGenerator implements MessageInterface {
 			try {
 
 				if ( !$paymentInfo->checkIsValidPaymentInfo() ) {
-					throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification());
+					throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification(), ERROR_MSG_INVALID_PAYMENT_INFO_CODE);
 				}
 
 				$paymentInfo->resetControlSum();

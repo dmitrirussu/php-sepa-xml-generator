@@ -278,7 +278,7 @@ interface PaymentInfoInterface {
 
 			if ( !$this->checkStringLength($paymentInformationId, 35) ) {
 
-				throw new \Exception(ERROR_MSG_PM_INFO_IDENTIFIER);
+				throw new \Exception(ERROR_MSG_PM_INFO_IDENTIFIER, ERROR_MSG_PM_INFO_IDENTIFIER_CODE);
 			}
 
 			$this->paymentInformationIdentification = $paymentInformationId;
@@ -391,7 +391,7 @@ interface PaymentInfoInterface {
 
 			if ( !$this->checkStringLength($creditorName, 140) ) {
 
-				throw new \Exception(ERROR_MSG_CREDITOR_NAME);
+				throw new \Exception(ERROR_MSG_CREDITOR_NAME, ERROR_MSG_CREDITOR_NAME_CODE);
 			}
 
 			$this->creditorName = $creditorName;
@@ -402,7 +402,7 @@ interface PaymentInfoInterface {
 			$debitorName = $this->unicodeDecode($debitorName);
 
 			if ( !$this->checkStringLength($debitorName, 70) ) {
-				throw new \Exception(ERROR_MSG_DEBITOR_NAME);
+				throw new \Exception(ERROR_MSG_DEBITOR_NAME, ERROR_MSG_DEBITOR_NAME_CODE);
 			}
 
 			$this->debitorName = $debitorName;
@@ -423,7 +423,7 @@ interface PaymentInfoInterface {
 
 			if ( !$this->checkIBAN($creditorAccountIBAN) ) {
 
-				throw new \Exception(ERROR_MSG_CREDITOR_IBAN);
+				throw new \Exception(ERROR_MSG_CREDITOR_IBAN, ERROR_MSG_CREDITOR_IBAN_CODE);
 			}
 
 			$this->creditorAccountIBAN = $creditorAccountIBAN;
@@ -451,7 +451,7 @@ interface PaymentInfoInterface {
 			$debitorAccountIBAN = $this->removeSpaces($debitorAccountIBAN);
 			if ( !$this->checkIBAN($debitorAccountIBAN) ) {
 
-				throw new \Exception(ERROR_MSG_DEBITOR_IBAN);
+				throw new \Exception(ERROR_MSG_DEBITOR_IBAN, ERROR_MSG_DEBITOR_IBAN_CODE);
 			}
 
 			$this->debitorAccountIBAN = $debitorAccountIBAN;
@@ -475,7 +475,7 @@ interface PaymentInfoInterface {
 		public function setCreditorAccountBIC($creditorBIC) {
 			if ( !$this->checkBIC($creditorBIC) ) {
 
-				throw new \Exception(ERROR_MSG_CREDITOR_BIC);
+				throw new \Exception(ERROR_MSG_CREDITOR_BIC, ERROR_MSG_CREDITOR_BIC_CODE);
 			}
 
 			$this->creditorBIC = $creditorBIC;
@@ -500,7 +500,7 @@ interface PaymentInfoInterface {
 		public function setDebitorAccountBIC($debitorBIC) {
 			if ( !$this->checkBIC($debitorBIC) ) {
 
-				throw new \Exception(ERROR_MSG_DEBITOR_BIC);
+				throw new \Exception(ERROR_MSG_DEBITOR_BIC, ERROR_MSG_DEBITOR_BIC_CODE);
 			}
 
 			$this->debitorBIC = $debitorBIC;
@@ -524,7 +524,7 @@ interface PaymentInfoInterface {
 		public function setCreditorSchemeIdentification($creditorSchemaId) {
 			if ( empty($creditorSchemaId) || is_null($creditorSchemaId) ) {
 
-				throw new \Exception(ERROR_MSG_PM_CREDITOR_SCHEME_IDENTIFICATION);
+				throw new \Exception(ERROR_MSG_PM_CREDITOR_SCHEME_IDENTIFICATION, ERROR_MSG_PM_CREDITOR_SCHEME_IDENTIFICATION_CODE);
 			}
 			$this->CreditorSchemeIdentification = $creditorSchemaId;
 			return $this;
@@ -587,7 +587,7 @@ interface PaymentInfoInterface {
 
 			if ( is_null($value) || empty($value)) {
 
-				throw new \Exception(ERROR_MSG_PM_BATCH_BOOKING);
+				throw new \Exception(ERROR_MSG_PM_BATCH_BOOKING, ERROR_MSG_PM_BATCH_BOOKING_CODE);
 			}
 
 			$this->batchBooking = $value;
@@ -650,7 +650,7 @@ interface PaymentInfoInterface {
 		 */
 		public function addDirectDebitTransaction(DirectDebitTransaction $directDebitTransactionObject) {
 			if (! empty($this->creditTransfertTransactionObjects)) {
-				throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
+				throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE, ERROR_MSG_PM_ONLY_ONE_TYPE_CODE);
 			}
 
 			try {
@@ -709,7 +709,7 @@ interface PaymentInfoInterface {
 		public function addCreditTransferTransaction(CreditTransferTransaction $creditTransferTransactionObject) {
 
 			if (!empty($this->directDebitTransactionObjects)) {
-				throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
+				throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE, ERROR_MSG_PM_ONLY_ONE_TYPE_CODE);
 			}
 
 			if ( $this->getPaymentMethod() !== self::PAYMENT_METHOD_CREDIT_TRANSFERT) {
@@ -820,7 +820,7 @@ interface PaymentInfoInterface {
 
 			$paymentInfo->addChild('PmtInfId', $this->getPaymentInformationIdentification());
 			if (!$this->getPaymentMethod()) {
-				throw new \Exception(ERROR_MSG_PM_METHOD_NOT_DEFINED);
+				throw new \Exception(ERROR_MSG_PM_METHOD_NOT_DEFINED, ERROR_MSG_PM_METHOD_NOT_DEFINED_CODE);
 			}
 			$paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
 

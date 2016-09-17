@@ -227,7 +227,7 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	public function setDebtorName($name) {
 		if ( !$this->checkStringLength($name, 140) ) {
 
-			throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
+			throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification(), ERROR_MSG_DD_NAME_CODE);
 		}
 		$this->DebtorName = $name;
 		return $this;
@@ -245,7 +245,7 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 
 		if ( !$this->checkIBAN($IBAN) ) {
 
-			throw new \Exception(ERROR_MSG_DD_IBAN . $this->getInstructionIdentification());
+			throw new \Exception(ERROR_MSG_DD_IBAN . $this->getInstructionIdentification(), ERROR_MSG_DD_IBAN_CODE);
 		}
 		$this->IBAN = $IBAN;
 		return $this;
