@@ -19,17 +19,17 @@ require_once dirname(__FILE__) . '/../iban/php-iban.php';
  * @package SEPA
  */
 interface XMLGeneratorInterface {
-	public function __construct();
 	public function addXmlMessage( Message $message );
 	public function getGeneratedXml();
 	public function save( $fileName );
 	public function view();
+	public function __destruct();
 }
 /**
  * Class XMLGenerator
  * @package SEPA
  */
-class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
+class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 	/**
 	 * Path Logs Directory
@@ -44,14 +44,22 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	public static $_LOG_FILENAME = 'sepa_logs.txt';
 
 	/**
-	 *
+	 * XMl File PAIN ISO head line
 	 */
-	const INITIAL_HEADLINE = '<?xml version="1.0" encoding="UTF-8"?>
-						<Document
-							xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02"
-							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
-						</Document>';
+	const PAIN_008_001_02 = 'pain.008.001.02';
+    const PAIN_001_001_02 = 'pain.001.001.02';
+
+	/**
+	 * SEPA XML document PAIN mode (pain.008.001.02.xsd OR pain.001.001.02.xsd)
+	 * @var String
+	 */
+	private static $DOCUMENT_PAIN_MODE;
+
+	/**
+	 * @var
+	 */
+	private $document;
+
 	/**
 	 * @var array
 	 */
@@ -62,9 +70,35 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	 */
 	private $xml;
 
-	public function __construct() {
 
-		$this->xml = new \SimpleXMLElement(self::INITIAL_HEADLINE);
+	public function __construct($documentPainMode = self::PAIN_008_001_02) {
+		$this->setDocumentPainMode($documentPainMode);
+		$this->xml = new \SimpleXMLElement($this->getDocument());
+	}
+
+
+    public function setDocumentPainMode($documentPainMode) {
+
+        self::$DOCUMENT_PAIN_MODE = $documentPainMode;
+
+		$this->document = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<Document
+	xmlns=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode}\"
+	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+	xsi:schemaLocation=\"urn:iso:std:iso:20022:tech:xsd:{$documentPainMode} {$documentPainMode}.xsd\">
+</Document>";
+
+		return $this;
+	}
+
+	public function getDocumentPainMode() {
+
+		return self::$DOCUMENT_PAIN_MODE;
+	}
+
+	public function getDocument() {
+
+		return $this->document;
 	}
 
 	/**
@@ -114,7 +148,6 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 		/** @var $message Message */
 		foreach ($this->sepaMessageObjects as $message ) {
 			try {
-
 				$this->simpleXmlAppend($this->xml, $message->getSimpleXMLElementMessage());
 
 			} catch(\Exception $e) {
@@ -138,7 +171,6 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 	public function getGeneratedXml() {
 		if ( !$this->xml->children() ) {
 			$this->generateMessages();
-			return $this->xml->asXML();
 		}
 		return $this->xml->asXML();
 	}
@@ -164,5 +196,27 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 		$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
 	}
 
+	/**
+	 * Rename XML Node Name
+	 * @param \SimpleXMLElement $node
+	 * @param $newName
+	 * @return \SimpleXMLElement
+	 */
+	function renameXmlNodeName(\SimpleXMLElement $node, $newName) {
+		$newNode = new \SimpleXMLElement("<$newName></$newName>");
 
+		if ( $node->childNodes ) {
+			foreach ($node->childNodes as $child){
+				$newNode->addChild($child);
+			}
+		}
+
+		if ( $node->attributes ) {
+			foreach ($node->attributes as $attrName => $attrNode) {
+				$newNode->addAttribute($attrName, $attrNode);
+			}
+		}
+
+		return $newNode;
+	}
 }

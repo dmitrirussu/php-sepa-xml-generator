@@ -47,8 +47,23 @@ class Message extends XMLGenerator implements MessageInterface {
 	private $paymentInfoObjects = array();
 
 	public function __construct() {
-		$this->message = new \SimpleXMLElement('<CstmrDrctDbtInitn></CstmrDrctDbtInitn>');
+		$this->createMessage();
 		$this->storeXmlPaymentsInfo = new \SimpleXMLElement('<payments></payments>');
+	}
+
+	private function createMessage() {
+		switch($this->getDocumentPainMode()) {
+			case self::PAIN_001_001_02: {
+				$documentMessage = "<CstmrCdtTrfInitn></CstmrCdtTrfInitn>";
+				break;
+			}
+			default: {
+				$documentMessage = "<CstmrDrctDbtInitn></CstmrDrctDbtInitn>";
+				break;
+			}
+		}
+
+		$this->message = new \SimpleXMLElement($documentMessage);
 	}
 
 	/**
@@ -91,7 +106,6 @@ class Message extends XMLGenerator implements MessageInterface {
 		try {
 
 			if ( !($paymentInfoObject instanceof PaymentInfo) ) {
-
 				throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
 			}
 
@@ -127,11 +141,11 @@ class Message extends XMLGenerator implements MessageInterface {
 		 */
 		foreach ($this->paymentInfoObjects as $paymentInfo) {
 			try {
+
 				if ( !$paymentInfo->checkIsValidPaymentInfo() ) {
-
 					throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification());
-
 				}
+
 				$paymentInfo->resetControlSum();
 				$paymentInfo->resetNumberOfTransactions();
 
@@ -143,14 +157,12 @@ class Message extends XMLGenerator implements MessageInterface {
 			} catch(\Exception $e) {
 
 				$this->writeLog($e->getMessage());
-
 			}
-
 		}
 
 		$this->simpleXmlAppend($this->message, $this->getMessageGroupHeader()->getSimpleXmlGroupHeader());
 
-		foreach (dom_import_simplexml($this->storeXmlPaymentsInfo)->childNodes as $element) {
+		foreach ($this->storeXmlPaymentsInfo->children() as $element) {
 
 			$this->simpleXmlAppend($this->message, $element);
 		}

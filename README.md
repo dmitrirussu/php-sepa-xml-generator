@@ -1,11 +1,12 @@
-<a data-ember-action="19" target="_blank" class="open-popup" name="status-images" id="status-image-popup" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator">
-    <img title="Build Status Images" data-bindattr-20="20" src="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.png">
+<a rel="nofollow" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator" id="user-content-status-image-popup" target="_blank">
+    <img alt="68747470733a2f2f7472617669732d63692e6f72" src="https://camo.githubusercontent.com/73c7485efd1d7f3c28956a19686686abc82759cc/68747470733a2f2f7472617669732d63692e6f72672f646d6974726972757373752f7068702d736570612d786d6c2d67656e657261746f722e706e67" title="Build Status Images">
 </a>
-
-PHP SEPA XML Generator v 1.0.7
+    
+PHP SEPA XML Generator v 1.0.8
 ====
+Now in this release you are able todo SEPA CreditTransfer and DirDebit
 
-In this new release was added PHP unit test which has, application building passing with success
+Support: pain.008.001.02, pain.001.001.02
 
 Guide ISO20022 SDD  V1_0 20122009
 
@@ -18,80 +19,18 @@ The Single Euro Payments Area (SEPA) is a payment-integration initiative of the 
 transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU member states, the four members of the EFTA
 (Iceland, Liechtenstein, Norway and Switzerland) and Monaco.
 
-Example of using.
-====
-```php
-        $SEPAXml = new SEPAXmlFile();
-
-        $SEPAXml::$_XML_FILES_REPOSITORY = '/xml_files/';
-        $SEPAXml::$_FILE_NAME = 'sepa_test.xml';
-
-        //Simple Example of Sepa Xml File Messages
-        $SEPAXml::$_MESSAGES = array(
-        	array('message_id' => 1,
-        		'group_header' => array(
-        			'company_name' => 'Amazing SRL ȘȚțș ыаывпавпва ',
-                    'organisation_id' => 'ZZ00001X11111112', //is an optional field
-                  //'private_id' => 'ZZ00001X11111112' //is an optional field
-        		),
-        		'payment_info' => array(
-        			'FRST' => array(
-        				'id' => 6222,
-        				'creditor_iban' => 'MD24 AG00 0225 1000 1310 4168',
-        				'creditor_bic' => 'AABAFI42',
-        				'creditor_name' => 'Amazing SRL',
-        				'scheme_identifier' => 'FR07ZZZ519993',
-        //				'proprietary_name' => 'SEPA', //default value is = 'SEPA', You can SET only proprietary_name OR schema_name
-        //				'schema_name' => 'CORE', // default value is = 'CORE', You can SET only proprietary_name OR schema_name
-        				'transactions' => array(
-        					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
-        						->setInstructionIdentification(3)
-        						->setEndToEndIdentification(39)
-        						->setInstructedAmount(100.5)
-        						->setDebtorName('Roy SRL')
-        						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
-        						->setMandateIdentification('SDD000000016PFX0713')
-        						->setDateOfSignature('2013-08-03')
-        						//->setCurrency('EUR')
-        						->setDirectDebitInvoice(122),
-        					array(
-        						'id' => 3,
-        						'endId' => 3,
-        						'company_name' => 'Toy SRL',
-        						'amount' => 10.4,
-        						'umr' => 'SDD000000016PFX0714',
-        						'iban' => 'FR14 2004 1010 0505 0001 3M02 606',
-        						'bic' => 'AABAFI42',
-        						'mandate_sign_date' => '2013-08-03',
-        						'invoice' => 1223
-        					)
-        				)
-        			))));
-
-        //Sepa Export View
-        //	$SEPAXml->export()->view();
-
-        //Sepa Export Save
-        //	$SEPAXml->export()->save();
-
-        //Sepa Export Save and View
-        //	$SEPAXml->export()->save()->view();
-
-        //Seepa Export View and Save
-        $SEPAXml->export()->view()->save();
-
-        // SEPA Xml export validation with ISO20022
-        //var_dump($SEPAXml->export()->validation('pain.008.001.02'));
-
-        //SEPA xml export convert to array
-        //$SEPAXml->export()->convertToArray();
-```
+Example of using
 ===
-An other way to generate XML (Recommended - it is more optimized)
+
+SEPA Direct Debit
 ===
+
 ```php
-		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject()->addXmlMessage(
+		//When you start to generate a SEPA Xml File, need to choose PAIN
+		$directDebitTransaction = \SEPA\XMLGenerator::PAIN_008_001_02; // For Direct Debit transactions is By Defaut
+		$creditTransfer = \SEPA\XMLGenerator::PAIN_001_001_02; //For Credit Transfer
+
+		SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject($directDebitTransaction)->addXmlMessage(
         	SEPA\Factory\XMLGeneratorFactory::createXMLMessage()
         		->setMessageGroupHeader(
         			SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
@@ -105,6 +44,7 @@ An other way to generate XML (Recommended - it is more optimized)
         				->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
         				->setCreditorSchemeIdentification('FR07ZZZ519993')
         				->setRequestedCollectionDate('2013-08-06')
+						->setAggregatePerMandate(true) //Default Transaction aggregation option = true
         				->addDirectDebitTransaction( //First transaction
         					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
         						->setInstructionIdentification(3)
@@ -112,7 +52,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('Roy SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0713') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
@@ -124,7 +64,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('Roy SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0713') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
@@ -136,7 +76,7 @@ An other way to generate XML (Recommended - it is more optimized)
         						->setInstructedAmount(100.5)
         						->setDebtorName('ND SRL')
         						->setDebitIBAN('FR14 2004 1010 0505 0001 3M02 606')
-        						->setDebitBIC('AABAFI22')
+        						->setDebitBIC('AABAFI22') //Optional
         						->setMandateIdentification('SDD000000016PFX0714') //unique Identifier
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
@@ -146,7 +86,59 @@ An other way to generate XML (Recommended - it is more optimized)
         )->view()->save(realpath(__DIR__) . '/xml_files/sepa_test.xml');
 
 ```
-XML File Result
+
+SEPA Credit Transfer
+===
+
+```php
+	$xmlFile = SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject(\SEPA\XMLGenerator::PAIN_001_001_02)->addXmlMessage(
+			SEPA\Factory\XMLGeneratorFactory::createXMLMessage()->setMessageGroupHeader(
+				SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
+					->setMessageIdentification(1)
+					->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва'))
+				->addMessagePaymentInfo(
+					SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
+						->setAggregatePerMandate(false)
+						->setPaymentInformationIdentification(6222)
+						->setSequenceType('FRST')
+						->setDebitorAccountIBAN('MD24 AG00 0225 1000 1310 4168')
+						->setDebitorAccountBIC('AABAFI42')
+						->setDebitorName('Amazing SRL')
+						->setRequestedCollectionDate('2013-08-06')
+						->addCreditTransferTransaction(
+							SEPA\Factory\XmlGeneratorFactory::createXMLCreditTransferTransaction()
+								->setInstructionIdentification(3)
+								->setCreditInvoice(1223)
+								->setInstructedAmount(100.5)
+								->setBIC('AABAFI42')
+								->setCreditorName('1222')
+								->setIBAN('MD24 AG000225100013104168')
+						)
+						->addCreditTransferTransaction(
+							SEPA\Factory\XmlGeneratorFactory::createXMLCreditTransferTransaction()
+								->setInstructionIdentification(4)
+								->setCreditInvoice(1223)
+								->setInstructedAmount(50.5)
+								->setBIC('AABAFI42')
+								->setCreditorName('1222')
+								->setIBAN('MD24 AG000225100013104168')
+						)
+						->addCreditTransferTransaction(
+							SEPA\Factory\XmlGeneratorFactory::createXMLCreditTransferTransaction()
+								->setInstructionIdentification(4)
+								->setCreditInvoice(1223)
+								->setInstructedAmount(25.5)
+								->setBIC('AABAFI42')
+								->setCreditorName('1222')
+								->setIBAN('MD24 AG000225100013104168')
+						)
+			)
+		)->save($fileExist = realpath(__DIR__) . '/xml_files/sepa_test.xml');
+
+		$this->assertTrue(file_exists($fileExist));
+```
+
+XML File Result for SEPA Direct Debit
 ===
 ```xml
         <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02" 
@@ -266,3 +258,5 @@ XML File Result
           </CstmrDrctDbtInitn>
         </Document>
 ```
+
+
