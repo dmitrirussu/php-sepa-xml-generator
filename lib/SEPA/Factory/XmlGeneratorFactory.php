@@ -11,13 +11,11 @@ namespace SEPA\Factory;
 use SEPA;
 
 require_once dirname(__FILE__) . '/../ValidationRules.php';
-require_once dirname(__FILE__) . '/../TransactionInterface.php';
 require_once dirname(__FILE__) . '/../XMLGenerator.php';
 require_once dirname(__FILE__) . '/../Message.php';
 require_once dirname(__FILE__) . '/../GroupHeader.php';
 require_once dirname(__FILE__) . '/../PaymentInfo.php';
 require_once dirname(__FILE__) . '/../DirectDebitTransactions.php';
-require_once dirname(__FILE__) . '/../CreditTransferTransactions.php';
 
 class XmlGeneratorFactory {
 
@@ -32,9 +30,8 @@ class XmlGeneratorFactory {
 	/**
 	 * @return SEPA\XMLGenerator
 	 */
-	public static function createXmlGeneratorObject($documentPainMode = \SEPA\XMLGenerator::PAIN_008_001_02) {
-
-		return new \SEPA\XMLGenerator($documentPainMode);
+	public static function createXmlGeneratorObject() {
+		return new \SEPA\XMLGenerator();
 	}
 
 	/**
@@ -73,11 +70,4 @@ class XmlGeneratorFactory {
 	public static function createXMLDirectDebitTransaction() {
 		return new \SEPA\DirectDebitTransaction();
 	}
-
-    /**
-     * @return SEPA\CreditTransferTransaction
-     */
-    public static function createXMLCreditTransferTransaction() {
-        return new \SEPA\CreditTransferTransaction();
-    }
 }

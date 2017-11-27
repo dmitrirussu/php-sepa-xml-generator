@@ -9,21 +9,18 @@
 namespace SEPA;
 
 /**
+ * Class DirectDebitTransactionInterface
+ * @package SEPA
+ */
+interface DirectDebitTransactionInterface {
+	public function checkIsValidTransaction();
+	public function getSimpleXMLElementTransaction();
+}
+/**
  * Class SepaDirectDebitTransactions
  * @package SEPA
  */
-class DirectDebitTransaction extends PaymentInfo implements TransactionInterface {
-
-	/**
-	 * BIC Code not provided
-	 */
-	const BIC_NOTPROVIDED = 'NOTPROVIDED';
-
-	/**
-	 * Direct Debit Currency
-	 */
-	const CURRENCY = 'EUR';
-
+class DirectDebitTransaction extends PaymentInfo implements DirectDebitTransactionInterface {
 	/**
 	 * Unique identification as assigned by an instructing party for an instructed party to unambiguously identify
 	 * the instruction.
@@ -37,6 +34,13 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	 * @var string
 	 */
 	private $EndToEndIdentification = '';
+
+	/**
+	 * Direct Debit Currency
+	 *
+	 * @var string
+	 */
+	const CURRENCY = 'EUR';
 
 	private $currency = '';
 
@@ -210,11 +214,17 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	 * max length
 	 * @param $BIC
 	 * @return $this
+	 * @throws \Exception
 	 */
 	public function setDebitBIC($BIC) {
 
-		$this->BIC = $this->removeSpaces($BIC);
+		$BIC  = $this->removeSpaces($BIC);
 
+		if ( !$this->checkBIC($BIC)) {
+
+			throw new \Exception(ERROR_MSG_DD_CHECK_BIC . $this->getInstructionIdentification());
+		}
+		$this->BIC = $BIC;
 		return $this;
 	}
 
@@ -279,7 +289,7 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	 * @return bool
 	 */
 	public function checkIsValidTransaction() {
-		if ( !$this->getIBAN() || !$this->getDirectDebitInvoice() || !$this->getDebtorName()) {
+		if ( !$this->getIBAN() || !$this->getBIC() || !$this->getDirectDebitInvoice() || !$this->getDebtorName()) {
 
 			return false;
 		}
@@ -305,17 +315,9 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 		$mandateRelatedInformation->addChild('MndtId', $this->getMandateIdentification());
 		$mandateRelatedInformation->addChild('DtOfSgntr', $this->getDateOfSignature());
 
-		if ( $this->getBIC() ) {
-			$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
-				->addChild('FinInstnId');
-			$debtorAgent->addChild('BIC', $this->getBIC());
-		}
-		else {
-			$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
-				->addChild('FinInstnId')->addChild('Othr');
-			$debtorAgent->addChild('Id', self::BIC_NOTPROVIDED);
-		}
-
+		$debtorAgent  = $directDebitTransactionInformation->addChild('DbtrAgt')
+			->addChild('FinInstnId');
+		$debtorAgent->addChild('BIC', $this->getBIC());
 
 		$debtor = $directDebitTransactionInformation->addChild('Dbtr');
 		$debtor->addChild('Nm', $this->getDebtorName());
