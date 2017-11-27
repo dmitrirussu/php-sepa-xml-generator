@@ -164,8 +164,4 @@ class XMLGenerator extends  ValidationRules implements XMLGeneratorInterface {
 		$fromDom = dom_import_simplexml($from);
 		$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
 	}
-
-	public function __destruct() {
-		unset($this);
-	}
 }
