@@ -3,7 +3,7 @@
   <CstmrCdtTrfInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2017-11-27T21:02:48</CreDtTm>
+      <CreDtTm>2017-11-27T21:04:44</CreDtTm>
       <BtchBookg>false</BtchBookg>
       <NbOfTxs>3</NbOfTxs>
       <CtrlSum>176.50</CtrlSum>
