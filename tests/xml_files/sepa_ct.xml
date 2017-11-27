@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02 pain.001.001.02.xsd">
-  <CstmrDrctDbtInitn>
+  <CstmrCdtTrfInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2016-01-21T19:47:39</CreDtTm>
+      <CreDtTm>2017-11-27T21:02:48</CreDtTm>
+      <BtchBookg>false</BtchBookg>
       <NbOfTxs>3</NbOfTxs>
       <CtrlSum>176.50</CtrlSum>
-      <BtchBookg>false</BtchBookg>
-	    <InitgPty>
+      <Grpg>MIXD</Grpg>
+      <InitgPty>
         <Nm>Amazing SRL ???? yayvpavpva</Nm>
         <PstlAdr>
           <AdrLine>Chisinau, str. Stefan Cel Mare 145</AdrLine>
@@ -25,9 +26,8 @@
         <LclInstrm>
           <Cd>CORE</Cd>
         </LclInstrm>
-        <SeqTp>FRST</SeqTp>
       </PmtTpInf>
-      <ReqdExctnDt>2016-01-21</ReqdExctnDt>
+      <ReqdExctnDt>2017-11-27</ReqdExctnDt>
       <Dbtr>
         <Nm>Amazing SRL</Nm>
       </Dbtr>
@@ -117,6 +117,8 @@
           <Ustrd>1223</Ustrd>
         </RmtInf>
       </CdtTrfTxInf>
+      <NbOfTxs>3</NbOfTxs>
+      <CtrlSum>176.50</CtrlSum>
     </PmtInf>
-  </CstmrDrctDbtInitn>
+  </CstmrCdtTrfInitn>
 </Document>
