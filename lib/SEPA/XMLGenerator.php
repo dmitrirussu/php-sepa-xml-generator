@@ -219,8 +219,4 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface {
 
 		return $newNode;
 	}
-
-	public function __destruct() {
-		unset($this);
-	}
 }
