@@ -178,6 +178,8 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
      * @throws \Exception
      */
     public function setCreditInvoice($invoice) {
+        $invoice = $this->unicodeDecode($invoice);
+
         if ( !$this->checkStringLength($invoice, 140) ) {
 
             throw new \Exception(ERROR_MSG_DD_INVOICE_NUMBER . $this->getInstructionIdentification());
@@ -201,6 +203,8 @@ class CreditTransferTransaction extends PaymentInfo implements TransactionInterf
      * @throws \Exception
      */
     public function setCreditorName($name) {
+        $name = $this->unicodeDecode($name);
+
         if ( !$this->checkStringLength($name, 70) ) {
 
             throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
