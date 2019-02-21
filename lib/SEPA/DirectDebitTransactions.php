@@ -225,6 +225,8 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	 * @throws \Exception
 	 */
 	public function setDebtorName($name) {
+		$name = $this->unicodeDecode($name);
+
 		if ( !$this->checkStringLength($name, 140) ) {
 
 			throw new \Exception(ERROR_MSG_DD_NAME . $this->getInstructionIdentification());
@@ -258,6 +260,8 @@ class DirectDebitTransaction extends PaymentInfo implements TransactionInterface
 	 * @throws \Exception
 	 */
 	public function setDirectDebitInvoice($invoice) {
+		$invoice = $this->unicodeDecode($invoice);
+
 		if ( !$this->checkStringLength($invoice, 140) ) {
 
 			throw new \Exception(ERROR_MSG_DD_INVOICE_NUMBER . $this->getInstructionIdentification());

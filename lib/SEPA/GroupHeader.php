@@ -92,6 +92,8 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	 * @throws \Exception
 	 */
 	public function setMessageIdentification($msgId) {
+		$msgId = $this->unicodeDecode($msgId);
+
 		if ( !$this->checkStringLength($msgId, 35) ) {
 			throw new \Exception(ERROR_MSG_MESSAGE_IDENTIFICATION);
 		}
@@ -168,6 +170,8 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 	}
 
 	public function setAddressLine($name) {
+		$name = $this->unicodeDecode($name);
+
 		if ( !$this->checkStringLength($name, 140)) {
 
 			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);
@@ -180,6 +184,8 @@ class GroupHeader extends Message implements GroupHeaderInterface {
 
 
 	public function setCountry($name) {
+		$name = $this->unicodeDecode($name);
+
 		if ( !$this->checkStringLength($name, 140)) {
 
 			throw new \Exception(ERROR_MSG_INITIATING_PARTY_NAME);

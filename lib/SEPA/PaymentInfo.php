@@ -275,6 +275,7 @@ interface PaymentInfoInterface {
 		 * @throws \Exception
 		 */
 		public function setPaymentInformationIdentification($paymentInformationId) {
+			$paymentInformationId = $this->unicodeDecode($paymentInformationId);
 
 			if ( !$this->checkStringLength($paymentInformationId, 35) ) {
 
