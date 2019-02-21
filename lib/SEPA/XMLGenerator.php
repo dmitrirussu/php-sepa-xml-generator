@@ -23,7 +23,6 @@ interface XMLGeneratorInterface {
 	public function getGeneratedXml();
 	public function save( $fileName );
 	public function view();
-	public function __destruct();
 }
 /**
  * Class XMLGenerator
