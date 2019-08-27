@@ -3,7 +3,7 @@
   <CstmrCdtTrfInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2017-11-27T21:04:44</CreDtTm>
+      <CreDtTm>2019-08-27T13:00:43</CreDtTm>
       <BtchBookg>false</BtchBookg>
       <NbOfTxs>3</NbOfTxs>
       <CtrlSum>176.50</CtrlSum>
@@ -27,7 +27,7 @@
           <Cd>CORE</Cd>
         </LclInstrm>
       </PmtTpInf>
-      <ReqdExctnDt>2017-11-27</ReqdExctnDt>
+      <ReqdExctnDt>2019-08-27</ReqdExctnDt>
       <Dbtr>
         <Nm>Amazing SRL</Nm>
       </Dbtr>
