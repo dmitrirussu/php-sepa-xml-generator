@@ -8,7 +8,7 @@ namespace SEPA\Factory;
  * Time: 15:32
  * Xml Generator Factory
  */
-class XmlGeneratorFactory
+class XMLGeneratorFactory
 {
     private function __construct()
     {
