@@ -470,7 +470,7 @@ class PaymentInfo extends Message implements PaymentInfoInterface
             throw new \Exception(ERROR_MSG_CREDITOR_BIC);
         }
 
-        $this->creditorBIC = $creditorBIC;
+        $this->creditorBIC = $this->removeSpaces($creditorBIC);
         return $this;
     }
 
@@ -495,7 +495,7 @@ class PaymentInfo extends Message implements PaymentInfoInterface
             throw new \Exception(ERROR_MSG_DEBITOR_BIC);
         }
 
-        $this->debitorBIC = $debitorBIC;
+        $this->debitorBIC = $this->removeSpaces($debitorBIC);
         return $this;
     }
 
@@ -831,8 +831,11 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         }
         $paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
 
-        if (!$this->getCreditTransferTransactionObjects()) {
+        if (!$this->getCreditTransferTransactionObjects() || $this->getDocumentPainMode() === self::PAIN_001_001_03) {
             $paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
+        }
+
+        if (!$this->getCreditTransferTransactionObjects() && ($this->getDocumentPainMode() === self::PAIN_001_001_03 || $this->getDocumentPainMode() === self::PAIN_008_001_02)) {
             $paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
             $paymentInfo->addChild('CtrlSum', $this->getControlSum());
         }
@@ -874,8 +877,10 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         }
 
         //Once we have taken care of all the transactions, we can update the total number of transactions and the control sum
-        $paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
-        $paymentInfo->CtrlSum = $this->getControlSum();
+        if (!$this->getCreditTransferTransactionObjects() && ($this->getDocumentPainMode() === self::PAIN_001_001_03 || $this->getDocumentPainMode() === self::PAIN_008_001_02)) {
+            $paymentInfo->NbOfTxs = $this->getNumberOfTransactions();
+            $paymentInfo->CtrlSum = $this->getControlSum();
+        }
 
         return $paymentInfo;
     }

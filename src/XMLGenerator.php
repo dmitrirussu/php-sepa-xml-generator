@@ -25,8 +25,9 @@ class XMLGenerator extends ValidationRules implements XMLGeneratorInterface
      */
     const PAIN_008_001_02 = 'pain.008.001.02';
     const PAIN_001_001_02 = 'pain.001.001.02';
+    const PAIN_001_001_03 = 'pain.001.001.03';
     /**
-     * SEPA XML document PAIN mode (pain.008.001.02.xsd OR pain.001.001.02.xsd)
+     * SEPA XML document PAIN mode (pain.008.001.02.xsd, pain.008.001.03.xsd OR pain.001.001.02.xsd)
      *
      * @var String
      */
