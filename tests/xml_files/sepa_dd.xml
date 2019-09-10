@@ -3,7 +3,7 @@
   <CstmrDrctDbtInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2019-09-10T13:00:58</CreDtTm>
+      <CreDtTm>2019-09-10T14:24:44</CreDtTm>
       <NbOfTxs>2</NbOfTxs>
       <CtrlSum>301.50</CtrlSum>
       <InitgPty>
@@ -20,9 +20,6 @@
         <SvcLvl>
           <Cd>SEPA</Cd>
         </SvcLvl>
-        <LclInstrm>
-          <Cd>CORE</Cd>
-        </LclInstrm>
         <SeqTp>FRST</SeqTp>
       </PmtTpInf>
       <ReqdColltnDt>2013-08-06</ReqdColltnDt>

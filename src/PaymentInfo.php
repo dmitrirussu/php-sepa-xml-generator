@@ -197,7 +197,7 @@ class PaymentInfo extends Message implements PaymentInfoInterface
      *
      * @var string
      */
-    private $localInstrumentCode = self::LOCAL_INSTRUMENT_CODE;
+    private $localInstrumentCode = null;
 
     public function __construct()
     {
@@ -899,8 +899,10 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         $serviceLevel = $paymentTypeInfo->addChild('SvcLvl');
         $serviceLevel->addChild('Cd', self::SERVICE_LEVEL_CODE);
 
-        $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
-        $localInstrument->addChild('Cd', $this->getLocalInstrumentCode());
+        if ($this->localInstrumentCode) {
+            $localInstrument = $paymentTypeInfo->addChild('LclInstrm');
+            $localInstrument->addChild('Cd', $this->getLocalInstrumentCode());
+        }
 
         if ($this->getSequenceType() && $this->getDocumentPainMode() === self::PAIN_008_001_02) {
             $paymentTypeInfo->addChild('SeqTp', $this->getSequenceType());
