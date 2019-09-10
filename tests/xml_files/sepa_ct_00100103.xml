@@ -3,11 +3,19 @@
   <CstmrCdtTrfInitn>
     <GrpHdr>
       <MsgId>1</MsgId>
-      <CreDtTm>2019-09-10T12:47:27</CreDtTm>
+      <CreDtTm>2019-09-10T13:00:58</CreDtTm>
       <NbOfTxs>3</NbOfTxs>
       <CtrlSum>176.50</CtrlSum>
       <InitgPty>
         <Nm>Amazing SRL ???? yayvpavpva</Nm>
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>0000000000</Id>
+              <Issr>KBO-BCE</Issr>
+            </Othr>
+          </OrgId>
+        </Id>
       </InitgPty>
     </GrpHdr>
     <PmtInf>
@@ -51,7 +59,7 @@
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
-          <Nm>1222</Nm>
+          <Nm>Naam</Nm>
         </Cdtr>
         <CdtrAcct>
           <Id>
@@ -76,7 +84,7 @@
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
-          <Nm>1222</Nm>
+          <Nm>Naam</Nm>
         </Cdtr>
         <CdtrAcct>
           <Id>
@@ -101,7 +109,7 @@
           </FinInstnId>
         </CdtrAgt>
         <Cdtr>
-          <Nm>1222</Nm>
+          <Nm>Naam</Nm>
         </Cdtr>
         <CdtrAcct>
           <Id>

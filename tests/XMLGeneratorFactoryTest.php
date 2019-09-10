@@ -126,6 +126,8 @@ class XMLGeneratorFactoryTest extends \PHPUnit\Framework\TestCase
                 SEPA\Factory\XMLGeneratorFactory::createXMLGroupHeader()
                     ->setMessageIdentification(1)
                     ->setInitiatingPartyName('Amazing SRL ???? ыаывпавпва')
+                    ->setOrganisationIdentification('0000000000')
+                    ->setIssuer('KBO-BCE')
             )
                 ->addMessagePaymentInfo(
                     SEPA\Factory\XMLGeneratorFactory::createXMLPaymentInfo()
