@@ -66,12 +66,8 @@ class Message extends XMLGenerator implements MessageInterface
      */
     public function setMessageGroupHeader(GroupHeader $groupHeaderObject)
     {
-        try {
-            if (is_null($this->groupHeaderObjects)) {
-                $this->groupHeaderObjects = $groupHeaderObject;
-            }
-        } catch (\Exception $e) {
-            $this->writeLog($e->getMessage());
+        if (is_null($this->groupHeaderObjects)) {
+            $this->groupHeaderObjects = $groupHeaderObject;
         }
 
         return $this;
@@ -94,12 +90,8 @@ class Message extends XMLGenerator implements MessageInterface
      */
     public function addMessagePaymentInfo(PaymentInfo $paymentInfoObject)
     {
-        try {
-            if (!($paymentInfoObject instanceof PaymentInfo)) {
-                throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
-            }
-        } catch (\Exception $e) {
-            $this->writeLog($e->getMessage());
+        if (!($paymentInfoObject instanceof PaymentInfo)) {
+            throw new \Exception('Was not PaymentInfo Object in addMessagePaymentInfo');
         }
 
         $paymentInfoObject->resetNumberOfTransactions();
@@ -130,21 +122,17 @@ class Message extends XMLGenerator implements MessageInterface
          * @var $paymentInfo PaymentInfo
          */
         foreach ($this->paymentInfoObjects as $paymentInfo) {
-            try {
-                if (!$paymentInfo->checkIsValidPaymentInfo()) {
-                    throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification());
-                }
-
-                $paymentInfo->resetControlSum();
-                $paymentInfo->resetNumberOfTransactions();
-
-                $this->simpleXmlAppend($this->storeXmlPaymentsInfo, $paymentInfo->getSimpleXMLElementPaymentInfo());
-
-                $this->getMessageGroupHeader()->setNumberOfTransactions($paymentInfo->getNumberOfTransactions());
-                $this->getMessageGroupHeader()->setControlSum($paymentInfo->getControlSum());
-            } catch (\Exception $e) {
-                $this->writeLog($e->getMessage());
+            if (!$paymentInfo->checkIsValidPaymentInfo()) {
+                throw new \Exception(ERROR_MSG_INVALID_PAYMENT_INFO . $paymentInfo->getPaymentInformationIdentification());
             }
+
+            $paymentInfo->resetControlSum();
+            $paymentInfo->resetNumberOfTransactions();
+
+            $this->simpleXmlAppend($this->storeXmlPaymentsInfo, $paymentInfo->getSimpleXMLElementPaymentInfo());
+
+            $this->getMessageGroupHeader()->setNumberOfTransactions($paymentInfo->getNumberOfTransactions());
+            $this->getMessageGroupHeader()->setControlSum($paymentInfo->getControlSum());
         }
 
         $this->simpleXmlAppend($this->message, $this->getMessageGroupHeader()->getSimpleXmlGroupHeader());

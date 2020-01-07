@@ -173,10 +173,6 @@ class PaymentInfo extends Message implements PaymentInfoInterface
      */
     private $creditTransferTransactionObjects = array();
     /**
-     * @var array
-     */
-    private $errorTransactionsIds = array();
-    /**
      * This field offer possibility to aggregate many transaction by unique MANDATE-ID,
      * also can be disabled by ->setAggregation(false).
      * You have to check with your Bank if Aggregation is required or not.
@@ -221,14 +217,6 @@ class PaymentInfo extends Message implements PaymentInfoInterface
     {
         $this->aggregatePerMandate = $aggregatePerMandate;
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getErrorTransactionsIds()
-    {
-        return $this->errorTransactionsIds;
     }
 
     /**
@@ -653,27 +641,23 @@ class PaymentInfo extends Message implements PaymentInfoInterface
             throw new \Exception(ERROR_MSG_PM_ONLY_ONE_TYPE);
         }
 
-        try {
-            if ($this->aggregatePerMandate) {
-                if (isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()])) {
-                    /** @var $existTransaction \SEPA\DirectDebitTransaction */
-                    $existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
+        if ($this->aggregatePerMandate) {
+            if (isset($this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()])) {
+                /** @var $existTransaction \SEPA\DirectDebitTransaction */
+                $existTransaction = $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()];
 
-                    //sum of Instructed Amount
-                    $existTransaction->setInstructedAmount(
-                        $this->sumOfTwoOperands($existTransaction->getInstructedAmount(),
-                            $directDebitTransactionObject->getInstructedAmount())
-                    );
+                //sum of Instructed Amount
+                $existTransaction->setInstructedAmount(
+                    $this->sumOfTwoOperands($existTransaction->getInstructedAmount(),
+                        $directDebitTransactionObject->getInstructedAmount())
+                );
 
-                    $existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
-                } else {
-                    $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
-                }
+                $existTransaction->setEndToEndIdentification($directDebitTransactionObject->getEndToEndIdentification());
             } else {
-                $this->directDebitTransactionObjects[] = $directDebitTransactionObject;
+                $this->directDebitTransactionObjects[$directDebitTransactionObject->getMandateIdentification()] = $directDebitTransactionObject;
             }
-        } catch (\Exception $e) {
-            $this->writeLog($e->getMessage());
+        } else {
+            $this->directDebitTransactionObjects[] = $directDebitTransactionObject;
         }
 
         return $this;
@@ -869,10 +853,7 @@ class PaymentInfo extends Message implements PaymentInfoInterface
                 $this->addToNumberOfTransactions(1);
                 $this->addToCtrlSum($transaction->getInstructedAmount());
             } else {
-                $this->writeLog(ERROR_MSG_INVALID_TRANSACTION . $transaction->getInstructionIdentification());
-
-                //if a transaction is rejected, we need to update the number of valid transactions and the total amount
-                $this->errorTransactionsIds[] = $transaction->getInstructionIdentification();
+                throw new \Exception(ERROR_MSG_INVALID_TRANSACTION . $transaction->getInstructionIdentification());
             }
         }
 
