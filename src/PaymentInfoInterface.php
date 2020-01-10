@@ -14,7 +14,5 @@ interface PaymentInfoInterface
 
     public function checkIsValidPaymentInfo();
 
-    public function getErrorTransactionsIds();
-
     public function getSimpleXMLElementPaymentInfo();
 }
