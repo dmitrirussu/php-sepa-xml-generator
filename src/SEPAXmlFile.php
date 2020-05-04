@@ -4,7 +4,7 @@ namespace SEPA;
 
 use DOMDocument;
 use Exception;
-use \SEPA\Factory\XmlGeneratorFactory AS SEPAXmlGeneratorFactory;
+use \SEPA\Factory\XMLGeneratorFactory AS SEPAXmlGeneratorFactory;
 
 /**
  * Created By Dumitru Russu, e-mail: dmitri.russu@gmail.com
