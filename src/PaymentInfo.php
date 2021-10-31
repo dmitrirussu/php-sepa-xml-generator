@@ -160,6 +160,20 @@ class PaymentInfo extends Message implements PaymentInfoInterface
      */
     private $categoryPurpose = '';
     /**
+     * Specifies the high level purpose of the instruction based on a set of pre-defined categories. Code  format.
+     * it property is optional.
+     *
+     * @var string
+     */
+    private $categoryPurposeCode = '';
+    /**
+     * Specifies the high level purpose of the instruction based on a set of pre-defined categories. Propietary format.
+     * it property is optional.
+     *
+     * @var string
+     */
+    private $categoryPurposePropietary = '';
+    /**
      * This property is optional
      *
      * @var string
@@ -670,6 +684,50 @@ class PaymentInfo extends Message implements PaymentInfoInterface
     }
 
     /**
+     * This property is optional.
+     *
+     * @param $CategoryPurposeCode
+     *
+     * @return $this
+     */
+    public function setCategoryPurposeCode($CategoryPurposeCode)
+    {
+        $this->categoryPurposeCode = $CategoryPurposeCode;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryPurposeCode()
+    {
+        return $this->categoryPurposeCode;
+    }
+
+    /**
+     * This property is optional.
+     *
+     * @param $CategoryPurposePropietary
+     *
+     * @return $this
+     */
+    public function setCategoryPurposePropietary($CategoryPurposePropietary)
+    {
+        $this->categoryPurposePropietary = $CategoryPurposePropietary;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryPurposePropietary()
+    {
+        return $this->categoryPurposePropietary;
+    }
+
+    /**
      * Change the default local instrument code to the specified in the argument.
      *
      * @param $localInstrumentCode The new code for local instrument.
@@ -953,6 +1011,10 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         //This property is optional
         if ($this->getCategoryPurpose()) {
             $paymentTypeInfo->addChild('CtgyPurp', $this->getCategoryPurpose());
+        } elseif ($this->getCategoryPurposeCode()) {
+            $paymentTypeInfo->addChild('CtgryPurp')->addChild('Cd', $this->getCategoryPurposeCode());
+        } elseif ($this->getCategoryPurposePropietary()) {
+            $paymentTypeInfo->addChild('CtgryPurp')->addChild('Prtry', $this->getCategoryPurposePropietary());
         }
 
         switch ($this->getPaymentMethod()) {
