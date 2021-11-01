@@ -1,17 +1,16 @@
 <a rel="nofollow" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator" id="user-content-status-image-popup" target="_blank">
     <img alt="68747470733a2f2f7472617669732d63692e6f72" src="https://camo.githubusercontent.com/73c7485efd1d7f3c28956a19686686abc82759cc/68747470733a2f2f7472617669732d63692e6f72672f646d6974726972757373752f7068702d736570612d786d6c2d67656e657261746f722e706e67" title="Build Status Images">
 </a>
-    
-PHP SEPA XML Generator v 1.0.8
-====
+
+# PHP SEPA XML Generator v 1.0.8
+
 Now in this release you are able todo SEPA CreditTransfer and DirDebit
 
 Support: pain.008.001.02, pain.001.001.02
 
-Guide ISO20022 SDD  V1_0 20122009
+Guide ISO20022 SDD V1_0 20122009
 
-SEPA Direct Debit Core Scheme (SDD Core) 
-====
+# SEPA Direct Debit Core Scheme (SDD Core)
 
 Single Euro Payments Area (SEPA)
 
@@ -19,11 +18,9 @@ The Single Euro Payments Area (SEPA) is a payment-integration initiative of the 
 transfers denominated in euro. As of March 2012, SEPA consists of the 28 EU member states, the four members of the EFTA
 (Iceland, Liechtenstein, Norway and Switzerland) and Monaco.
 
-Example of using
-===
+# Example of using
 
-SEPA Direct Debit
-===
+# SEPA Direct Debit
 
 ```php
 		//When you start to generate a SEPA Xml File, need to choose PAIN
@@ -44,6 +41,12 @@ SEPA Direct Debit
         				->setCreditorAccountBIC('AABAFI42')->setCreditorName('Amazing SRL')
         				->setCreditorSchemeIdentification('FR07ZZZ519993')
         				->setRequestedCollectionDate('2013-08-06')
+                ->setCreditorCountry('ES') // Country code. Optional
+                ->setCreditorAddressLine1('Sample street, 1') // Optional
+                ->setCreditorAddressLine2('Sample state, Sample zip') // Optional
+                ->setCategoryPurposeCode('CASH') // Optional. Only one of CategoryPurposeCode or CategoryPurposePropietary
+                ->setCategoryPurposePropietary('Sample category purpose') // Optional. Only one of CategoryPurposeCode or CategoryPurposePropietary
+
 						->setAggregatePerMandate(true) //Default Transaction aggregation option = true
         				->addDirectDebitTransaction( //First transaction
         					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
@@ -57,6 +60,12 @@ SEPA Direct Debit
         						->setDateOfSignature('2013-08-03')
         //						->setCurrency('EUR')
         						->setDirectDebitInvoice(122)
+                    ->setElectronicSignature('Sample electronic signature') // Optional
+                    ->setDebtorCountry('ES') // Country code. Optional
+                    ->setDebtorAddressLine1('Sample street, 1') // Optional
+                    ->setDebtorAddressLine2('Sample state, Sample zip') // Optional
+                    ->setDebtorOrganizationIdentification('Sample ID') // Optional
+                    ->setDebtorPrivateIdentification('Sample ID') // Optional
         				)->addDirectDebitTransaction( //Second transaction are the same client transaction
         					SEPA\Factory\XmlGeneratorFactory::createXMLDirectDebitTransaction()
         						->setInstructionIdentification(4)
@@ -87,8 +96,7 @@ SEPA Direct Debit
 
 ```
 
-SEPA Credit Transfer
-===
+# SEPA Credit Transfer
 
 ```php
 	$xmlFile = SEPA\Factory\XMLGeneratorFactory::createXmlGeneratorObject(\SEPA\XMLGenerator::PAIN_001_001_02)->addXmlMessage(
@@ -138,11 +146,11 @@ SEPA Credit Transfer
 		$this->assertTrue(file_exists($fileExist));
 ```
 
-XML File Result for SEPA Direct Debit
-===
+# XML File Result for SEPA Direct Debit
+
 ```xml
-        <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02" 
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd">
           <CstmrDrctDbtInitn>
             <GrpHdr>
@@ -258,5 +266,3 @@ XML File Result for SEPA Direct Debit
           </CstmrDrctDbtInitn>
         </Document>
 ```
-
-
