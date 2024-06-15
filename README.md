@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/underkaos/php-sepa-xml-generator.svg?branch=master)](https://travis-ci.org/underkaos/php-sepa-xml-generator)
+[![Build Status](https://travis-ci.org/dmitrirussu/php-sepa-xml-generator.svg?branch=master)](https://travis-ci.org/dmitrirussu/php-sepa-xml-generator)
     
 PHP SEPA XML Generator v 1.0.8
 ====
