@@ -131,7 +131,7 @@ class ValidationRules implements Validation
      * @return bool
      * @throws \Exception
      */
-    public function validation($xmlSEPAFile = null, $xsdPainRule)
+    public function validation($xmlSEPAFile, $xsdPainRule)
     {
         if (empty($xmlSEPAFile) && !file_exists($xmlSEPAFile)) {
             throw new \InvalidArgumentException('Missing SEPA XML File');

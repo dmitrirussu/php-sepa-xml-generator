@@ -507,7 +507,7 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         if (empty($creditorSchemaId) || is_null($creditorSchemaId)) {
             throw new \Exception(ERROR_MSG_PM_CREDITOR_SCHEME_IDENTIFICATION);
         }
-        $this->CreditorSchemeIdentification = $creditorSchemaId;
+        $this->creditorSchemeIdentification = $creditorSchemaId;
         return $this;
     }
 
@@ -943,8 +943,8 @@ class PaymentInfo extends Message implements PaymentInfoInterface
         $privateIdentification = $creditorSchemeIdentificationID->addChild('PrvtId');
         $othr = $privateIdentification->addChild('Othr');
 
-        if (!empty($this->CreditorSchemeIdentification)) {
-            $othr->addChild('Id', $this->CreditorSchemeIdentification);
+        if (!empty($this->creditorSchemeIdentification)) {
+            $othr->addChild('Id', $this->creditorSchemeIdentification);
         }
 
         $schemeName = $othr->addChild('SchmeNm');
