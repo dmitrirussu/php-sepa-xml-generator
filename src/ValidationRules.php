@@ -47,7 +47,7 @@ class ValidationRules implements Validation
     public function checkIBAN($value)
     {
         $iban = new IBAN($value);
-        return $iban->validate($value);
+        return $iban->validate();
     }
 
     /**
