@@ -1,6 +1,4 @@
-<a rel="nofollow" href="https://travis-ci.org/dmitrirussu/php-sepa-xml-generator" id="user-content-status-image-popup" target="_blank">
-    <img alt="68747470733a2f2f7472617669732d63692e6f72" src="https://camo.githubusercontent.com/73c7485efd1d7f3c28956a19686686abc82759cc/68747470733a2f2f7472617669732d63692e6f72672f646d6974726972757373752f7068702d736570612d786d6c2d67656e657261746f722e706e67" title="Build Status Images">
-</a>
+[![Build Status](https://travis-ci.org/underkaos/php-sepa-xml-generator.svg?branch=master)](https://travis-ci.org/underkaos/php-sepa-xml-generator)
     
 PHP SEPA XML Generator v 1.0.8
 ====

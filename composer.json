@@ -19,6 +19,8 @@
 	"prefer-stable": true,
 	"require": {
 		"php": ">=5.6",
+		"ext-bcmath": "*",
+		"ext-mbstring": "*",
         "ext-dom": "*",
 		    "ext-simplexml": "*",
 		    "cmpayments/iban": "^1.1"
