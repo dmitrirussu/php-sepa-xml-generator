@@ -32,7 +32,7 @@ class XMLGeneratorFactory
      * @param \SEPA\GroupHeader $setGroupHeader
      * @return \SEPA\Message
      */
-    public static function createXMLMessage(\SEPA\GroupHeader $setGroupHeader = null)
+    public static function createXMLMessage(?\SEPA\GroupHeader $setGroupHeader = null)
     {
         $message = new \SEPA\Message();
 
